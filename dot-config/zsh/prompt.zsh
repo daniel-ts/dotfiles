@@ -1,26 +1,3 @@
-# Purification
-# by Matthieu Cneude
-# https://github.com/Phantas0s/purification
-
-# Based on:
-
-# Purity
-# by Kevin Lanni
-# https://github.com/therealklanni/purity
-# MIT License
-
-# prompt:
-# %F => color dict
-# %f => reset color
-# %~ => current path
-# %* => time
-# %n => username
-# %m => shortname host
-# %(?..) => prompt conditional - %(condition.true.false)
-
-# Display git status
-# TODO to refactor with switch / using someting else than grep
-# Might be faster using ripgrep too
 autoload -U colors && colors
 
 git_prompt_status() {
