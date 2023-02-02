@@ -1,0 +1,83 @@
+[options]
+allow_bold = true
+bold_is_bright = false
+clickable_url = true
+dynamic_title = true
+font = JetBrains Mono 12
+fullscreen = true
+mouse_autohide = true
+scroll_on_output = true
+scroll_on_keystroke = true
+scrollback_lines = 10000
+search_wrap = true
+hyperlinks = true
+
+# $BROWSER is used by default if set, with xdg-open as a fallback
+browser = xdg-open
+
+# "system", "on" or "off"
+cursor_blink = off
+
+# "block", "underline" or "ibeam"
+cursor_shape = block
+
+# "off", "left" or "right"
+scrollbar = off
+
+[colors]
+
+# special
+#foreground      = #f48fcb
+#foreground_bold = #f48fcb
+foreground	= #efefef
+foreground_bold = #ffffff
+cursor          = #f59dd9
+#background      = #0E020D
+background = rgba(14.1, 2.4, 13.3, 0.8)
+
+# black
+color0 = #442b3c
+color8 = #442b3c
+
+# red
+color1  = #ce323b
+color9  = #ce323b
+
+# green
+color2  = #8ff4b3
+color10 = #8ff4b3
+
+# yellow
+color3  = #f0f59b
+color11 = #f0f59b
+
+# blue
+color4  = #4795ff
+color12 = #4795ff
+
+# magenta
+color5  = #f8679e
+color13 = #f8679e
+
+# cyan
+color6  = #9af4f2
+color14 = #9af4f2
+
+# white
+color7  = #efefef
+color15 = #efefef
+
+
+
+[hints]
+#font = Monospace 12
+#foreground = #dcdccc
+#background = #3f3f3f
+#active_foreground = #e68080
+#active_background = #3f3f3f
+#padding = 2
+#border = #3f3f3f
+#border_width = 0.5
+#roundness = 2.0
+
+# vim: ft=dosini cms=#%s

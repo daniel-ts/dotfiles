@@ -1,0 +1,36 @@
+# -*- mode: conf-space -*-
+
+set $base0 "#0d1011"
+set $base1 "#1d2021"
+set $base2 "#282828"
+set $base3 "#3c3836"
+set $base4 "#665c54"
+set $base5 "#7c6f64"
+set $base6 "#928374"
+set $base7 "#d5c4a1"
+set $base8 "#fbf1c7"
+set $fg "#ebdbb2"
+set $fg-alt "#d5c4a1"
+
+## Standardized official colours from gruvbox
+set $grey 		"#928374"
+set $red		"#fb4934"
+set $magenta		"#cc241d"
+set $violet		"#d3869b"
+set $orange		"#fe8019"
+set $yellow		"#fabd2f"
+set $dark-yellow	"#d79921"
+set $teal 		"#8ec07c"
+set $green 		"#b8bb26"
+set $dark-green 	"#98971a"
+set $blue 		"#83a598"
+set $dark-blue 		"#458588"
+set $cyan 		"#8ec07c"
+set $my-black 		"#37302f"
+set $dark-cyan 		"#689d6a"
+
+# class                   border     backgr.     text       indicator  child_border
+client.focused            $yellow    $yellow     $base0    "#aaaaaa"    $yellow
+client.focused_inactive   $dark-cyan $dark-cyan	 $base8     "#aaaaaa"    $dark-cyan
+client.unfocused          $violet    $violet	 $base8     "#aaaaaa"   $violet
+client.urgent             $magenta   $magenta	 $base8     "#eeeeee"    $magenta

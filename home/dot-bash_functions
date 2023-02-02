@@ -1,0 +1,92 @@
+# -*- mode: Shell-script -*-
+
+# file: .bash_functions
+# collection of useful shell functions.
+# is sourced by .bash_profile
+
+xdired() {
+    if [ "$#" -eq 0 ]; then
+	/usr/local/bin/emacsclient -c `pwd` & disown %-
+    else
+	/usr/local/bin/emacsclient -c $1 &  disown %-
+    fi
+    return 0
+}
+
+mount-blockdev() {
+    CHOICE=$(lsblk -lin -o HOTPLUG,PATH,LABEL,TYPE,MOUNTPOINT \
+		 | awk '!/disk/ && $1 !~ "0" {print $2, $3}' \
+		 | dmenu -i -c -l 15 -fn 'monospace-18' \
+		 | awk '{print $1}')
+
+    if [ -n "${CHOICE}" ]; then
+	MNT=$(udisksctl mount -b $CHOICE 2> /dev/null)
+	if [ $? -eq 0 ]; then
+	    notify-send "${MNT}"
+	else
+	    notify-send "could not mount ${CHOICE}"
+	fi
+    fi
+    return 0
+}
+
+unmount-blockdev() {
+    CHOICE=$(lsblk -lin -o PATH,HOTPLUG,MOUNTPOINT \
+		 | awk '$2 ~ "1" {if ($3 != "") print $1,$3}' \
+		 | dmenu -i -c -l 15 -fn 'monospace-18' \
+		 | awk '{print $1}')
+
+    if [ -n "${CHOICE}" ]; then
+	UMNT=$(udisksctl unmount -b ${CHOICE} 2> /dev/null)
+	if [ $? -eq 0 ]; then
+	    notify-send "${UMNT}"
+	else
+	    notify-send "could not unmount ${CHOICE}"
+	fi
+    fi
+
+    return 0
+}
+
+
+prepare-vbox(){
+    sudo modprobe vboxdrv
+    sudo modprobe vboxnetadp
+    sudo modprobe vboxnetflt
+    sudo modprobe vboxpci
+}
+
+hackarch_test_running() {
+    sudo lxc info arch | grep -q RUNNING
+}
+
+hackarch_start() {
+    sudo lxc start arch
+}
+
+hackarch_stop() {
+    sudo lxc stop arch
+}
+
+hackarch_jackin() {
+    #sudo lxc exec arch /usr/bin/emacsclient -- --create-frame --socket-name /tmp/emacs0/server --eval '(multi-vterm)'
+    #sudo lxc exec arch /usr/bin/zsh
+    sudo lxc exec arch /usr/bin/login -- -f root
+}
+
+hackarch_login() {
+
+}
+
+hackarch(){
+    if hackarch_test_running
+    then
+	hackarch_jackin
+    else
+	hackarch_start && hackarch_jackin
+    fi
+}
+
+# xnLinkFinder(){
+#     ~/build/xnLinkFinder/venv/bin/python3 ~/build/xnLinkFinder/xnLinkFinder.py $@
+# }

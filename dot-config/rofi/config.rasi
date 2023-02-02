@@ -1,0 +1,5 @@
+configuration {
+	lines: 15;
+	modes: "window,run,drun,ssh";
+}
+@theme "gruvbox-light"

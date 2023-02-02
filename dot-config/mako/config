@@ -1,0 +1,7 @@
+background-color=#e3f2e3bf
+border-size=0
+text-color=#000000
+font=pango:sans-serif 12
+width=450
+output=eDP-1
+default-timeout=2000

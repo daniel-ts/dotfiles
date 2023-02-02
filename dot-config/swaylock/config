@@ -1,0 +1,4 @@
+ignore-empty-password
+hide-keyboard-layout
+indicator-caps-lock
+image=$HOME/.config/swaylock/lockimg.png

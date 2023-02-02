@@ -1,0 +1,326 @@
+
+set $mod Mod4
+font pango:monospace 8
+#font pango:DejaVu Sans Mono 8
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+set $scripts ~/.config/i3/scripts
+
+# default layout
+workspace_layout stacking
+
+###########################
+####    ext scripts    ####
+###########################
+
+exec --no-startup-id /usr/bin/picom 2>&1 > ~/.config/picom/log
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+#exec-always --no-startup-id lxpanel --profile default
+
+#exec --no-startup-id megasync
+exec --no-startup-id conky -q
+exec --no-startup-id nm-applet
+exec --no-startup-id /usr/bin/keepassxc
+
+
+#exec --no-startup-id /usr/bin/picom --blur-method dual_kawase --blur-strength 5 --experimental-backends 2>&1 > ~/.config/picom/log
+
+
+
+##########################
+####    Xresources    ####
+##########################
+
+#colors
+set_from_resource $color0 i3wm.color0
+set_from_resource $color1 i3wm.color1
+set_from_resource $color2 i3wm.color2
+set_from_resource $color3 i3wm.color3
+set_from_resource $color4 i3wm.color4
+set_from_resource $color5 i3wm.color5
+set_from_resource $color6 i3wm.color6
+set_from_resource $color7 i3wm.color7
+set_from_resource $color8 i3wm.color8
+set_from_resource $color9 i3wm.color9
+set_from_resource $color10 i3wm.color10
+set_from_resource $color11 i3wm.color11
+set_from_resource $color12 i3wm.color12
+set_from_resource $color13 i3wm.color13
+set_from_resource $color14 i3wm.color14
+set_from_resource $color15 i3wm.color15
+
+set $tri_color0 #E700FF
+set $tri_color120 #00FFE7
+set $tri_color240 #E700FF
+
+# set_from_resource $black i3wm.color0
+# set_from_resource $red i3wm.color1
+# set_from_resource $yellow i3wm.color2
+# set_from_resource $green i3wm.color3
+# set_from_resource $blue i3wm.color4
+# set_from_resource $magenta i3wm.color5
+# set_from_resource $cyan i3wm.color6
+# set_from_resource $white i3wm.color7
+
+# set_from_resource $light_black i3wm.color8
+# set_from_resource $light_red i3wm.color9
+# set_from_resource $light_yellow i3wm.color10
+# set_from_resource $light_green i3wm.color11
+# set_from_resource $light_blue i3wm.color12
+# set_from_resource $light_magenta i3wm.color13
+# set_from_resource $light_cyan i3wm.color14
+# set_from_resource $light_white i3wm.color15
+
+
+##############################
+####    BORDERS & GAPS    ####
+##############################
+
+# no window title bars
+for_window [class=".*"] border pixel 4
+for_window [class="lxpanel"] floating enable
+#for_window [class="(?i)conky"] border none
+
+
+
+# class                   border     backgr.     text       indicator  child_border
+client.focused            $color15   $color15    $color2    $color15   $color15
+client.focused_inactive   $color3    $color3	 $color14   $color3    $color3
+client.unfocused          $color2    $color2	 $color15   $color2    $color2
+client.urgent             ##f48fcb   #f48fcb     #color15   #f48fcb    #f48fcb
+# client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+gaps inner 0
+
+####################
+####    KBDs    ####
+####################
+
+bindsym $mod+Shift+Return exec --no-startup-id alacritty
+bindsym $mod+Shift+q kill
+#bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec --no-startup-id "/usr/bin/rofi -show run"
+bindsym $mod+c exec --no-startup-id "/usr/bin/rofi -show window"
+#bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+b split h
+bindsym $mod+v split v
+
+bindsym $mod+f fullscreen toggle
+
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+bindsym $mod+Shift+d focus child
+
+bindsym $mod+Shift+n exec --no-startup-id termite -e "/home/dandy/.nix-profile/bin/emacsclient -t"
+bindsym $mod+Return exec --no-startup-id "/home/dandy/.nix-profile/bin/emacsclient -c -e '(multi-vterm-next)'"
+bindsym $mod+n exec --no-startup-id /home/dandy/.nix-profile/bin/emacsclient -c -n -e '(ibuffer)'
+bindsym $mod+m exec --no-startup-id "firefox --new-window"
+bindsym $mod+Shift+m exec --no-startup-id "firefox --private-window www.duckduckgo.com"
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume +10; \
+	exec --no-startup-id $scripts/volume.sh; \
+	exec --no-startup-id pkill -SIGRTMIN+10 i3blocks;
+
+bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -10; \
+	exec --no-startup-id $scripts/volume.sh; \
+	exec --no-startup-id pkill -SIGRTMIN+10 i3blocks;
+
+bindsym XF86AudioMute exec --no-startup-id pulsemixer --toggle-mute; \
+	exec --no-startup-id $scripts/volume.sh; \
+	exec --no-startup-id pkill -SIGRTMIN+10 i3blocks;
+
+bindsym 0xff61 exec --no-startup-id "flameshot gui"
+
+# 0x2d: dash "-"
+
+bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 10"
+bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 10"
+bindsym $mod+F8 exec --no-startup-id "bash -lc 'mount-blockdev'"
+bindsym $mod+Shift+F8 exec --no-startup-id "bash -lc 'unmount-blockdev'"
+
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+set $ws_os "11"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+bindsym $mod+Tab workspace $ws_os
+#exec --no-startup-id notify-send -i ~/.local/share/icons/hicolor/96x96/apps/desktop-0.png -t 300 -h 'string:x-dunst-stack-tag:desktop_number' "  " ;
+
+# assign workspaces to screens
+workspace $ws_os output VGA1
+
+workspace $ws1 output LVDS1
+workspace $ws2 output LVDS1
+workspace $ws3 output LVDS1
+workspace $ws4 output LVDS1
+workspace $ws5 output LVDS1
+workspace $ws6 output LVDS1
+workspace $ws7 output LVDS1
+workspace $ws8 output LVDS1
+workspace $ws9 output LVDS1
+workspace $ws10 output LVDS1
+
+
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+mode "resize" {
+
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym 0xf6 resize grow width 10 px or 10 ppt
+
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+mode "secondary" {
+     bindsym l exec --no-startup-id "/usr/bin/i3lock -e --centered --color=#ff3200 --insidevercolor=#6b6b6b --insidewrongcolor=#000000 --insidecolor=#2e2e2e --ringcolor=#d6d6d6 --keyhlcolor=#2e2e2e --ringvercolor=#a8a8a8 --image=$HOME/.config/lockscreen"  mode "default"
+     bindsym s exec --no-startup-id "$HOME/bin/ssh_add" mode "default"
+     bindsym k exec --no-startup-id "/usr/bin/keepassxc" mode "default"
+     bindsym m exec --no-startup-id "/usr/bin/torbrowser-launcher" mode "default"
+     bindsym m exec --no-startup-id "/usr/bin/torbrowser-launcher" mode "default"
+     bindsym p exec --no-startup-id "/usr/bin/termite -e /usr/bin/htop" mode "default"
+     bindsym u exec --no-startup-id "/usr/bin/pavucontrol" mode "default"
+     bindsym a exec --no-startup-id "/usr/bin/ario" mode "default"
+
+
+     bindsym z gaps inner current toggle 0 mode "default"
+     bindsym 7 gaps inner current toggle 15 mode "default"
+     #bindsym Z gaps inner 15 mode "default"
+
+     bindsym Return mode "default"
+     bindsym Escape mode "default"
+     bindsym $mod+r mode "default"
+}
+bindsym $mod+i mode "secondary"
+
+mode "open" {
+     bindsym o exec --no-startup-id "/usr/bin/emacsclient -c $HOME" mode "default"
+     bindsym t exec --no-startup-id "/usr/bin/emacsclient -c /mnt/wgshare/storage/torrents/downloads" mode "default"
+     bindsym d exec --no-startup-id "/usr/bin/emacsclient -c $HOME/downloads" mode "default"
+     bindsym i exec --no-startup-id "/usr/bin/emacsclient -c $HOME/books/inf" mode "default"
+     bindsym n exec --no-startup-id "/usr/bin/nautilus $HOME" mode "default"
+
+     bindsym Return mode "default"
+     bindsym Escape mode "default"
+     bindsym $mod+r mode "default"
+}
+bindsym $mod+o mode "open"
+
+set $mark1 #ff0000
+set $mark2 #00ff00
+set $mark3 #0000ff
+
+bar {
+    id bar-1
+    output primary
+
+    mode hide
+
+    workspace_buttons no
+    binding_mode_indicator no
+
+    tray_output primary
+    position top
+
+    i3bar_command i3bar --transparency
+
+    height 40
+    tray_padding 5
+
+    colors {
+    	   background #00000000
+    }
+}
+
+bar {
+    id bar-2
+    i3bar_command i3bar --transparency
+    #status_command i3blocks -c ~/.config/i3blocks/config
+    status_command i3blocks
+    mode hide
+    hidden_state hide
+    position bottom
+    tray_output none
+    output primary
+
+    font pango:Noto Sans Bold 15
+    font pango:Inconsolata Nerd Font 15
+
+    height 40
+
+    workspace_min_width 60
+
+    colors {
+        # background #000000
+        # statusline #ffff00
+        # separator #666666
+
+	background #00000000
+        statusline #ffffff
+        separator #00000000
+
+	# <what> <border> <background> <text>
+        focused_workspace  #000000 #ffffff #000000
+        active_workspace   #000000 #ffffff #000000
+        inactive_workspace #ffffff #000000 #ffffff
+        urgent_workspace   #000000 #ffffff $tri_color240
+        binding_mode       #000000 $color10 #000000
+    }
+}

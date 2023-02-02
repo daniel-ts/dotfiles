@@ -1,0 +1,16 @@
+# -*- mode: conf-space -*-
+
+set $turquoise "#0b7e84"
+set $white "#e3f2e3"
+set $orange "#fea805"
+set $yellow "#febd0a"
+set $red "#fe1e0a"
+set $purple "#b24ec8"
+
+# class                   border     backgr.     text       indicator  child_border
+client.focused            $orange    $orange     #000000    #aaaaaa    $orange
+client.focused_inactive   $purple    $purple	 $white     #aaaaaa    $purple
+client.unfocused          $turquoise $turquoise	 $white     #aaaaaa    $turquoise
+client.urgent             $red	     $red	 $white     #eeeeee    $red
+
+#output * bg ~/pics/wallpapers/big-sur/big-sur-main-5k.jpg stretch

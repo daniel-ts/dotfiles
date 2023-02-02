@@ -1,0 +1,156 @@
+/**
+ * rofi -dump-theme output.
+ * Rofi version: 1.6.1
+ **/
+
+* {
+    color0:			 #000000;
+    color1:			 #0f0f0f;
+    color2:			 #1f1f1f;
+    color3:			 #2e2e2e;
+    color4:			 #3d3d3d;
+    color5:			 #4d4d4d;
+    color6:			 #5c5c5c;
+    color7:			 #6b6b6b;
+    color8:			 #7a7a7a;
+    color9:			 #8a8a8a;
+    color10:			 #999999;
+    color11:			 #a8a8a8;
+    color12:			 #b8b8b8;
+    color13:			 #c7c7c7;
+    color14:			 #d6d6d6;
+    color15:			 #e6e6e6;
+    color16:			 #ffffff;
+    m1:                          red;
+    m2:                          green;
+    m3:                          blue;
+
+}
+element {
+    padding: 1px ;
+    spacing: 5px ;
+    border:  0;
+}
+element normal.normal {
+    background-color: var(color14);
+    text-color:       var(color1);
+}
+element normal.urgent {
+    background-color: var(color0);
+    text-color:       var(color16);
+}
+element normal.active {
+    background-color: var(color3);
+    text-color:       var(color16);
+    highlight:        bold italic;
+}
+element selected.normal {
+    background-color: var(color3);
+    text-color:       var(color16);
+}
+element selected.urgent {
+    background-color: var(selected-urgent-background);
+    text-color:       var(selected-urgent-foreground);
+}
+element selected.active {
+    background-color: var(color3);
+    text-color:       var(color16);
+    highlight:        underline;
+}
+element alternate.normal {
+    background-color: var(color16);
+    text-color:       var(color1);
+}
+element alternate.urgent {
+    background-color: var(color16);
+    text-color:       var(color0);
+}
+element alternate.active {
+    background-color: var(alternate-active-background);
+    text-color:       var(alternate-active-foreground);
+}
+
+window {
+    padding:          2;
+    background-color: var(color0);
+    border:           1;
+}
+mainbox {
+    padding: 5;
+    border:  0;
+}
+message {
+    padding:      1px ;
+    border-color: var(color7);
+    border:       2px dash 0px 0px ;
+}
+textbox {
+    text-color: var(m1);
+    highlight: strikethrough;
+}
+listview {
+    padding:      2px 0px 0px ;
+    scrollbar:    true;
+    border-color: var(color7);
+    spacing:      2px ;
+    fixed-height: 0;
+    border:       2px dash 0px 0px ;
+}
+scrollbar {
+    width:        4px ;
+    padding:      0;
+    handle-width: 8px ;
+    border:       0;
+    handle-color: var(color7);
+}
+sidebar {
+    border-color: var(color7);
+    border:       2px dash 0px 0px ;
+}
+button {
+    spacing:    0;
+    text-color: var(color15);
+}
+button selected {
+    background-color: var(color7);
+    text-color:       var(color15);
+}
+num-filtered-rows {
+    expand:     false;
+    text-color: var(color5);
+}
+num-rows {
+    expand:     false;
+    text-color: var(color5);
+}
+textbox-num-sep {
+    expand:     false;
+    str:        "/";
+    text-color: var(color15);
+}
+inputbar {
+    padding:    1px ;
+    spacing:    0px ;
+    text-color: var(color2);
+    children:   [ prompt,textbox-prompt-colon,entry,num-filtered-rows,textbox-num-sep,num-rows,case-indicator ];
+}
+case-indicator {
+    spacing:    0;
+    text-color: var(color7);
+}
+entry {
+    text-color:        var(normal-foreground);
+    spacing:           0;
+    placeholder-color: var(color10);
+    placeholder:       "Type to filter";
+}
+prompt {
+    spacing:    0;
+    text-color: var(color2);
+}
+textbox-prompt-colon {
+    margin:     0px 0.3000em 0.0000em 0.0000em ;
+    expand:     false;
+    str:        ":";
+    text-color: inherit;
+}
