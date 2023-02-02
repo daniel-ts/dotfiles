@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: CRYPT
+# name: emacs-header-encrypt
+# group: crypt
+# keybinding:
+
+# --
+# -*- epa-file-encrypt-to ("daniel.tschertkow@posteo.de") -*-

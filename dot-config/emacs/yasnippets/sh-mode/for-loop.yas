@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: for-loop
+# keybinding:
+
+# --
+for ${1:i} in $2; do
+    $3
+done
+$0

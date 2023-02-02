@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: STR-VAR
+# name: str var
+# group: variables
+# keybinding:
+
+# --
+"\${${1:$$(upcase yas-text)}}"$0

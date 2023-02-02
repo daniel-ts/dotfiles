@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: desktop-e
+# name: xdg-desktop-entry
+# group: xdg
+# keybinding:
+
+# --
+# file: $1.desktop
+
+[Desktop Entry]
+
+Type=Application
+Name=${2:emacs_dired}
+Comment=${3:Opens xdg mime type file in emacs dired}
+#Icon= path: /$XDG_DATA_DIRS/icons or /usr/share/pixmaps/electron.png
+Exec=${4:/usr/bin/emacsclient -c}
+Terminal= ${5:false}
+MimeType=${6:inode/directory}
+# Categories=Education;Languages;Java

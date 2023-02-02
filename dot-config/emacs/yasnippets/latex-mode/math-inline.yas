@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: LINE
+# name: inline math
+# group: math
+# keybinding:
+
+# --
+\\( $1`yas-selected-text` \\)$0

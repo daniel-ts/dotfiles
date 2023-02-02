@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: README
+# name: Git README
+# group:
+# keybinding:
+
+# --
+#+TITLE: $1
+
+#+OPTIONS: toc:nil
+
+$0

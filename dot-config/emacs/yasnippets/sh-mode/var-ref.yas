@@ -1,0 +1,7 @@
+# contributor: dandy
+# key: VAR-REF
+# name: var
+# keybinding: C-c C-c C-v
+
+# --
+"\${$1}$0"

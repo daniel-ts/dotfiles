@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: GRAPH
+# name: graphics-figure
+# group: image
+# keybinding:
+
+# --
+%\usepackage{graphicx}
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{$1}
+    \caption{$2}
+  \end{center}
+\end{figure}
+$0

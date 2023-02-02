@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: div
+# name: div class id
+# group: containers
+# keybinding:
+
+# --
+<div class="$1" id="$2">$0</div>
