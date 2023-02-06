@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: SKEL
+# name: html skeleton
+# group: html
+# keybinding:
+
+# --
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+  <body>
+  $0
+  </body>
+</html>

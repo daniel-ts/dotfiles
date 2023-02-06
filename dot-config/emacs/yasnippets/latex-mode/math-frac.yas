@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: FRAC
-# name: fraction
-# group: math
-# keybinding:
-
-# --
-\frac{$1}{$2}

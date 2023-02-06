@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: TEX-ENV
+# name: latex-environment
+# group: latex
+# keybinding:
+
+# --
+\begin{${1:equation*}}
+    $0`yas-selected-text`
+\end{$1}

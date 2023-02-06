@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: SKEL
+# name: component skeleton
+# group: svelte
+# keybinding:
+
+# --
+<script>
+
+</script>
+
+<div class="${1:component name}">
+  $0
+</div>
+
+<style>
+
+</style>

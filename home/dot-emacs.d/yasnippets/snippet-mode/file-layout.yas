@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: NEW-SNIPPET
+# name: snippet-header
+# group: file-layout
+# --
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: $1
+# name: $2
+# group: $3
+# keybinding: $4
+
+# --
+$0

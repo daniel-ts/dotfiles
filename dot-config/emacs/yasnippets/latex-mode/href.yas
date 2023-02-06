@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: href
-# name: href
-# group: latex
-# keybinding:
-
-# --
-\href{${1:<link>}}{${2:<name>}}$0

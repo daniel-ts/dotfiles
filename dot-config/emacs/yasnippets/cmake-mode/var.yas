@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: VAR
-# name: var
-# group: variables
-# keybinding:
-
-# --
-${$1}$0

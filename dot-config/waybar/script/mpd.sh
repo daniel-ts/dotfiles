@@ -9,6 +9,6 @@ case $STATE in
 	mpc play
 	;;
     *)
-	notify-send "[mpd] bad waybar state: $STATE"
+	dunstify "[mpd] bad mpc state: $STATE"
 	;;
 esac

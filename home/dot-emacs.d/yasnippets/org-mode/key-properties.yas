@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: KEY-PROPS
+# name: key props
+# group: syntax
+# keybinding:
+
+# --
+:PROPERTIES:
+${1::PROPERTY: <value>}
+:END:

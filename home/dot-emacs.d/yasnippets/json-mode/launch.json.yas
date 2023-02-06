@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: DB
+# name: launch.json skeleton
+# group: config
+# keybinding:
+
+# --
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": ${1:$$(yas-choose-value '("lldb-vscode" "lldb"))},
+      "request": "launch",
+      "stopOnEntry": ${2:false},
+      "name": "$3",
+      "program": "${workspaceFolder}/${4:path to executable}",
+      "cwd": "${workspaceFolder}",
+      "args": [],
+      "env": {}
+    }
+  ]
+}
+$0

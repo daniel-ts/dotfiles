@@ -9,7 +9,7 @@ set $lenovo_screen "Lenovo Group Limited LEN L27q-30 U16247TT"
 set $laptop_screen "eDP-1"
 
 set $term kitty
-set $menu /usr/bin/rofi -show run
+set $menu rofi -show run
 
 workspace_layout stacking
 
@@ -28,7 +28,7 @@ bindswitch --reload --locked lid:off output $laptop_screen enable
 include themes/current
 
 ### Output configuration
-output * bg ~/pics/wallpapers/gruvbox/sunrise.png fill
+output * bg sunrise.png fill
 
 # output "Acer Technologies X223HQ LFG0C0314060" {
 #     position 0 0
@@ -71,11 +71,10 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you really want to exit sway
 
 # own
 #bindsym $mod+m exec --no-startup-id "firefox --new-window"
-bindsym $mod+m exec --no-startup-id /usr/bin/brave
-bindsym $mod+Shift+m exec --no-startup-id /usr/bin/firefox --new-window
-bindsym $mod+comma exec --no-startup-id /usr/bin/firefox-developer-edition --new-window
-bindsym $mod+Shift+comma exec --no-startup-id /usr/bin/chromium
-#bindsym $mod+n exec --no-startup-id emacsclient -c -s /run/user/1000/.flatpak/org.rh.gccemacs/xdg-run/emacs/server -e '(ibuffer)'
+bindsym $mod+m exec firefox --new-window
+bindsym $mod+Shift+m exec chromium --new-window
+bindsym $mod+comma exec emacsclient -c --eval '(crux-sudo-edit)'
+# bindsym $mod+Shift+comma exec
 bindsym $mod+n exec --no-startup-id emacsclient -c -e '(ibuffer)'
 
 bindsym $mod+numbersign exec --no-startup-id rofi -show ssh
@@ -218,11 +217,9 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 mode "secondary" {
-     bindsym k exec --no-startup-id "/usr/bin/keepassxc ~/nextcloud/keepass/dandy.kdbx"; mode "default"
-     bindsym m exec --no-startup-id "/usr/bin/torbrowser-launcher"; mode "default"
-     bindsym p exec --no-startup-id "/usr/bin/termite -e /usr/bin/htop"; mode "default"
-     bindsym u exec --no-startup-id "/usr/bin/pavucontrol"; mode "default"
-     bindsym a exec --no-startup-id "/usr/bin/ymuse"; mode "default"
+     bindsym k exec --no-startup-id "org.keepassxc.KeePassXC ~/nextcloud/keepass/dandy.kdbx"; mode "default"
+     bindsym u exec --no-startup-id "pavucontrol"; mode "default"
+     bindsym a exec --no-startup-id "com.yktoo.ymuse"; mode "default"
 
      bindsym Return mode "default"
      bindsym Escape mode "default"
@@ -233,8 +230,8 @@ bindsym $mod+i mode "secondary"
 # Special window rules
 for_window [app_id="org.kde.polkit-kde-authentication-agent-1"] floating enable
 #for_window [app_id="org.keepassxc.KeePassXC"] floating enable
-for_window [app_id="org.keepassxc.KeePassXC" title=".*Access Request$"] floating enable
-for_window [app_id="org.keepassxc.KeePassXC" title="\[Locked\]|Unlock Database"] floating enable
+# for_window [app_id="org.keepassxc.KeePassXC" title=".*Access Request$"] floating enable
+#for_window [app_id="org.keepassxc.KeePassXC" title="\[Locked\]|Unlock Database"] floating enable
 for_window [app_id="firefox" title=".*Teilen-Hinweis$"] floating enable, default_border none
 for_window [app_id="ymuse"] floating enable
 # for_window [title="\*Bookmark List\*"] floating enable
@@ -248,13 +245,11 @@ bar {
 }
 
 ### Init & Autostart
-exec /usr/lib/polkit-kde-authentication-agent-1
-exec /usr/bin/swayidle -w -C ~/.config/swayidle/config
-exec /usr/bin/mako
-exec /usr/bin/redshift
-exec /usr/bin/blueman-applet
-exec /usr/bin/keepassxc ~/nextcloud/keepass/dandy.kdbx
-exec_always /usr/lib/xdg-desktop-portal-gtk --replace
-exec /var/lib/flatpak/exports/bin/com.nextcloud.desktopclient.nextcloud --background
-exec /home/dandy/.guix-profile/bin/emacs --bg-daemon
-exec /usr/bin/nm-applet --indicator
+exec swayidle -w -C ~/.config/swayidle/config
+exec dunst # exec /usr/bin/mako
+exec redshift
+# exec /usr/bin/blueman-applet
+exec org.keepassxc.KeePassXC ~/nextcloud/keepass/dandy.kdbx
+exec_always xdg-desktop-portal-gtk --replace
+# exec /var/lib/flatpak/exports/bin/com.nextcloud.desktopclient.nextcloud --background
+exec_always nm-applet --indicator

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: mime-e
+# name: mimeapps-entry
+# group: mime
+# keybinding:
+
+# --
+
+; like:
+${2:x-scheme-handler/mailto=bar.desktop;baz.desktop}

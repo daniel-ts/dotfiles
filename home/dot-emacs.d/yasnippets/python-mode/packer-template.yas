@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: PCK_TMPLT
+# name: packer template
+# group: packer
+# keybinding:
+
+# --
+template = {
+
+    "builders": [
+
+    ],
+
+    "provisioners": [
+
+    ]
+}

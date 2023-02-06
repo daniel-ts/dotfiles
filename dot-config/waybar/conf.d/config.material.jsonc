@@ -4,9 +4,8 @@
     "id": "bar-0",
     "position": "bottom",
     "modules-left": [
-	"custom/zen",
+		"custom/zen",
         "sway/workspaces",
-	"keyboard-state",
     ],
 
     "modules-center": [
@@ -105,26 +104,28 @@ free:  {free}",
     },
 
     "custom/zen": {
-	"format": " {icon}",
-	"return-type": "json",
-	"tooltip": true,
-	"format-icons": {
-	    "on": "",
-	    "off": "",
-	    "default": "",
-	},
-	"on-click": "$XDG_CONFIG_HOME/waybar/script/zen.sh",
+		"format": " {icon}",
+		"return-type": "json",
+		"tooltip": true,
+		"format-icons": {
+			"on": "",
+			"off": "",
+			"default": "",
+		},
+		"on-click": "$XDG_CONFIG_HOME/waybar/script/zen.sh",
     },
-    "keyboard-state": {
-	"capslock": true,
-	"format": {
-	    "capslock": "{icon}"
-	},
-	"format-icons": {
-	    "locked": "caps",
-	    "unlocked": "",
-	},
-    },
+
+    // "keyboard-state": {
+	// 	"capslock": true,
+	// 	"format": {
+	// 		"capslock": "{icon}"
+	// },
+	// 	"format-icons": {
+	// 		"locked": "caps",
+	// 		"unlocked": "",
+	// 	},
+		// },
+
     "mpd": {
 	"server": "localhost",
 	"port": 6600,

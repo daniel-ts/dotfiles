@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: OVR
-# name: overline
-# group: math
-# keybinding:
-
-# --
-\overline{\rm ${1:A}}$0

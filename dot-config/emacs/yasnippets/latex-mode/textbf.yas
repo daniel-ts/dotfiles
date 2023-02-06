@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: TBF
-# name: textbf tbf
-# group: text
-# keybinding:
-
-# --
-\textbf{$1`yas-selected-text`}

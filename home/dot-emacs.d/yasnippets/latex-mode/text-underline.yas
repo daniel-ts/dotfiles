@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: TUL
+# name: text underline
+# group: text
+# keybinding:
+
+# --
+\underline{$1`yas-selected-text`}

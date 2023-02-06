@@ -1,0 +1,85 @@
+* {
+    font-family: "JetBrains Mono", "Font Awesome 5 Pro Light";
+}
+
+window#waybar {
+    background-color: #fbf1c7;
+    color: black;
+    transition-duration: 0.5s;
+    transition-property: background-color;
+}
+
+window#waybar.main {
+    font-size: 16px;
+    margin: 0px 5px 0px 5px;
+}
+
+#workspaces {
+    margin-left: 10px;
+}
+
+#workspaces button {
+    margin-left: 3px;
+    min-width: 0px; /* otherwise it has a width */
+}
+
+/* current desktop */
+#workspaces button.focused {
+    color: #fb4934;
+    font-weight: bold;
+}
+
+#workspaces button.urgent {
+  color: #cc241d;
+  border: 1px solid #cc241d;
+}
+
+#clock {
+    font-size: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0 5px 0 5px;
+    /* top right bottom left */
+    margin: 3px 10px 3px 0px;
+}
+
+window#waybar.main .modules-right * {
+    color: #f53c3c;
+}
+
+#wireplumber,
+#pulseaudio.sound {
+    margin-right: 7px;
+}
+
+#wireplumber:hover,
+#pulsaudio:hover
+{
+    color: #928374;
+    background: rgba(0, 1, 51, 0);
+    box-shadow: inherit;
+}
+
+#tray,
+#cpu,
+#memory,
+#backlight,
+#idle_inhibitor,
+#battery {
+	margin-left: 30px;
+}
+
+#battery.warning:not(.charging) {
+  color: orange;
+  background-color: transparent;
+}
+
+#battery.critical:not(.charging) {
+  color: #f53c3c;
+  border: 1px solid red;
+  border-radius: 0.4rem;
+}
+
+#tray {
+    margin-right: 15px;
+}

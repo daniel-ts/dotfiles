@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: <E> DICT
+# name: entry dict
+# group: structs
+# keybinding:
+
+# --
+"${1:<key>}": ${2:<value>},$0

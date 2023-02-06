@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: TXT
-# name: math text
-# group: math
-# keybinding:
-
-# --
-\text{ ${1:text..}`yas-selected-text` }$0

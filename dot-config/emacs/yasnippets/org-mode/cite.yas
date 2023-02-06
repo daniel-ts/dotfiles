@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: oc
-# name: cite
-# group: cite
-# keybinding:
-
-# --
-[cite: @${1:bibtex ref}]$0

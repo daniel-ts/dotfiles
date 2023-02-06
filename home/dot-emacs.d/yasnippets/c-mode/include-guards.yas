@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: INCL_GUARD
+# name: include guards
+# group: preprocessor cmd
+# keybinding:
+
+# --
+#ifndef _${1:header}
+#define _$1
+
+$0
+
+# endif

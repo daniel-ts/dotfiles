@@ -3,7 +3,7 @@
 
 monitor = 0
 follow = mouse
-geometry = "480x4-50+50"
+#geometry = "480x4-50+50"
 shrink = yes
 transparency = 0
 
@@ -37,7 +37,7 @@ class = Dunst
 dmenu = /usr/bin/dmenu -p dunst:
 browser = /usr/bin/firefox -new-tab
 
-verbosity = warn
+#verbosity = warn
 
 
 icon_path = /usr/share/icons/Adwaita/96x96/apps:/home/dandy/.local/share/icons/dandy/96x96

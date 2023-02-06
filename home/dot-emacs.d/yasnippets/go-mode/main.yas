@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: main
+# name: main
+# group:
+# keybinding:
+
+# --
+func main() {
+    $0
+}

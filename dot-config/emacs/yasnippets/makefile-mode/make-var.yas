@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: VAR
-# name: make variable
-# group: SYNTAX
-# keybinding:
-
-# --
-$(${1:var})$0

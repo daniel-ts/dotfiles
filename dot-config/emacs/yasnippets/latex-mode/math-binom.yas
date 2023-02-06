@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: choose
-# name: binom
-# group: math
-# keybinding:
-
-# --
-{$1 \choose $2}$0

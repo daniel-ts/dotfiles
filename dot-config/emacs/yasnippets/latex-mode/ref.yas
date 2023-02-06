@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: REF
-# name: ref hyperref
-# group: ref
-# keybinding:
-
-# --
-\hyperref[${1:sec:section}]{$2`yas-selected-text`}
