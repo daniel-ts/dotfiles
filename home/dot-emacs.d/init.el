@@ -3,12 +3,21 @@
 (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
 (setq package-refresh-contents-hook nil)
 
-(use-package loaddefs
-  :custom
-  (package-vc-selected-packages
-   . ((anki-editor
-       :url "https://github.com/orgtre/anki-editor.git"
-       :branch "master"))))
+(use-package dash
+  :ensure t
+  :demand t)
+
+(setq package-vc-selected-packages
+      '((anki-editor
+         :url "https://github.com/orgtre/anki-editor.git"
+         :branch "master")))
+
+;; (use-package loaddefs
+;;   :custom
+;;   (package-vc-selected-packages
+;;    . ((anki-editor
+;;         :url "https://github.com/orgtre/anki-editor.git"
+;;         :branch "master"))))
 
 (use-package emacs
   :config
@@ -97,8 +106,6 @@
   (setq initial-scratch-message (concat ";; Daniel Tschertkow - " (format-time-string "%d-%m-%Y") "\n"))
   (setq default-directory "~/")
   (setq make-backup-files nil)
-
-  ;; (add-to-list 'Info-directory-list "/home/dandy/.guix-profile/share/info")
 
   (global-visual-line-mode 1)
   (column-number-mode 1)
@@ -434,16 +441,16 @@ Note: I customized this function to always pop-to-buffer."
   :mode ("Dockerfile\\'" . dockerfile-mode))
 
 (use-package exec-path-from-shell
-:ensure t
-:config
-(exec-path-from-shell-initialize)
-(exec-path-from-shell-copy-env "JAVA_HOME")
-(exec-path-from-shell-copy-env "WAYLAND_DISPLAY")
-(exec-path-from-shell-copy-env "DISPLAY")
-(exec-path-from-shell-copy-env "WORKON_HOME")
-(exec-path-from-shell-copy-env "XDG_SESSION_TYPE")
-(exec-path-from-shell-copy-env "INFOPATH")
-(exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "JAVA_HOME")
+  (exec-path-from-shell-copy-env "WAYLAND_DISPLAY")
+  (exec-path-from-shell-copy-env "DISPLAY")
+  (exec-path-from-shell-copy-env "WORKON_HOME")
+  (exec-path-from-shell-copy-env "XDG_SESSION_TYPE")
+  (exec-path-from-shell-copy-env "INFOPATH")
+  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
 (use-package flyspell
   :ensure t
@@ -865,7 +872,10 @@ Note: I customized this function to always pop-to-buffer."
   :ensure t)
 
 (use-package geiser-guile
-  :ensure t)
+  :ensure t
+  :after (dash exec-path-from-shell)
+  :custom
+  (geiser-guile-load-path (-distinct (string-split (exec-path-from-shell-getenv "GUILE_LOAD_PATH") ":" t))))
 
 (use-package scheme-mode
   :mode "\\.scm\\'"
@@ -989,6 +999,10 @@ Note: I customized this function to always pop-to-buffer."
 		(define-key yaml-mode-map "\C-m" 'newline-and-indent)))
   )
 
+(use-package guix-emacs
+  :hook
+  (scheme-mode . guix-devel-mode))
+
 (use-package emacs
   :config
   ;; unset creation of keyboard macro
@@ -1052,6 +1066,10 @@ Note: I customized this function to always pop-to-buffer."
  '(auth-source-save-behavior nil)
  '(package-selected-packages
    '(emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode company-auctex js2-mode company-go go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords company-restclient restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases org-download gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async magit json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux company auctex))
+ '(safe-local-variable-values
+   '((eval modify-syntax-entry 43 "'")
+     (eval modify-syntax-entry 36 "'")
+     (eval modify-syntax-entry 126 "'")))
  '(terraform-indent-level 2)
  '(urlenc:default-coding-system 'utf-8))
 (custom-set-faces
@@ -1060,3 +1078,4 @@ Note: I customized this function to always pop-to-buffer."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'narrow-to-region 'disabled nil)

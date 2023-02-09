@@ -13,11 +13,6 @@ set $menu rofi -show run
 
 workspace_layout stacking
 
-# GTK settings
-exec_always {
-	    gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
-}
-
 # clamshell
 exec_always scripts/clamshell.sh
 
@@ -232,8 +227,9 @@ for_window [app_id="org.kde.polkit-kde-authentication-agent-1"] floating enable
 #for_window [app_id="org.keepassxc.KeePassXC"] floating enable
 # for_window [app_id="org.keepassxc.KeePassXC" title=".*Access Request$"] floating enable
 #for_window [app_id="org.keepassxc.KeePassXC" title="\[Locked\]|Unlock Database"] floating enable
-for_window [app_id="firefox" title=".*Teilen-Hinweis$"] floating enable, default_border none
-for_window [app_id="ymuse"] floating enable
+for_window [app_id="firefox" title=".*Teilen-Hinweis$"] floating enable, border pixel 0
+for_window [app_id="com.yktoo.ymuse"] floating enable
+for_window [app_id="flameshot"] floating enable, fullscreen disable, move absolute position 0 0, border pixel 0
 # for_window [title="\*Bookmark List\*"] floating enable
 #, resize set 1200 800
 
@@ -245,11 +241,14 @@ bar {
 }
 
 ### Init & Autostart
+exec --no-startup-id dbus-update-activation-environment --all
 exec swayidle -w -C ~/.config/swayidle/config
 exec dunst # exec /usr/bin/mako
 exec redshift
 # exec /usr/bin/blueman-applet
 exec org.keepassxc.KeePassXC ~/nextcloud/keepass/dandy.kdbx
-exec_always xdg-desktop-portal-gtk --replace
+exec polkit-gnome-authentication-agent-1
+exec_always xdg-desktop-portal --replace
+exec_always xdg-document-portal --replace
 # exec /var/lib/flatpak/exports/bin/com.nextcloud.desktopclient.nextcloud --background
 exec_always nm-applet --indicator

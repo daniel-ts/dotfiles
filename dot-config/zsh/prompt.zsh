@@ -106,7 +106,12 @@ prompt_purification_setup() {
 
     prompt_git_branch
     RPROMPT='$(prompt_git_info) $(git_prompt_status)'
-    PROMPT="%(?:%{$fg_bold[green]%} ➜ :%{$fg_bold[red]%} ➜ ) %{$fg_bold[blue]%}%c%{$reset_color%} "
+
 }
 
 prompt_purification_setup
+PROMPT="%(?:%{$fg_bold[green]%} ➜ :%{$fg_bold[red]%} ➜ ) %{$fg_bold[blue]%}%c%{$reset_color%} "
+if [ -n "$GUIX_ENVIRONMENT" ]
+then
+    PROMPT="[guix-env] $PROMPT"
+fi
