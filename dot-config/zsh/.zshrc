@@ -1,3 +1,5 @@
+echo "Reading '$PWD/.zshrc'"
+
 bindkey -e
 
 HISTFILE=$XDG_CACHE_HOME/zsh/zsh_history

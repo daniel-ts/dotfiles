@@ -212,7 +212,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 mode "secondary" {
-     bindsym k exec --no-startup-id "org.keepassxc.KeePassXC ~/nextcloud/keepass/dandy.kdbx"; mode "default"
+     bindsym k exec --no-startup-id "keepassxc ~/nextcloud/keepass/dandy.kdbx"; mode "default"
      bindsym u exec --no-startup-id "pavucontrol"; mode "default"
      bindsym a exec --no-startup-id "com.yktoo.ymuse"; mode "default"
 
@@ -243,12 +243,12 @@ bar {
 ### Init & Autostart
 exec --no-startup-id dbus-update-activation-environment --all
 exec swayidle -w -C ~/.config/swayidle/config
-exec dunst # exec /usr/bin/mako
+exec /usr/bin/mako # exec dunst
 exec redshift
 # exec /usr/bin/blueman-applet
-exec org.keepassxc.KeePassXC ~/nextcloud/keepass/dandy.kdbx
-exec polkit-gnome-authentication-agent-1
-exec_always xdg-desktop-portal --replace
+exec keepassxc ~/nextcloud/keepass/dandy.kdbx
+exec /lib/polkit-kde-authentication-agent-1
+exec_always xdg-desktop-portal-wlr --replace
 exec_always xdg-document-portal --replace
 # exec /var/lib/flatpak/exports/bin/com.nextcloud.desktopclient.nextcloud --background
 exec_always nm-applet --indicator
