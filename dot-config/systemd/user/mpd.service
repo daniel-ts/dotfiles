@@ -1,0 +1,10 @@
+[Unit]
+Description=media player daemon
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/mpd --systemd
+ExecStop=/usr/bin/mpd --kill
+
+[Install]
+WantedBy=default.target
