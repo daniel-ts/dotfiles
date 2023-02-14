@@ -1,0 +1,10 @@
+[Unit]
+Description=graphical authentication agent for polkit
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/lib/polkit-kde-authentication-agent-1
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target

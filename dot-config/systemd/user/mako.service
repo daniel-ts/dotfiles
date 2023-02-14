@@ -1,0 +1,10 @@
+[Unit]
+Description=Mako notifications
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/mako
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target

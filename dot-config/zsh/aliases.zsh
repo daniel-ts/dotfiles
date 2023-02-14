@@ -8,3 +8,4 @@ alias rs="rsync --update --progress --recursive"
 alias temacs='emacsclient --tty'
 alias ec='emacsclient --create-frame'
 alias flatpak='flatpak --user'
+alias journal_sway='journalctl --user --follow --this-boot --identifier sway'

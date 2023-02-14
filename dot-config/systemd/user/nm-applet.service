@@ -1,0 +1,10 @@
+[Unit]
+Description=nm-applet
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/nm-applet --indicator
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target

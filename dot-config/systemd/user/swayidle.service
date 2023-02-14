@@ -1,0 +1,10 @@
+[Unit]
+Description=swayidle
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/swayidle -w -C ~/.config/swayidle/config
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target

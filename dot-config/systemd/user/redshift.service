@@ -1,0 +1,10 @@
+[Unit]
+Description=redshift
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/home/dandy/.guix-home/profile/bin/redshift
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target

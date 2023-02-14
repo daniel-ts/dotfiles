@@ -1,0 +1,10 @@
+[Unit]
+Description=xdg-destkop-portal with wlroots
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/lib/xdg-desktop-portal-wlr --replace
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target
