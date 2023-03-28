@@ -111,7 +111,14 @@ prompt_purification_setup() {
 
 prompt_purification_setup
 PROMPT="%(?:%{$fg_bold[green]%} ➜ :%{$fg_bold[red]%} ➜ ) %{$fg_bold[blue]%}%c%{$reset_color%} "
-if [ -n "$GUIX_ENVIRONMENT" ]
-then
+if [ -n "$GUIX_ENVIRONMENT" ]; then
     PROMPT="[guix-env] $PROMPT"
+fi
+
+if [ -n "$container" ]; then
+    PROMPT="[$(cat /etc/hostname)] $PROMPT"
+fi
+
+if [ -n "$VIRTUAL_ENV" ]; then
+    PROMPT="[venv] $PROMPT"
 fi

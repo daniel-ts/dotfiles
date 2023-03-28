@@ -3,7 +3,7 @@
 # +---------+
 
 # Load more completions
-#fpath=($DOTFILES/zsh/plugins/zsh-completions/src $fpath)
+fpath=($XDG_DATA_HOME/zsh/completions $fpath)
 
 # Should be called before compinit
 zmodload zsh/complist
@@ -106,6 +106,13 @@ if [ -d $XDG_CONFIG_HOME/guix/current/share/zsh/site-functions ]; then
     done
 fi
 
+if [ -d $HOME/.guix-home/profile/share/zsh/site-functions ]; then
+    for file in $HOME/.guix-home/profile/share/zsh/site-functions/**; do
+        [ -f "$file" ] && source "$file" 2> /dev/null
+    done
+fi
+
+## guix command
 zstyle -e ':completion:*:guix_command:guix:*:commands' verbose yes
 zstyle -e ':completion:*:guix_system:guix:system:(commands|arguments)' menu
 zstyle -e ':completion:*:guix_refresh:guix:refresh:(arguments|updaters|packages)' menu
@@ -136,3 +143,5 @@ zstyle -e ':completion:*:guix_download:guix:download:urls' menu
 
 zstyle -e ':completion:*:guix_container:guix:container:*' "exec"
 # zstyle -e ':completion:*:guix_installed_packages:guix package:-I:(arguments|packages)' menu
+
+#zstyle -e ':completion:*:podman:podman:*:*' menu

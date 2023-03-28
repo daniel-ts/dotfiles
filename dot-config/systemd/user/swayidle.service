@@ -3,7 +3,7 @@ Description=swayidle
 PartOf=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/swayidle -w -C ~/.config/swayidle/config
+ExecStart=/usr/bin/swayidle -d -w -C ~/.config/swayidle/config
 Restart=on-failure
 
 [Install]

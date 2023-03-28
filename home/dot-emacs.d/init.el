@@ -1,23 +1,37 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
-(setq package-refresh-contents-hook nil)
+;; (setq package-refresh-contents-hook nil)
+
+(customize-set-variable
+ 'package-vc-selected-packages
+ '((anki-editor . (:url
+                       "https://github.com/orgtre/anki-editor.git"
+                       :branch "master"))))
+
+;; (use-package exec-path-from-shell
+;;   :ensure t
+;;   :demand t
+;;   :config
+;;   (exec-path-from-shell-initialize)
+;;   :custom
+;;   (exec-path-from-shell-arguments nil)
+;;   (exec-path-from-shell-variables '("PATH" "MANPATH" "INFOPATH"
+;;                                     "WORKON_HOME" "SSH_AUTH_SOCK")))
+
+(use-package exec-path-from-shell
+  :ensure t
+  :demand t
+  :init
+  (customize-set-variable 'exec-path-from-shell-arguments nil)
+  (customize-set-variable 'exec-path-from-shell-variables
+                          '("PATH" "MANPATH" "INFOPATH"
+                            "WORKON_HOME" "SSH_AUTH_SOCK"))
+  (exec-path-from-shell-initialize))
 
 (use-package dash
   :ensure t
   :demand t)
-
-(setq package-vc-selected-packages
-      '((anki-editor
-         :url "https://github.com/orgtre/anki-editor.git"
-         :branch "master")))
-
-;; (use-package loaddefs
-;;   :custom
-;;   (package-vc-selected-packages
-;;    . ((anki-editor
-;;         :url "https://github.com/orgtre/anki-editor.git"
-;;         :branch "master"))))
 
 (use-package emacs
   :config
@@ -223,7 +237,8 @@
 (use-package org-download
   :ensure t
   :after org
-  :bind (("C-c n d c" . org-download-clipboard)))
+  :bind (:map org-mode-map
+              ("C-c n d c" . org-download-clipboard)))
 
 (use-package ox-latex
   :config
@@ -283,6 +298,7 @@
   (org-roam-db-autosync-mode)
 
   :bind (("C-c n f" . org-roam-node-find)
+         :map org-mode-map
          ("C-c n i" . org-roam-node-insert)
          ("C-c n e" . org-roam-extract-subtree)
          ("C-c n b" . org-roam-buffer-toggle)
@@ -298,18 +314,23 @@
 	 ))
 
 (use-package anki-editor
-  :ensure t ;; (anki-editor :type git :host github :repo "orgtre/anki-editor")
+  ;; :init (package-vc-install
+  ;;        '(anki-editor . (:url
+  ;;                          "https://github.com/orgtre/anki-editor.git"
+  ;;                          :branch "master")))
+  ;; :ensure t ;; (anki-editor :type git :host github :repo "orgtre/anki-editor")
   :bind
-  ("C-c a p" . #'dt/anki-push-note)
-  ("C-c a n" . (lambda (&optional prefix)
-		 "Modified version of `anki-editor-insert-note'."
-		 (interactive "P")
-		 (let* ((deck (org-entry-get-with-inheritance anki-editor-prop-deck))
-			(type "Einfach")
-			(fields (anki-editor-api-call-result 'modelFieldNames
-							     :modelName type))
-			(heading "Item"))
-		   (anki-editor--insert-note-skeleton prefix deck heading type fields))))
+  (:map anki-editor-mode-map
+        ("C-c a p" . #'dt/anki-push-note)
+        ("C-c a n" . (lambda (&optional prefix)
+		               "Modified version of `anki-editor-insert-note'."
+		               (interactive "P")
+		               (let* ((deck (org-entry-get-with-inheritance anki-editor-prop-deck))
+			                  (type "Einfach")
+			                  (fields (anki-editor-api-call-result 'modelFieldNames
+							                                       :modelName type))
+			                  (heading "Item"))
+		                 (anki-editor--insert-note-skeleton prefix deck heading type fields)))))
   :config
   (setq anki-editor-create-decks t))
 
@@ -379,7 +400,7 @@ Note: I customized this function to always pop-to-buffer."
   (ctrlf-auto-recenter t)
   :init
   (ctrlf-mode +1))
-
+(setq ctrlf-auto-recenter t)
 (use-package diminish
   :ensure t)
 
@@ -406,51 +427,34 @@ Note: I customized this function to always pop-to-buffer."
       (call-process "xdg-open" nil 0 nil file)
       (message "Opening %s done" file)))
 
-  (local-unset-key (kbd "u"))
-  (local-unset-key (kbd "U"))
+  ;; (local-unset-key (kbd "u"))
+  ;; (local-unset-key (kbd "U"))
   :bind
   ("C-< o" . dt/dired-open-file)
+  (:map dired-mode-map
+        ("H" . dired-hide-details-mode)
+        ("h" . dired-hide-dotfiles-mode)
+        ("I" . dired-kill-subdir)
+        ("z" . (lambda ()
+                 (interactive)
+                 (let ((kill-buffer-hook nil))
+                   (find-alternate-file ".."))))
+        ("RET" . (lambda ()
+                   (interactive)
+                   (if (dired-nondirectory-p (thing-at-point 'filename))
+                       (dired-find-file-other-window)
+                     (let ((kill-buffer-hook nil))
+                       (dired-find-alternate-file)))))
+        )
 
   :hook
   (dired-mode . dired-hide-dotfiles-mode)
-  (dired-mode . (lambda ()
-                  (local-set-key (kbd "z") #'dired-unmark)
-                  (local-set-key (kbd "Z") #'dired-unmark-all-marks)
-                  (local-set-key (kbd "H") #'dired-hide-details-mode)
-                  (local-set-key (kbd "h") #'dired-hide-dotfiles-mode)
-                  (local-set-key (kbd "I") #'dired-kill-subdir)
-                  (local-set-key (kbd "RET")
-                                 (lambda ()
-                                   (interactive)
-                                   (if (dired-nondirectory-p (thing-at-point 'filename))
-                                       (dired-find-file-other-window)
-                                     (let ((kill-buffer-hook nil))
-                                       (dired-find-alternate-file)))))
-                  (local-set-key (kbd "u")
-                                 ;; #'dired-up-directory
-                                 (lambda ()
-                                   (interactive)
-                                   (let ((buf (current-buffer)))
-                                     (dired-up-directory)
-                                     (kill-buffer buf))))))
   :custom
   (dired-listing-switches "--all -l --human-readable --group-directories-first"))
 
 (use-package dockerfile-mode
   :ensure t
   :mode ("Dockerfile\\'" . dockerfile-mode))
-
-(use-package exec-path-from-shell
-  :ensure t
-  :config
-  (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-env "JAVA_HOME")
-  (exec-path-from-shell-copy-env "WAYLAND_DISPLAY")
-  (exec-path-from-shell-copy-env "DISPLAY")
-  (exec-path-from-shell-copy-env "WORKON_HOME")
-  (exec-path-from-shell-copy-env "XDG_SESSION_TYPE")
-  (exec-path-from-shell-copy-env "INFOPATH")
-  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
 (use-package flyspell
   :ensure t
@@ -465,9 +469,6 @@ Note: I customized this function to always pop-to-buffer."
 
 (use-package magit
   :ensure t)
-;; (use-package forge
-;;   :ensure t
-;;   :after magit)
 
 (use-package nov
   :ensure t
@@ -504,11 +505,12 @@ Note: I customized this function to always pop-to-buffer."
   :ensure t)
 
 (use-package company-restclient
-  :ensure t
-)
+  :ensure t)
+
 (use-package tramp
-  :config
-  (setq tramp-default-method "ssh"))
+  :custom
+  (tramp-termial-type "dumb")
+  (tramp-default-method "ssh"))
 
 (use-package tramp-container)
 
@@ -551,27 +553,28 @@ Note: I customized this function to always pop-to-buffer."
                           ((staticcheck . t)
                            (matcher . "CaseSensitive")))))
   (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-lsp" "")))
+  (add-to-list 'eglot-server-programs '(python-mode . ("pyright" "--stdio" "--lib")))
   (add-to-list 'eglot-server-programs '(css-mode . ("vscode-html-languageserver" "--stdio")))
 
   :hook
   (go-mode . eglot-ensure)
-  (python-mode . eglot-ensure)
+  ;; (python-mode . eglot-ensure)
 
   :bind (:map eglot-mode-map
-        ("M-l <tab>" . complete-at-point)
-	    ("M-l s" . eglot-code-actions)
-	    ("M-l d" . eldoc-doc-buffer)
-        ("M-l r" . eglot-rename)
-        ("M-l v" . eglot-format)
+              ("M-l <tab>" . complete-at-point)
+	          ("M-l s" . eglot-code-actions)
+	          ("M-l d" . eldoc-doc-buffer)
+              ("M-l r" . eglot-rename)
+              ("M-l v" . eglot-format)
 
-	    ("M-l f d" . xref-find-definitions-other-frame)
-	    ("M-l f r" . xref-find-references)
-	    ("M-l f i" . eglot-find-implementation)
-        ("M-l f t" . eglot-find-typeDefinition)
-        ("M-l f f" . eglot-find-declaration)
+	          ("M-l f d" . xref-find-definitions-other-frame)
+	          ("M-l f r" . xref-find-references)
+	          ("M-l f i" . eglot-find-implementation)
+              ("M-l f t" . eglot-find-typeDefinition)
+              ("M-l f f" . eglot-find-declaration)
 
-        ("M-l e e" . flymake-goto-next-error)
-        ("M-l e r" . flymake-goto-prev-error)))
+              ("M-l e e" . flymake-goto-next-error)
+              ("M-l e r" . flymake-goto-prev-error)))
 
 ;; (use-package flycheck
 ;;   :ensure t)
@@ -862,11 +865,34 @@ Note: I customized this function to always pop-to-buffer."
   :ensure t
   :mode "\\.php\\'")
 
-(use-package python
+(use-package pyvenv
+  ;; https://github.com/jorgenschaefer/pyvenv
+  :ensure t
   :config
-  (setq python-shell-interpreter "jupyter")
-  (setq python-shell-interpreter-args "console --simple-prompt")
-  (setq python-shell-prompt-detect-failure-warning t))
+  (add-hook 'pyvenv-post-activate-hooks
+            (lambda ()
+              (setq pyvenv-mode-line-indicator
+                  (concat "[venv:" pyvenv-virtual-env-name "]"))
+              (pyvenv-mode +1)))
+  (add-hook 'pyvenv-post-deactivate-hooks
+            (lambda ()
+              (pyvenv-mode -1)))
+  )
+
+(use-package python
+  :bind (:map python-mode-map
+              ("C-c h" . (lambda ()
+                          (interactive)
+                          (info "python"))))
+  :custom
+  (python-shell-interpreter "ipython3")
+  (python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
+  (python-shell-prompt-detect-failure-warning t))
+
+(use-package slime
+  :ensure t
+  :config
+  (setq inferior-lisp-program "sbcl"))
 
 (use-package geiser
   :ensure t)
@@ -977,7 +1003,6 @@ Note: I customized this function to always pop-to-buffer."
 
 (use-package terraform-mode
   :ensure t
-  :bind
   :config
   (terraform-format-on-save-mode 1)
   (custom-set-variables '(terraform-indent-level 2)))
@@ -1002,6 +1027,9 @@ Note: I customized this function to always pop-to-buffer."
 (use-package guix-emacs
   :hook
   (scheme-mode . guix-devel-mode))
+
+(use-package lxd-tramp
+  :ensure t)
 
 (use-package emacs
   :config
@@ -1065,7 +1093,7 @@ Note: I customized this function to always pop-to-buffer."
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode company-auctex js2-mode company-go go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords company-restclient restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases org-download gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async magit json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux company auctex))
+   '(magit slime org-download lxd-tramp pyvenv anki-editor emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode company-auctex js2-mode company-go go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords company-restclient restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux company auctex))
  '(safe-local-variable-values
    '((eval modify-syntax-entry 43 "'")
      (eval modify-syntax-entry 36 "'")

@@ -15,7 +15,7 @@ alias dwn="systemctl shutdown"
 alias ec="emacsclient --create-frame"
 #alias emacs_log='journalctl --user -f -u emacs.service'
 #alias emacs_restart='systemctl --user restart emacs.service'
-alias emacs_start="/home/dandy/.guix-profile/bin/emacs --bg-daemon"
+alias emacs_start="systemctl --user start emacs.service"
 alias gdlv-c='gdlv connect localhost:10001 2>&1 > /dev/null &'
 alias magit='emacsclient -t -e "(magit  \"./\")"'
 alias megatrans="/usr/bin/mega-transfers --show-syncs --limit=1000"

@@ -1,4 +1,5 @@
-echo "Reading '$PWD/.zshrc'"
+# For Emacs tramp to work:
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
 bindkey -e
 

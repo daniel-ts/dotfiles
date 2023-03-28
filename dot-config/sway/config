@@ -74,7 +74,9 @@ bindsym $mod+n exec --no-startup-id emacsclient -c -e '(ibuffer)'
 
 bindsym $mod+numbersign exec --no-startup-id rofi -show ssh
 #bindsym Print exec --no-startup-id grimshot copy area
-bindsym Print exec --no-startup-id flameshot gui
+bindsym Print exec --no-startup-id sway-screenshot -m region --clipboard-only
+bindsym $mod+Print exec --no-startup-id sway-screenshot -m region -o /tmp/sway-screenshot -- pinta
+bindsym $mod+Shift+Print exec --no-startup-id sway-screenshot -m region -o /tmp/sway-screenshot -- gimp
 
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+
@@ -214,7 +216,7 @@ bindsym $mod+r mode "resize"
 mode "secondary" {
      bindsym k exec --no-startup-id "keepassxc ~/nextcloud/keepass/dandy.kdbx"; mode "default"
      bindsym u exec --no-startup-id "pavucontrol"; mode "default"
-     bindsym a exec --no-startup-id "com.yktoo.ymuse"; mode "default"
+     bindsym a exec --no-startup-id "ymuse"; mode "default"
 
      bindsym Return mode "default"
      bindsym Escape mode "default"
@@ -224,25 +226,24 @@ bindsym $mod+i mode "secondary"
 
 # Special window rules
 for_window [app_id="org.kde.polkit-kde-authentication-agent-1"] floating enable
-#for_window [app_id="org.keepassxc.KeePassXC"] floating enable
-# for_window [app_id="org.keepassxc.KeePassXC" title=".*Access Request$"] floating enable
-#for_window [app_id="org.keepassxc.KeePassXC" title="\[Locked\]|Unlock Database"] floating enable
-for_window [app_id="firefox" title=".*Teilen-Hinweis$"] floating enable, border pixel 0
-for_window [app_id="com.yktoo.ymuse"] floating enable
-for_window [app_id="flameshot"] floating enable, fullscreen disable, move absolute position 0 0, border pixel 0
+for_window [app_id="org.keepassxc.KeePassXC" title=".*Access Request$"] floating enable
+for_window [app_id="org.keepassxc.KeePassXC" title="\[Locked\]|Unlock Database"] floating enable
+for_window [app_id="firefox" title=".*Teilen-Hinweis$|.*Sharing Indicator$"] floating enable, border pixel 0
+for_window [app_id="ymuse"] floating enable
+# for_window [app_id="flameshot"] floating enable, fullscreen disable, move absolute position 0 0, border pixel 0
 # for_window [title="\*Bookmark List\*"] floating enable
 #, resize set 1200 800
 
-bar {
-    id "bar-0"
-    swaybar_command waybar
-    mode dock
-    modifier $mod
-}
+# bar {
+#     id "bar-0"
+#     #swaybar_command waybar
+#     mode dock
+#     modifier $mod
+# }
 
 ### Init & Autostart
+exec waybar
 exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK; systemctl --user start sway-session.target"
-exec systemd-cat --identifier=sway sway
 exec --no-startup-id dbus-update-activation-environment --all
-
+exec swayidle -d -w -C ~/.config/swayidle/config
 exec keepassxc ~/nextcloud/keepass/dandy.kdbx
