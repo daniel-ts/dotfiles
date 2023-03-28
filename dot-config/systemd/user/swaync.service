@@ -1,0 +1,10 @@
+[Unit]
+Description=sway notification center
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/swaync
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target

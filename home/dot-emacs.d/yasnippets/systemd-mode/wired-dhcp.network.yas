@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: systemd-wired-dhcp-network
+# name: wired-dhcp.network
+# group: systemd
+# keybinding:
+
+# --
+[Match]
+Name=${1:enp1s0}
+
+[Network]
+DHCP=${2:yes}
+IgnoreCarrierLoss=3s
+
+[DHCPv4]
+# should be lower then wireless
+RouteMetric=${3:200}
+$0

@@ -1,0 +1,10 @@
+[Unit]
+Description=nwg-dock
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/nwg-dock -d -nolauncher -nows -p left -l top -i 64
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target
