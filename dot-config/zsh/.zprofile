@@ -10,3 +10,5 @@ if [ -d "/usr/share/fzf" ]; then
     source "/usr/share/fzf/key-bindings.zsh"
     source "/usr/share/fzf/completion.zsh"
 fi
+
+export JAVA_HOME=/usr/lib/jvm/default

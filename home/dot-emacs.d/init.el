@@ -26,7 +26,8 @@
   (customize-set-variable 'exec-path-from-shell-arguments nil)
   (customize-set-variable 'exec-path-from-shell-variables
                           '("PATH" "MANPATH" "INFOPATH"
-                            "WORKON_HOME" "SSH_AUTH_SOCK"))
+                            "WORKON_HOME" "SSH_AUTH_SOCK"
+                            "XDG_SESSION_TYPE"))
   (exec-path-from-shell-initialize))
 
 (use-package dash
@@ -130,7 +131,8 @@
 	(t (dt/switch-theme 'doom-gruvbox)))
 
   (add-to-list 'default-frame-alist '(alpha-background . 82))
-  (set-face-attribute 'default nil :height 105 :font "JetBrains Mono" :weight 'normal))
+  (set-face-attribute 'default nil :height 105 :font "JetBrains Mono" :weight 'normal)
+  )
 
 (use-package emacs
   :init
@@ -165,25 +167,98 @@
                           ("^\\*Org Links\\*.*" display-buffer-at-bottom)
                           ("^\\*Warnings\\*.*" display-buffer-at-bottom)
                           ("^\\*Geiser Debug\\*.*" display-buffer-at-bottom)
+                          ("^ \\*Agenda Commands\\*" display-buffer-at-bottom)
+                          ("^\\*Org Select\\*" display-buffer-at-bottom)
+                          ("^\\*Calendar\\*" display-buffer-at-bottom)
                           ("^\\*Bookmark List\\*.*" (display-buffer-same-window display-buffer-pop-up-frame))))
   ;; (setq display-buffer-alist nil)
   )
 
 (use-package org
+  :init
+  ;; must be set before loading org
+  ;; for ctrlf search
+  (setq org-fold-core-style 'overlays)
+
   :hook
   ((org-mode . turn-on-font-lock)
    (org-mode . org-indent-mode)
    (org-mode . company-mode))
 
-  ;; :bind
-  ;; ("C-c n t i". org-toggle-inline-images)
-  ;;(("C-". org-download-clipboard))
+  :bind ((:map org-mode-map
+               ;; ("C-c n d c" . org-download-clipboard)
+               ("C-c l". org-toggle-item))
+         (:map global-map
+               ("C-c c" . org-capture)
+               ("C-c i" . org-capture-inbox)
+               ("C-c a" . org-agenda))
+         )
+
+  :custom
+  ;; org files
+  (org-directory "~/org")
+  (org-default-notes-file "notes.org")
+  (org-agenda-files (list "gtd.org"))
+  (org-refile-targets nil)
+  (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
+                              (todo   . " ")
+                              (tags   . " %i %-12:c")
+                              (search . " %i %-12:c")))
+
 
   :config
-  ;; org files
-  (setq org-directory "~/org")
-  (setq org-default-notes-file "~/org/notes/captured-notes.org")
-  (setq org-fold-core-style 'overlays) ;; for ctrlf search
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;    org agenda tweaks for GTD    ;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  (setq org-capture-templates
+       `(("i" "Inbox" entry  (file+headline "gtd.org" "Inbox")
+        ,(concat "* %?\n"
+                 "/Entered on/ %U"))
+         ("m" "Meeting" entry  (file+headline "gtd.org" "Inbox")
+          ,(concat "* %? :meeting:\n"
+                   "<%<%Y-%m-%d %a %H:00>>"))
+         ("e" "Event" entry  (file+headline "gtd.org" "Inbox")
+          ,(concat "* %? :event:\n"
+                   "<%<%Y-%m-%d %a %H:00>>"))
+         ))
+
+  (defun dt/org-agenda-parent-heading ()
+    (car (last (org-get-outline-path))))
+
+  (setq org-agenda-custom-commands
+      '(("g" "Get Things Done (GTD)"
+         ((agenda ""
+                  ((org-agenda-skip-function
+                    '(org-agenda-skip-entry-if 'deadline))
+                   (org-deadline-warning-days 0)))
+          (agenda nil
+                  ((org-agenda-entry-types '(:deadline))
+                   (org-agenda-format-date "")
+                   (org-deadline-warning-days 7)
+                   (org-agenda-skip-function
+                    '(org-agenda-skip-entry-if 'notregexp "\\* NEXT"))
+                   (org-agenda-overriding-header "\nDeadlines")))
+          (todo "NEXT"
+                ((org-agenda-skip-function
+                  '(org-agenda-skip-entry-if 'deadline 'scheduled))
+                 ;; (org-agenda-prefix-format " %i {%-12:c} [%e] ")
+                 ;; (org-agenda-prefix-format " %i %-30b ")
+                 ;; (org-agenda-prefix-format " %i %-.30(org-get-heading t t t t) ")
+                 (org-agenda-prefix-format " %i %-25(dt/org-agenda-parent-heading)\t")
+                 (org-agenda-overriding-header "\nTasks\n")))
+          (tags-todo "inbox"
+                     ((org-agenda-prefix-format "  %?-12t% s")
+                      (org-agenda-overriding-header "\nInbox\n")))
+          (tags "CLOSED>=\"<today>\""
+                ((org-agenda-overriding-header "\nCompleted today\n")))))
+         )))
+
+
+  (defun org-capture-inbox ()
+     (interactive)
+     ;;(call-interactively 'org-store-link)
+     (org-capture nil "i"))
 
   ;; org export will only use the minibuffer until ? is pressed
   (setq org-export-dispatch-use-expert-ui t)
@@ -215,6 +290,7 @@
                                  (python . t)
                                  (R . t)
                                  (emacs-lisp . t)
+                                 (dot . t)
                                  (scheme . t)))
 
   ;; org latex
@@ -224,9 +300,10 @@
   (add-to-list 'org-latex-packages-alist
                '("AUTO" "babel" t ("pdflatex")))
 
-  ;; unset keybindings
-  (local-unset-key (kbd "C-c C-s"))
-  (local-unset-key (kbd "C-c C-d")))
+  ;; some useful org kbd macros
+  (defalias 'dt/org-bolden-bullet
+   (kmacro "* C-s : <return> C-b * C-n C-a")
+  ) ;; end of usepackage org
 
 (use-package oc-biblatex
   :config
@@ -321,8 +398,8 @@
   ;; :ensure t ;; (anki-editor :type git :host github :repo "orgtre/anki-editor")
   :bind
   (:map anki-editor-mode-map
-        ("C-c a p" . #'dt/anki-push-note)
-        ("C-c a n" . (lambda (&optional prefix)
+        ("C-c A p" . #'dt/anki-push-note)
+        ("C-c A n" . (lambda (&optional prefix)
 		               "Modified version of `anki-editor-insert-note'."
 		               (interactive "P")
 		               (let* ((deck (org-entry-get-with-inheritance anki-editor-prop-deck))
@@ -627,6 +704,14 @@ Note: I customized this function to always pop-to-buffer."
   ("Z=" . point-to-register)
   ("z0" . jump-to-register))
 
+(use-package sh-script
+  :mode
+  ("\\.bb\\'" . shell-script-mode)
+  ("\\.bbclass\\'" . shell-script-mode)
+  ("\\.bbappend\\'" . shell-script-mode)
+  ("\\.inc\\'" . shell-script-mode)
+  )
+
 (use-package smartparens
   :ensure t
   :diminish smartparens-mode
@@ -675,6 +760,9 @@ Note: I customized this function to always pop-to-buffer."
 
 (use-package c++-mode
   :hook (c++-mode . eglot-ensure))
+
+;; (use-package csharp-mode
+;;   )
 
 (use-package caddyfile-mode
   :ensure t
@@ -1068,7 +1156,7 @@ Note: I customized this function to always pop-to-buffer."
 
   ("C-< f u" . (lambda ()
 		 (interactive)
-		 (set-face-attribute 'default nil :height 120 :font "Inconsolata condensed" :weight 'normal)))
+		 (set-face-attribute 'default nil :height 110 :font "Inconsolata Condensed" :weight 'normal)))
 
   ("C-< f s" . (lambda ()
 		 (interactive)

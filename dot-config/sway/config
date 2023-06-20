@@ -7,6 +7,7 @@ set $right l
 
 set $lenovo_screen "Lenovo Group Limited LEN L27q-30 U16247TT"
 set $laptop_screen "eDP-1"
+set $work_screen "BNQ ZOWIE RL LCD R4K01194SL0"
 
 set $term kitty
 set $menu rofi -show run
@@ -38,6 +39,16 @@ output "eDP-1" {
 
 output $lenovo_screen {
     position 1920 0
+    scale 1.0
+}
+
+output "DP-3" {
+    position 1920 360
+    scale 1.0
+}
+
+output $work_screen {
+    position 1920 360
     scale 1.0
 }
 
@@ -153,6 +164,18 @@ workspace 10 output HDMI-A-1
 
 # workspace 11 output DP-2
 # workspace 12 output DP-2
+
+# output $work_screen
+#        workspace 1
+#        workspace 2
+#        workspace 3
+#        workspace 4
+#        workspace 5
+#        workspace 6
+#        workspace 7
+#        workspace 8
+#        workspace 9
+#        workspace 10
 
 workspace 11 output eDP-1
 workspace 12 output eDP-1
