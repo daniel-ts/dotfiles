@@ -170,6 +170,7 @@
                           ("^ \\*Agenda Commands\\*" display-buffer-at-bottom)
                           ("^\\*Org Select\\*" display-buffer-at-bottom)
                           ("^\\*Calendar\\*" display-buffer-at-bottom)
+                          ("^\\*Org Export Dispatcher*\\*" display-buffer-at-bottom)
                           ("^\\*Bookmark List\\*.*" (display-buffer-same-window display-buffer-pop-up-frame))))
   ;; (setq display-buffer-alist nil)
   )
@@ -198,61 +199,98 @@
   ;; org files
   (org-directory "~/org")
   (org-default-notes-file "notes.org")
-  (org-agenda-files (list "gtd.org"))
-  (org-refile-targets nil)
+  (org-agenda-files (list "gtd.org" "inbox.org" "tickler.org" "anniversaries.org"))
+  (org-refile-targets '(("gtd.org" . (:maxlevel . 3))
+                        ("someday.org" . (:maxlevel . 1))
+                        ("tickler.org" . (:maxlevel . 1))))
+  (org-refile-target-verify-function #'(lambda ()
+                                         "Additional refiling rules"
+                                         ;; do not refile to a task
+                                         (if (org-get-todo-state)
+                                             nil ;; has todo state like TODO => not a refile target
+                                           t)))
+  (org-log-done nil)
   (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
-                              (todo   . " ")
+                              (todo   . " %i %-12:c")
                               (tags   . " %i %-12:c")
                               (search . " %i %-12:c")))
-
+  (org-capture-templates
+   `(("i" "Inbox" entry  (file "inbox.org")
+      ,(concat "* %?\n"
+               "/Entered on/ %U"))
+     ("bi" "org-protocol from Browser to Inbox" entry  (file "inbox.org")
+      ,(concat "* %:description  :bookmark: \n"
+               "%i\n"
+               "%:annotation\n"
+               "/Entered on/ %U"))
+     ("m" "Meeting" entry  (file+headline "tickler.org" "Inbox")
+      ,(concat "* %? :meeting:\n"
+               "<%<%Y-%m-%d %a %H:00>>"))
+     ("e" "Event" entry  (file+headline "tickler.org" "Inbox")
+      ,(concat "* %? :event:\n"
+               "<%<%Y-%m-%d %a %H:00>>"))
+     ))
 
   :config
+  (require 'dash)
+  (require 'org-protocol)
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;;;    org agenda tweaks for GTD    ;;;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  (setq org-capture-templates
-       `(("i" "Inbox" entry  (file+headline "gtd.org" "Inbox")
-        ,(concat "* %?\n"
-                 "/Entered on/ %U"))
-         ("m" "Meeting" entry  (file+headline "gtd.org" "Inbox")
-          ,(concat "* %? :meeting:\n"
-                   "<%<%Y-%m-%d %a %H:00>>"))
-         ("e" "Event" entry  (file+headline "gtd.org" "Inbox")
-          ,(concat "* %? :event:\n"
-                   "<%<%Y-%m-%d %a %H:00>>"))
-         ))
 
-  (defun dt/org-agenda-parent-heading ()
-    (car (last (org-get-outline-path))))
 
   (setq org-agenda-custom-commands
       '(("g" "Get Things Done (GTD)"
          ((agenda ""
-                  ((org-agenda-skip-function
-                    '(org-agenda-skip-entry-if 'deadline))
-                   (org-deadline-warning-days 0)))
-          (agenda nil
-                  ((org-agenda-entry-types '(:deadline))
-                   (org-agenda-format-date "")
-                   (org-deadline-warning-days 7)
-                   (org-agenda-skip-function
-                    '(org-agenda-skip-entry-if 'notregexp "\\* NEXT"))
-                   (org-agenda-overriding-header "\nDeadlines")))
-          (todo "NEXT"
-                ((org-agenda-skip-function
-                  '(org-agenda-skip-entry-if 'deadline 'scheduled))
-                 ;; (org-agenda-prefix-format " %i {%-12:c} [%e] ")
-                 ;; (org-agenda-prefix-format " %i %-30b ")
-                 ;; (org-agenda-prefix-format " %i %-.30(org-get-heading t t t t) ")
-                 (org-agenda-prefix-format " %i %-25(dt/org-agenda-parent-heading)\t")
-                 (org-agenda-overriding-header "\nTasks\n")))
-          (tags-todo "inbox"
-                     ((org-agenda-prefix-format "  %?-12t% s")
-                      (org-agenda-overriding-header "\nInbox\n")))
+                  ((org-deadline-warning-days 10)
+                   (org-agenda-prefix-format "\t%i %s %t ")))
+          ;; (alltodo ""
+          ;;          ((org-agenda-overriding-header "Tasks\n")
+          ;;           (org-agenda-skip-function
+          ;;            '(org-agenda-skip-entry-if 'deadline 'scheduled))
+          ;;           (org-agenda-prefix-format " %i %.30b\t")))
+          (tags "projects"
+                   ((org-agenda-overriding-header "Tasks\n")
+                    (org-agenda-skip-function
+                     '(org-agenda-skip-entry-if 'deadline 'scheduled))
+                    (org-agenda-prefix-format "\t%i %l")))
+          (tags "projects"
+                ((org-agenda-overriding-header "Projects\n")
+                 (org-agenda-skip-function
+                  #'(lambda ()
+                      "Skips item unless the following conditions are true"
+                      (unless (and (eql (org-outline-level) 2)
+                                   (eq (org-get-todo-state) nil))
+                        (or (outline-next-heading)
+                            (goto-char (point-max))))))
+                (org-agenda-prefix-format "\t")))
+          (tags "inbox"
+                ((org-agenda-prefix-format "  %?-12t% s")
+                 (org-agenda-overriding-header "\nInbox\n")
+                 (org-agenda-skip-function)))
           (tags "CLOSED>=\"<today>\""
                 ((org-agenda-overriding-header "\nCompleted today\n")))))
-         )))
+
+        ("A" "Next two weeks"
+         ((agenda ""
+                  ((org-agenda-overriding-header "\nNext 14 days\n\n")
+                   (org-agenda-prefix-format "\t%i %s\t")
+                   (org-agenda-span 15)
+                   (start-on-weekday nil)))))
+        ("h" "At home" tags "+@home")
+        ("v" "At VRalive" tags "+@VRalive")
+        ("p" "In Hamburg" tags "+@hamburg")
+        ("w" "Waiting" todo "WAIT" ((org-agenda-prefix-format "%i %b\t\t")))
+        ;; ("b" "Buy" tags "+buy")
+        ("b" "Buy"
+         ((tags "+buy"
+                ((org-agenda-prefix-format "\t%l")))))
+        ("D" "Done tasks" todo "DONE")
+        ("s" "Someday/Maybe" tags "+someday"
+         ((org-agenda-files '("someday.org"))
+          (org-agenda-text-search-extra-files nil)))
+      ))
 
 
   (defun org-capture-inbox ()
@@ -303,7 +341,7 @@
   ;; some useful org kbd macros
   (defalias 'dt/org-bolden-bullet
    (kmacro "* C-s : <return> C-b * C-n C-a")
-  ) ;; end of usepackage org
+   )) ;; end of usepackage org
 
 (use-package oc-biblatex
   :config
@@ -1181,13 +1219,14 @@ Note: I customized this function to always pop-to-buffer."
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(magit slime org-download lxd-tramp pyvenv anki-editor emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode company-auctex js2-mode company-go go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords company-restclient restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux company auctex))
+   '(org-protocol magit slime org-download lxd-tramp pyvenv anki-editor emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode company-auctex js2-mode company-go go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords company-restclient restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux company auctex))
  '(safe-local-variable-values
    '((eval modify-syntax-entry 43 "'")
      (eval modify-syntax-entry 36 "'")
      (eval modify-syntax-entry 126 "'")))
  '(terraform-indent-level 2)
- '(urlenc:default-coding-system 'utf-8))
+ '(urlenc:default-coding-system 'utf-8)
+ '(warning-suppress-log-types '((org-element-cache))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
