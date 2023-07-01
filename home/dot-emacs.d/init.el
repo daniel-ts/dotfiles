@@ -164,11 +164,11 @@
   (display-buffer-alist '(("^magit:.*" display-buffer-at-bottom)
                           ("^\\*org-roam\\*.*" display-buffer-at-bottom)
                           ("^\\*Org Links\\*.*" display-buffer-at-bottom)
-                          ("^\\*Org Links\\*.*" display-buffer-at-bottom)
                           ("^\\*Warnings\\*.*" display-buffer-at-bottom)
                           ("^\\*Geiser Debug\\*.*" display-buffer-at-bottom)
                           ("^ \\*Agenda Commands\\*" display-buffer-at-bottom)
                           ("^\\*Org Select\\*" display-buffer-at-bottom)
+                          ("^\\*Org Attach\\*" display-buffer-at-bottom)
                           ("^\\*Calendar\\*" display-buffer-at-bottom)
                           ("^\\*Org Export Dispatcher*\\*" display-buffer-at-bottom)
                           ("^\\*Bookmark List\\*.*" (display-buffer-same-window display-buffer-pop-up-frame))))
@@ -198,10 +198,14 @@
   :custom
   ;; org files
   (org-directory "~/org")
+  (org-attach-id-dir "attachments/")
+  (org-attach-dir-relative t)
+  (org-attach-method 'cp) ;; 'mv also possible
   (org-default-notes-file "notes.org")
   (org-agenda-files (list "gtd.org" "inbox.org" "tickler.org" "anniversaries.org"))
   (org-refile-targets '(("gtd.org" . (:maxlevel . 3))
                         ("someday.org" . (:maxlevel . 1))
+                        ("cooking.org" . (:maxlevel . 1))
                         ("tickler.org" . (:maxlevel . 1))))
   (org-refile-target-verify-function #'(lambda ()
                                          "Additional refiling rules"
@@ -560,6 +564,7 @@ Note: I customized this function to always pop-to-buffer."
                        (dired-find-file-other-window)
                      (let ((kill-buffer-hook nil))
                        (dired-find-alternate-file)))))
+        ("C-a a" . #'org-attach-dired-to-subtree)
         )
 
   :hook
@@ -584,6 +589,12 @@ Note: I customized this function to always pop-to-buffer."
 
 (use-package magit
   :ensure t)
+
+(use-package notmuch
+  :ensure t
+  :custom
+  (message-sendmail-function 'message-send-mail-with-sendmail)
+  )
 
 (use-package nov
   :ensure t
@@ -704,6 +715,9 @@ Note: I customized this function to always pop-to-buffer."
   (setq highlight-indent-guides-auto-odd-face-perc 5)
   (setq highlight-indent-guides-auto-even-face-perc 5)
   (setq highlight-indent-guides-auto-character-face-perc 8))
+
+(use-package hledger-mode
+  :ensure t)
 
 (use-package kmacro
   :chords
@@ -1219,7 +1233,7 @@ Note: I customized this function to always pop-to-buffer."
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(org-protocol magit slime org-download lxd-tramp pyvenv anki-editor emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode company-auctex js2-mode company-go go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords company-restclient restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux company auctex))
+   '(notmuch hledger-mode org-protocol magit slime org-download lxd-tramp pyvenv anki-editor emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode company-auctex js2-mode company-go go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords company-restclient restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux company auctex))
  '(safe-local-variable-values
    '((eval modify-syntax-entry 43 "'")
      (eval modify-syntax-entry 36 "'")

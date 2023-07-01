@@ -1,0 +1,11 @@
+
+[Unit]
+Description=Fetch mail for %i periodically
+
+[Timer]
+Unit=offlineimap@%i.service
+OnBootSec=3min
+OnUnitActiveSec=7min
+
+[Install]
+WantedBy=default.target

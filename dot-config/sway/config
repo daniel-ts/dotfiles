@@ -248,6 +248,8 @@ mode "secondary" {
 bindsym $mod+i mode "secondary"
 
 # Special window rules
+smart_gaps inverse_outer
+gaps horizontal 500
 for_window [app_id="org.kde.polkit-kde-authentication-agent-1"] floating enable
 for_window [app_id="org.keepassxc.KeePassXC" title=".*Access Request$"] floating enable
 for_window [app_id="org.keepassxc.KeePassXC" title="\[Locked\]|Unlock Database"] floating enable

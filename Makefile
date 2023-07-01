@@ -12,7 +12,7 @@ remove-dot-config:
 remove-home-dir:
 	stow -D home --target ${HOME}
 
-restoe-dot-config:
+restow-dot-config:
 	stow -R dot-config --target ${XDG_CONFIG_HOME}
 
 unstow: remove-dot-config remove-dot-home

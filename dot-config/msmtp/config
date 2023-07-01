@@ -1,0 +1,49 @@
+# Set default values for all following accounts.
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        ~/.local/var/log/msmtp.log
+
+# store passwords with
+# secret-tool store --label=msmtp host smtp.your.domain service smtp user yourusername
+# and msmtp finds them automatically
+
+# posteo.de
+account         posteo
+host            posteo.de
+port            465
+auth            plain
+tls_starttls    off
+from            Daniel Tschertkow <daniel.tschertkow@posteo.de>
+user            daniel.tschertkow@posteo.de
+
+# hotmail.com
+account         hotmail.com
+host            smtp.office365.com
+port            587
+tls_starttls    on
+auth            plain
+from            daniel.tschertkow@hotmail.com
+user            daniel.tschertkow@hotmail.com
+
+# mutter -- hotmail.de
+account         mama
+host            smtp.office365.com
+port            587
+tls_starttls    on
+auth            plain
+from            tatjana.tschertkowa@hotmail.de
+user            tatjana.tschertkowa@hotmail.de
+
+# vrlounge
+account         vrlounge
+host            s90.goserver.host
+port            587
+tls_starttls    on
+auth            plain
+from            daniel@virtualounge.de
+user            daniel@virtualounge.de
+
+# Set a default account
+account default : posteo

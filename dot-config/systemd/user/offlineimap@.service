@@ -1,0 +1,8 @@
+[Unit]
+Description="Sync Mail with OfflineIMAP"
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/offlineimap -a %i
+ExecStartPost=/usr/bin/notmuch new
+WatchdogSec=300
