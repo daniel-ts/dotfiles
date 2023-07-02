@@ -1,0 +1,8 @@
+[Unit]
+Description="Sync Maildir with isync"
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mbsync --config %h/.config/isync/mbsyncrc -a
+ExecStartPost=/usr/bin/notmuch new
+WatchdogSec=300

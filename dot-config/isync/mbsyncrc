@@ -1,0 +1,66 @@
+# Global configuration section
+#   Values here are used as defaults for any following Channel section that
+#   doesn't specify them.
+Expunge Both
+Create Both
+FSync yes
+
+MaildirStore local
+Path ~/mail/
+Trash Trash
+
+# posteo.de
+IMAPStore posteo
+Host posteo.de
+Port 993
+AuthMechs LOGIN
+SSLType IMAPS
+UserCmd "secret-tool lookup Title isync-posteo service imap host posteo.de"
+PassCmd "secret-tool lookup Title posteo.de host posteo.de"
+
+Channel posteo
+Far :posteo:
+Near :local:posteo
+Sync PullNew Push
+
+# hotmail.com
+IMAPStore hotmail
+Host outlook.office365.com
+Port 993
+AuthMechs LOGIN
+SSLType IMAPS
+UserCmd "secret-tool lookup Title isync-hotmail host outlook.office365.com service imap"
+PassCmd "secret-tool lookup Title hotmail.com host outlook.office365.com"
+
+Channel hotmail
+Far :hotmail:
+Near :local:hotmail
+Sync PullNew Push
+
+# hotmail.de - Mama
+IMAPStore hotmail-mama
+Host outlook.office365.com
+Port 993
+AuthMechs LOGIN
+SSLType IMAPS
+UserCmd "secret-tool lookup Title isync-hotmail-mama host outlook.office365.com service imap"
+PassCmd "secret-tool lookup Title mama-hotmail.de host outlook.office365.com"
+
+Channel hotmail-mama
+Far :hotmail-mama:
+Near :local:hotmail-mama
+Sync PullNew Push
+
+# vrlounge
+IMAPStore vrlounge
+Host s90.goserver.host
+Port 143
+AuthMechs LOGIN
+SSLType STARTTLS
+UserCmd "secret-tool lookup Title isync-vrlounge host s90.goserver.host service imap"
+PassCmd "secret-tool lookup Title virtualounge-mail host s90.goserver.host"
+
+Channel vrlounge
+Far :hotmail-mama:
+Near :local:vrlounge
+Sync PullNew Push

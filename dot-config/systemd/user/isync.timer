@@ -1,0 +1,10 @@
+[Unit]
+Description=Fetch mail via isync periodically
+
+[Timer]
+Unit=isync.service
+OnBootSec=3min
+OnUnitActiveSec=7min
+
+[Install]
+WantedBy=default.target

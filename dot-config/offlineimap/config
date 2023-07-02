@@ -118,40 +118,6 @@ holdconnectionopen = no
 sync_deletes = yes
 retrycount = 2
 
-
-# [Account gmail]
-# localrepository = gmail-local
-# remoterepository = gmail-remote
-# quick = 3
-
-# [Repository gmail-local]
-# type = GmailMaildir
-# localfolders = ~/mail/gmail
-# sync_deletes = yes
-
-# [Repository gmail-remote]
-# type = Gmail
-
-# remotehost = imap.gmail.com
-# remoteport = 993
-# sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-# authmechanism = PLAIN
-# authmechanism = XOAUTH2
-
-# remoteusereval = kp_get_username("google")
-# remotepasseval = kp_get_pass("google")
-
-# starttls = no
-# ssl = yes
-# tls_level = tls_secure
-# ssl_version = tls1_2
-# usecompression = yes
-# maxconnections = 1
-# singlethreadperfolder = yes
-# holdconnectionopen = no
-# sync_deletes = yes
-# retrycount = 2
-
 [Account hotmail]
 localrepository = hotmail-local
 remoterepository = hotmail-remote
@@ -217,72 +183,6 @@ holdconnectionopen = no
 sync_deletes = yes
 retrycount = 2
 
-# [Account gmx]
-# localrepository = gmx-local
-# remoterepository = gmx-remote
-# quick = 3
-
-# [Repository gmx-local]
-# type = Maildir
-# localfolders = ~/mail/gmx
-# sync_deletes = yes
-
-# [Repository gmx-remote]
-# type = IMAP
-
-# remotehost = imap.gmx.net
-# remoteport = 993
-# sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-# #authmechanism = PLAIN
-
-# remoteusereval = kp_get_username("gmx.net")
-# remotepasseval = kp_get_pass("gmx.net")
-
-# #starttls = yes
-# ssl = yes
-# tls_level = tls_compat
-# #ssl_version = tls1_2
-# #usecompression = yes
-# maxconnections = 1
-# singlethreadperfolder = yes
-# holdconnectionopen = no
-# sync_deletes = yes
-# retrycount = 2
-
-
-[Account web]
-localrepository = web-local
-remoterepository = web-remote
-quick = 3
-
-[Repository web-local]
-type = Maildir
-localfolders = ~/mail/web.de
-sync_deletes = yes
-
-[Repository web-remote]
-type = IMAP
-
-remotehost = imap.web.de
-remoteport = 993
-sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-authmechanism = PLAIN
-
-remoteusereval = kp_get_username("web.de")
-remotepasseval = kp_get_pass("web.de")
-
-starttls = yes
-ssl = yes
-tls_level = tls_secure
-ssl_version = tls1_2
-#usecompression = yes
-maxconnections = 1
-singlethreadperfolder = yes
-holdconnectionopen = no
-sync_deletes = yes
-retrycount = 2
-
-
 [Account vrlounge]
 localrepository = vrlounge-local
 remoterepository = vrlounge-remote
@@ -297,7 +197,7 @@ sync_deletes = yes
 type = IMAP
 
 remotehost = s90.goserver.host
-r#emoteport = 143
+remoteport = 143
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 authmechanism = PLAIN
 

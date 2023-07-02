@@ -1,0 +1,59 @@
+## Account settings
+set from = daniel.tschertkow@posteo.de
+set realname = "Daniel Tschertkow"
+
+set mbox_type = Maildir
+set folder = "~/mail"
+set spoolfile = "~/mail/posteo"
+set spoolfile = "~/mail/hotmail"
+
+set sendmail = "msmtp -a default"
+#set sidebar_visible
+
+# # cache settings
+# set header_cache = "~/.cache/mutt/<muttemail>/header_cache"
+# set message_cachedir = "~/.cache/mutt/<muttemail>/message_cache"
+
+# # mailbox settings
+# set spoolfile = +INBOX
+# set postponed = +Drafts
+# set record = +Sent
+# set trash = +Trash
+
+# # navigation settings
+# bind index,pager g noop
+# macro index,pager gi "<change-folder>=INBOX<enter>" "go to inbox"
+# macro index,pager gs "<change-folder>=Sent<enter>" "go to sent"
+# macro index,pager gd "<change-folder>=Drafts<enter>" "go to drafts"
+# macro index,pager gt "<change-folder>=Trash<enter>" "go to trash"
+
+# # synchronization settings ['s' to sync]
+# macro index S "<shell-escape>mbsync -V <muttemail><enter>" "sync email"
+
+# ## Other Settings
+# set mail_check_stats
+# set sort = 'reverse-date'
+# set sidebar_visible = no
+# set sidebar_width = 20
+# set sidebar_short_path = yes
+# set sidebar_next_new_wrap = yes
+# set sidebar_format = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
+# bind index,pager \Ck sidebar-prev
+# bind index,pager \Cj sidebar-next
+# bind index,pager \Cl sidebar-open
+# bind index,pager b sidebar-toggle-visible
+# set markers = no # Disables the `+` displayed at line wraps
+# set mime_forward = yes # attachments are forwarded with mail
+# set wait_key = no # mutt won't ask "press key to continue"
+# set fast_reply # skip to compose when replying
+# set fcc_attach # save attachments with the body
+# set forward_format = "Fwd: %s" # format of subject when forwarding
+# set forward_quote # include message in forwards
+# set reverse_name # reply as whomever it was to
+# set include # include message in replies
+# color header blue default ".*"
+# color header brightgreen default "^(From)"
+# color header brightcyan default "^(Subject)"
+# color body brightred default "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
+# color header brightwhite default "^(To|CC|BCC)"
+# color body brightblue default "(https?|ftp|file)://[\-\.,/%~_:?&=\#a-zA-Z0-9;+]+" # URL

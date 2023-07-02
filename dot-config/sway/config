@@ -240,6 +240,7 @@ mode "secondary" {
      bindsym k exec --no-startup-id "keepassxc ~/nextcloud/keepass/dandy.kdbx"; mode "default"
      bindsym u exec --no-startup-id "pavucontrol"; mode "default"
      bindsym a exec --no-startup-id "ymuse"; mode "default"
+     bindsym m exec --no-startup-id "emacsclient --create-frame --eval '(notmuch)'"; mode "default"
 
      bindsym Return mode "default"
      bindsym Escape mode "default"

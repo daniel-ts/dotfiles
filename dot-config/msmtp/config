@@ -15,7 +15,7 @@ host            posteo.de
 port            465
 auth            plain
 tls_starttls    off
-from            Daniel Tschertkow <daniel.tschertkow@posteo.de>
+from            daniel.tschertkow@posteo.de
 user            daniel.tschertkow@posteo.de
 
 # hotmail.com
