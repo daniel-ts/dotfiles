@@ -40,6 +40,27 @@
     (setq-default indent-tabs-mode nil)
     (setq-default tab-width 4))
 
+  (defun dt/clean-region-after-pdf-copy (pmin pmax)
+    (interactive "r")
+    (cl-flet ((clean-forward ()
+                ;; clean newline
+                (save-excursion
+                  (while (re-search-forward (char-to-string #xa) nil t)
+                    (replace-match " " nil nil)))
+                ;; clean line continuation
+                (save-excursion
+                  (while (re-search-forward "- " nil t)
+                    (replace-match "" nil nil)))
+                ;; clean weird double dash
+                (save-excursion
+                  (while (re-search-forward "-­" nil t)
+                    (replace-match "-" nil nil)))))
+      (if (= pmin pmax)
+          (clean-forward)
+        (with-narrowing pmin pmax
+                        (goto-char (point-min))
+                        (clean)))))
+
   (defun dt/switch-theme (theme)
     ;; This interactive call is taken from `load-theme'
     (interactive
