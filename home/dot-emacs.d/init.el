@@ -183,7 +183,6 @@
   :custom
   (display-buffer-base-action '((display-buffer-reuse-window display-buffer-pop-up-frame) (reusable-frames . 0)))
   (display-buffer-alist '(("^magit:.*" display-buffer-at-bottom)
-                          ("^\\*org-roam\\*.*" display-buffer-at-bottom)
                           ("^\\*Org Links\\*.*" display-buffer-at-bottom)
                           ("^\\*Warnings\\*.*" display-buffer-at-bottom)
                           ("^\\*Geiser Debug\\*.*" display-buffer-at-bottom)
@@ -441,7 +440,8 @@
          :map org-mode-map
          ("C-c n i" . org-roam-node-insert)
          ("C-c n e" . org-roam-extract-subtree)
-         ("C-c n b" . org-roam-buffer-toggle)
+         ("C-c n n" . org-roam-buffer-toggle)
+         ("C-c n N" . org-roam-buffer-display-dedicated)
          ("C-c n a" . org-roam-alias-add)
          ("C-c n r" . org-roam-ref-add)
          ("C-c n t" . org-roam-tag-add)
