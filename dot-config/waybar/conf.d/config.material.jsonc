@@ -6,6 +6,7 @@
     "modules-left": [
 		"custom/zen",
         "sway/workspaces",
+        "sway/mode",
     ],
 
     "modules-center": [
@@ -105,6 +106,11 @@ free:  {free}",
 			"default": ["", "", "", ""]
         },
     },
+
+    "sway/mode": {
+		"format": "{}",
+		"max-length": 50,
+	},
 
     "sway/workspaces": {
         "disable-scroll": true,

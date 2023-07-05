@@ -47,6 +47,14 @@ window#waybar.main .modules-right * {
     color: #f53c3c;
 }
 
+#mode {
+    background-color: #fb4934;
+    color: white;
+    margin: 2px 20px 2px 20px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 10px;
+}
+
 #wireplumber,
 #pulseaudio.sound {
     margin-right: 7px;
