@@ -215,19 +215,20 @@ bindsym $mod+minus scratchpad show
 
 ### Modes
 mode "resize" {
-    bindsym $left resize grow width 20px
-    bindsym $down resize shrink height 20px
-    bindsym $up resize grow height 20px
-    bindsym $right resize shrink width 20px
+    bindsym $left resize grow width 100px
+    bindsym $down resize shrink height 100px
+    bindsym $up resize grow height 100px
+    bindsym $right resize shrink width 100px
 
-    bindsym Left resize grow width 20px
-    bindsym Down resize shrink height 20px
-    bindsym Up resize grow height 20px
-    bindsym Right resize shrink width 20px
+    bindsym Shift+$left resize grow width 20px
+    bindsym Shift+$down resize shrink height 20px
+    bindsym Shift+$up resize grow height 20px
+    bindsym Shift+$right resize shrink width 20px
 
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
 }
 bindsym $mod+r mode "resize"
 
@@ -239,7 +240,7 @@ mode "secondary" {
 
      bindsym Return mode "default"
      bindsym Escape mode "default"
-     bindsym $mod+r mode "default"
+     bindsym $mod+i mode "default"
 }
 bindsym $mod+i mode "secondary"
 
