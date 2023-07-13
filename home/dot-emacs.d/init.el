@@ -214,7 +214,10 @@
                ("C-c c" . org-capture)
                ("C-c i" . org-capture-inbox)
                ("C-c l" . org-store-link)
-               ("C-c a" . org-agenda)))
+               ("C-c a" . org-agenda)
+               ("C-< i" . dt/org-capture-transient)
+               ("C-< a" . dt/org-agenda-transient)
+               ))
 
   :custom
   ;; org files
@@ -262,8 +265,6 @@
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;;;    org agenda tweaks for GTD    ;;;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 
   (setq org-agenda-custom-commands
       '(("g" "Get Things Done (GTD)"
@@ -322,6 +323,24 @@
      (interactive)
      ;;(call-interactively 'org-store-link)
      (org-capture nil "i"))
+
+  (defun dt/org-capture-transient ()
+    (interactive)
+    (let ((org-directory "~/.cache/org-capture-transient")
+          (org-agenda-files '("transient.org"))
+          (org-capture-templates
+           `(("i" "Inbox" entry  (file "transient.org")
+              ,(concat "* TODO %?\n"
+                       "/Relating to/ [[%F][%f]]")))))
+      (org-capture nil "i")))
+
+  (defun dt/org-agenda-transient ()
+    (interactive)
+    (let ((org-directory "~/.cache/org-capture-transient")
+          (org-agenda-files '("transient.org"))
+          (org-agenda-custom-commands
+           '(("i" "Transient tasks" todo "TODO" ((org-agenda-prefix-format "%i %b\t\t"))))))
+      (org-agenda nil "i" nil)))
 
   ;; org export will only use the minibuffer until ? is pressed
   (setq org-export-dispatch-use-expert-ui t)
