@@ -1196,7 +1196,17 @@ Note: I customized this function to always pop-to-buffer."
   (yaml-mode . highlight-indent-guides-mode)
   (yaml-mode . smartparens-mode)
   (yaml-mode . (lambda ()
-		(define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+		         (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+  :config
+  (defun dt/ansible-lint-on-buffer ()
+    (interactive)
+    (shell-command (string-join (list "ansible-lint"
+                                      "--profile" "production"
+                                      "--format" "full") " ")
+                   "*ansible-lint*"))
+  :bind ((:map yaml-mode-map
+               ("C-c h l" . dt/ansible-lint-on-buffer)))
+
   )
 
 (use-package guix-emacs
