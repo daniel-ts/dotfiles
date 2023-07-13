@@ -47,7 +47,7 @@ window#waybar.main .modules-right * {
     color: #f53c3c;
 }
 
-#mode {
+#keyboard-state label.locked, #mode {
     background-color: #fb4934;
     color: white;
     margin: 2px 20px 2px 20px;

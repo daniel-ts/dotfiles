@@ -12,6 +12,7 @@
     "modules-center": [
         "clock",
 		"mpd",
+		"keyboard-state",
     ],
 
     "modules-right": [
@@ -155,5 +156,17 @@ free:  {free}",
 		"on-click": "$XDG_CONFIG_HOME/waybar/script/mpd.sh",
 		"on-click-middle": "ario",
     },
+
+	"keyboard-state": {
+		"numlock": false,
+		"capslock": true,
+		"format": {
+			"capslock": "{icon}",
+		},
+		"format-icons": {
+			"locked": "CAPS",
+			"unlocked": "",
+		},
+	},
 }
 ]
