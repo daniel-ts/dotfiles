@@ -737,8 +737,8 @@ Note: I customized this function to always pop-to-buffer."
               ("M-l e e" . flymake-goto-next-error)
               ("M-l e r" . flymake-goto-prev-error)))
 
-;; (use-package flycheck
-;;   :ensure t)
+(use-package easy-hugo
+  :ensure t)
 
 (use-package highlight-indent-guides
   :ensure t
