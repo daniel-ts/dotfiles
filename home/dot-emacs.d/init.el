@@ -59,7 +59,7 @@
           (clean-forward)
         (with-narrowing pmin pmax
                         (goto-char (point-min))
-                        (clean)))))
+                        (clean-forward)))))
 
   (defun dt/switch-theme (theme)
     ;; This interactive call is taken from `load-theme'
