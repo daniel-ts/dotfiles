@@ -208,12 +208,13 @@
 
   :bind ((:map org-mode-map
                ;; ("C-c n d c" . org-download-clipboard)
-               ("C-c l". org-toggle-item))
+               ;; ("C-c TAB" . org-toggle-item))
+               )
          (:map global-map
                ("C-c c" . org-capture)
                ("C-c i" . org-capture-inbox)
-               ("C-c a" . org-agenda))
-         )
+               ("C-c l" . org-store-link)
+               ("C-c a" . org-agenda)))
 
   :custom
   ;; org files
