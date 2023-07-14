@@ -59,3 +59,7 @@ function mbed() {
 }
 
 alias mbed_stop='lxc stop mbed'
+
+function ec() {
+    emacsclient --create-frame $@ & disown
+}
