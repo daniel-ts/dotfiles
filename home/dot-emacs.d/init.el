@@ -631,6 +631,10 @@ Note: I customized this function to always pop-to-buffer."
 (use-package magit
   :ensure t)
 
+(use-package markdown-mode
+  :ensure t
+  :mode ("\\.md\\'" . markdown-mode))
+
 (use-package notmuch-addr
   :ensure t)
 
