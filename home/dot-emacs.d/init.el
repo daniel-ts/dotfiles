@@ -777,6 +777,12 @@ Note: I customized this function to always pop-to-buffer."
 (use-package hledger-mode
   :ensure t)
 
+(use-package key-chord
+  :custom
+  (key-chord-two-keys-delay 0.4)
+  (key-chord-one-key-delay 0.4))
+
+
 (use-package kmacro
   :chords
   ("z8" . kmacro-end-and-call-macro)
