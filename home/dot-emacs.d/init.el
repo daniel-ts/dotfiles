@@ -28,7 +28,9 @@
                           '("PATH" "MANPATH" "INFOPATH"
                             "WORKON_HOME" "SSH_AUTH_SOCK"
                             "XDG_SESSION_TYPE"))
-  (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
+  (unless (getenv "SSH_AUTH_SOCK")
+    (setenv "SSH_AUTH_SOCK" "/run/user/1000/ssh-agent.sock")))
 
 (use-package dash
   :ensure t
