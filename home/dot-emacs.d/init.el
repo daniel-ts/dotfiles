@@ -1119,11 +1119,11 @@ Note: I customized this function to always pop-to-buffer."
 (use-package geiser
   :ensure t)
 
-(use-package geiser-guile
-  :ensure t
-  :after (dash exec-path-from-shell)
-  :custom
-  (geiser-guile-load-path (-distinct (string-split (exec-path-from-shell-getenv "GUILE_LOAD_PATH") ":" t))))
+;; (use-package geiser-guile
+;;   :ensure t
+;;   :after (dash exec-path-from-shell)
+;;   :custom
+;;   (geiser-guile-load-path (-distinct (string-split (exec-path-from-shell-getenv "GUILE_LOAD_PATH") ":" t))))
 
 (use-package scheme-mode
   :mode "\\.scm\\'"
