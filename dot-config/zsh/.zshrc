@@ -82,3 +82,6 @@ LS_COLORS="no=0;38;15:rs=0:di=1;34:ln=01;35:mh=00:pi=40;33:so=1;38;211:do=01;35:
 
 export LS_COLORS
 export GPG_TTY=$(tty)
+
+# Admonica Project
+export ADMPROJ_BLOG_HOST=static.93.55.13.49.clients.your-server.de
