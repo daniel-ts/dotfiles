@@ -347,7 +347,7 @@
     (let ((org-directory "~/.cache/org-capture-transient")
           (org-agenda-files '("transient.org"))
           (org-agenda-custom-commands
-           '(("i" "Transient tasks" todo "TODO" ((org-agenda-prefix-format "%i %b\t\t"))))))
+           '(("i" "Transient tasks" todo "TODO" ((org-agenda-prefix-format "\t%i *%l"))))))
       (org-agenda nil "i" nil)))
 
   ;; org export will only use the minibuffer until ? is pressed
