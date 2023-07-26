@@ -769,7 +769,17 @@ Note: I customized this function to always pop-to-buffer."
               ("M-l e r" . flymake-goto-prev-error)))
 
 (use-package easy-hugo
-  :ensure t)
+  :ensure t
+  :custom
+  (easy-hugo-basedir "~/work/admonica-project/blog")
+  ;; (easy-hugo-url "https://dev.daniel-ts.xyz/blog")
+  (easy-hugo-url "http://localhost:1313/blog/")
+  (easy-hugo-sshdomain "infra1")
+  (easy-hugo-root "/opt/cloud/admproj_blog")
+  (easy-hugo-preview-url "http://localhost:1313/blog/")
+  ;; (easy-hugo-server-flags "--buildDrafts --noHTTPCache")
+  (easy-hugo-postdir "content/posts")
+  (easy-hugo-default-ext ".org"))
 
 (use-package highlight-indent-guides
   :ensure t
