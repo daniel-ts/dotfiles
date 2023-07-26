@@ -98,6 +98,9 @@ bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86Display exec swaylock
 bindsym XF86Calculator exec gnome-calculator
 
+# project-based
+#bindsym $mod+Shift+Return exec "lxc exec admproj su -l root -c kitty"
+
 ## Moving around:
 
 bindsym $mod+$left focus left

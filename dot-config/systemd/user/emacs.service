@@ -6,7 +6,6 @@ Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
 Type=simple
 ExecStart=/home/dandy/.guix-home/profile/bin/emacs --fg-daemon
 ExecStop=/home/dandy/.guix-home/profile/bin/emacsclient --eval "(save-buffers-kill-emacs)"
-#Environment=SSH_AUTH_SOCK=%t/keyring/ssh
 Restart=on-failure
 
 [Install]
