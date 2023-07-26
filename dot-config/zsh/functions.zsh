@@ -15,51 +15,30 @@ function hrec() {
     fi
 }
 
-function hack_running() {
-    # podman container ls -a --format "{{.Names}}" --filter status=running | grep -q kali
-    lxc list -c n "status=running" | grep -q kali
-}
-
-function hack() {
-    if ! hack_running; then
-        #podman container start kali
-        lxc start kali
-    fi
-    lxc exec kali -- su -l
-}
-
-alias hack_stop='lxc stop kali'
-
-function netlab_running() {
-    # podman container ls -a --format "{{.Names}}" --filter status=running | grep -q kali
-    lxc list -c n "status=running" | grep -q netlab
-}
-
-function netlab() {
-    if ! netlab_running; then
-        #podman container start kali
-        lxc start netlab
-    fi
-    lxc exec netlab -- su -l
-}
-
-alias netlab_stop='lxc stop netlab'
-
-function mbed_running() {
-    # podman container ls -a --format "{{.Names}}" --filter status=running | grep -q kali
-    lxc list -c n "status=running" | grep -q mbed
-}
-
-function mbed() {
-    if ! mbed_running; then
-        #podman container start kali
-        lxc start mbed
-    fi
-    lxc exec mbed -- su -l baker
-}
-
-alias mbed_stop='lxc stop mbed'
-
 function ec() {
     emacsclient --create-frame $@ & disown
 }
+
+function lxc-jack-in-running() {
+    # --columns 'n' for name of container
+    test -z "${1}" && return 1
+    lxc list --format=csv --columns 'n' 'status=running' | grep --quiet "${1}"
+}
+
+function lxc-jack-in() {
+    if test -z "${1}"; then
+        echo "no lxd instance given" 1>&2
+        exit 1
+    fi
+
+    local INST="${1}"
+    shift
+    if ! lxc-jack-in-running "${INST}"; then
+        lxc start "${INST}"
+    fi
+
+    lxc exec "${INST}" -- ${@}
+}
+
+alias admproj='lxc-jack-in admproj su -l'
+alias mbed='lxc-jack-in mbed su -l baker'
