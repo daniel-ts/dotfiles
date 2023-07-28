@@ -3,7 +3,7 @@ Description=redshift
 PartOf=graphical-session.target
 
 [Service]
-ExecStart=/home/dandy/.guix-home/profile/bin/redshift
+ExecStart=/usr/bin/redshift
 Restart=on-failure
 
 [Install]
