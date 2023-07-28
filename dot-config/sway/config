@@ -1,3 +1,5 @@
+include /etc/sway/config.d/*
+
 ### Variables
 set $mod Mod4
 set $left h
@@ -268,7 +270,7 @@ for_window [app_id="ymuse"] floating enable
 
 ### Init & Autostart
 exec waybar
-exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK; systemctl --user start sway-session.target"
+exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK SSH_AUTH_SOCK; systemctl --user start sway-session.target"
 exec --no-startup-id dbus-update-activation-environment --all
 exec swayidle -d -w -C ~/.config/swayidle/config
 exec keepassxc ~/nextcloud/keepass/dandy.kdbx
