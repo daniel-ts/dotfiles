@@ -1,9 +1,11 @@
+# echo "sourcing $ZDOTDIR/.zshrc"
+
 # For Emacs tramp to work:
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
 bindkey -e
 
-HISTFILE=$XDG_CACHE_HOME/zsh/zsh_history
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zsh_history"
 HISTSIZE=2000
 SAVEHIST=2000
 setopt sharehistory
