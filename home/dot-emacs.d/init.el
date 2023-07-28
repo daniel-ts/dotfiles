@@ -9,34 +9,16 @@
                        "https://github.com/orgtre/anki-editor.git"
                        :branch "master"))))
 
-;; (use-package exec-path-from-shell
-;;   :ensure t
-;;   :demand t
-;;   :config
-;;   (exec-path-from-shell-initialize)
-;;   :custom
-;;   (exec-path-from-shell-arguments nil)
-;;   (exec-path-from-shell-variables '("PATH" "MANPATH" "INFOPATH"
-;;                                     "WORKON_HOME" "SSH_AUTH_SOCK")))
-
 (use-package exec-path-from-shell
   :ensure t
   :demand t
   :init
-  ;; this is failing me
-  (customize-set-variable 'exec-path-from-shell-arguments nil)
   (customize-set-variable 'exec-path-from-shell-variables
                           '("PATH" "MANPATH" "INFOPATH"
                             "WORKON_HOME" "SSH_AUTH_SOCK"
-                            "XDG_SESSION_TYPE" "WAYLAND_DISPLAY"))
-  (exec-path-from-shell-initialize)
-  (unless (getenv "SSH_AUTH_SOCK")
-    (setenv "SSH_AUTH_SOCK" "/run/user/1000/ssh-agent.sock"))
-  (unless (getenv "XDG_SESSION_TYPE")
-    (setenv "XDG_SESSION_TYPE" "wayland"))
-  (unless (getenv "WAYLAND_DISPLAY")
-    (setenv "WAYLAND_DISPLAY" "wayland-1"))
-  )
+                            "XDG_SESSION_TYPE" "WAYLAND_DISPLAY"
+                            "EDITOR" "VISUAL"))
+  (exec-path-from-shell-initialize))
 
 (use-package dash
   :ensure t
