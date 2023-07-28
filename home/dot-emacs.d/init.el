@@ -604,8 +604,13 @@ Note: I customized this function to always pop-to-buffer."
   (dired-listing-switches "--all -l --human-readable --group-directories-first"))
 
 (use-package dockerfile-mode
-  :ensure t
-  :mode ("Dockerfile\\'" . dockerfile-mode))
+  :ensure t)
+
+(use-package dockerfile-ts-mode
+  :after dockerfile-mode
+  :mode
+  ("Dockerfile\\'" . dockerfile-mode)
+  ("Containerfile\\'" . dockerfile-mode))
 
 (use-package flyspell
   :ensure t
@@ -687,6 +692,42 @@ Note: I customized this function to always pop-to-buffer."
   (tramp-default-method "ssh"))
 
 (use-package tramp-container)
+
+(use-package treesit
+  :custom
+  (major-mode-remap-alist
+   '((css-mode . css-ts-mode)
+     (dockerfile-mode . dockerfile-ts-mode)
+     (go-mode . go-ts-mode)
+     ;; (hcl-mode . hcl-ts-mode)
+     (html-mode . html-ts-mode)
+     ;; (javascript-mode . )
+     ;; (latex . -ts-mode)
+     (python-mode . python-ts-mode)
+     (conf-toml-mode . toml-ts-mode)
+     (typescript-mode . typescipt-ts-mode)
+     (yaml-mode . yaml-ts-mode)))
+
+  :config
+  (use-package combobulate
+    :preface
+    ;; You can customize Combobulate's key prefix here.
+    ;; Note that you may have to restart Emacs for this to take effect!
+    (setq combobulate-key-prefix "C-c o")
+
+    ;; Optional, but recommended.
+    ;;
+    ;; You can manually enable Combobulate with `M-x
+    ;; combobulate-mode'.
+    :hook ((python-ts-mode . combobulate-mode)
+           (js-ts-mode . combobulate-mode)
+           (css-ts-mode . combobulate-mode)
+           (yaml-ts-mode . combobulate-mode)
+           (typescript-ts-mode . combobulate-mode)
+           (tsx-ts-mode . combobulate-mode))
+    ;; Amend this to the directory where you keep Combobulate's source
+    ;; code.
+    :load-path ("~/.local/lib/emacs/29.1/site-lisp/combobulate")))
 
 (use-package use-package-chords
   :ensure t
@@ -779,8 +820,8 @@ Note: I customized this function to always pop-to-buffer."
 
 (use-package key-chord
   :custom
-  (key-chord-two-keys-delay 0.4)
-  (key-chord-one-key-delay 0.4))
+  (key-chord-two-keys-delay 0.3)
+  (key-chord-one-key-delay 0.3))
 
 
 (use-package kmacro
@@ -926,7 +967,10 @@ Note: I customized this function to always pop-to-buffer."
   :ensure t)
 
 (use-package go-mode
-  :ensure t
+  :ensure t)
+
+(use-package go-ts-mode
+  :after go-mode
   :init
   ;; (defun lsp-go-install-save-hooks ()
   ;;   (add-hook 'before-save-hook #'lsp-format-buffer t t))
@@ -1084,7 +1128,7 @@ Note: I customized this function to always pop-to-buffer."
   )
 
 (use-package python
-  :bind (:map python-mode-map
+  :bind (:map python-ts-mode-map
               ("C-c h" . (lambda ()
                           (interactive)
                           (info "python"))))
@@ -1212,20 +1256,25 @@ Note: I customized this function to always pop-to-buffer."
   (custom-set-variables '(terraform-indent-level 2)))
 
 (use-package typescript-mode
-  :ensure t
-  :mode ("\\.ts\\'" . typescript-mode)
-  :hook (typescript-mode . eglot-ensure)
-)
+  :ensure t)
+
+(use-package typescript-ts-mode
+  :after typescript-mode
+  :mode ("\\.ts\\'" . typescript-ts-mode)
+  :hook (typescript-mode . eglot-ensure))
 
 (use-package yaml-mode
-  :ensure t
+  :ensure t)
+
+(use-package yaml-ts-mode
+  :after yaml-mode
   :mode ("\\.ya?ml\\'")
   :hook
-  (yaml-mode . display-line-numbers-mode)
-  (yaml-mode . highlight-indent-guides-mode)
-  (yaml-mode . smartparens-mode)
-  (yaml-mode . (lambda ()
-		         (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+  (yaml-ts-mode . display-line-numbers-mode)
+  (yaml-ts-mode . highlight-indent-guides-mode)
+  (yaml-ts-mode . smartparens-mode)
+  (yaml-ts-mode . (lambda ()
+		            (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
   :config
   (defun dt/ansible-lint-on-buffer ()
     (interactive)
@@ -1233,7 +1282,7 @@ Note: I customized this function to always pop-to-buffer."
                                       "--profile" "production"
                                       "--format" "full") " ")
                    "*ansible-lint*"))
-  :bind ((:map yaml-mode-map
+  :bind ((:map yaml-ts-mode-map
                ("C-c h l" . dt/ansible-lint-on-buffer)))
 
   )
