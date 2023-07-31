@@ -100,8 +100,9 @@ bindsym XF86Display exec swaylock
 bindsym XF86Calculator exec gnome-calculator
 
 # project-based
-bindsym $mod+Shift+Return exec --no-startup-id 'lxc exec kali kitty'
-bindsym $mod+Shift+d exec --no-startup-id 'lxc exec kali -- rofi -show run'
+bindsym $mod+Shift+Return exec --no-startup-id lxc exec kali --  su --login --command='kitty'
+bindsym $mod+Shift+d exec --no-startup-id lxc exec kali -- su --login --command='rofi -show run'
+bindsym $mod+Shift+f exec --no-startup-id lxc exec kali -- su --login --command='firefox --new-window'
 
 ## Moving around:
 
