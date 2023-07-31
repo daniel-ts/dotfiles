@@ -17,8 +17,13 @@
                           '("PATH" "MANPATH" "INFOPATH"
                             "WORKON_HOME" "SSH_AUTH_SOCK"
                             "XDG_SESSION_TYPE" "WAYLAND_DISPLAY"
-                            "EDITOR" "VISUAL"))
-  (exec-path-from-shell-initialize))
+                            "EDITOR" "VISUAL" "XDG_CONFIG_HOME"))
+  (exec-path-from-shell-initialize)
+  (unless (getenv "WAYLAND_DISPALY")
+    (setenv "WAYLAND_DISPLAY" "wayland-1"))
+  (unless (getenv "XDG_SESSION_TYPE")
+    (setenv "XDG_SESSION_TYPE" "wayland"))
+  )
 
 (use-package dash
   :ensure t
@@ -132,6 +137,8 @@
   (setq initial-scratch-message (concat ";; Daniel Tschertkow - " (format-time-string "%d-%m-%Y") "\n"))
   (setq default-directory "~/")
   (setq make-backup-files nil)
+  (add-to-list 'backup-directory-alist
+             (cons tramp-file-name-regexp nil))
 
   (global-visual-line-mode 1)
   (column-number-mode 1)
