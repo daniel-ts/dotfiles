@@ -17,10 +17,9 @@ set $menu rofi -show run
 workspace_layout stacking
 
 # clamshell
-exec_always scripts/clamshell.sh
-
 bindswitch --reload --locked lid:on output $laptop_screen disable
 bindswitch --reload --locked lid:off output $laptop_screen enable
+exec_always $XDG_CONFIG_HOME/sway/scripts/clamshell.sh
 
 # import theme
 include themes/current
