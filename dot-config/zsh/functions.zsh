@@ -42,3 +42,4 @@ function lxc-jack-in() {
 
 alias admproj='lxc-jack-in admproj su -l'
 alias mbed='lxc-jack-in mbed su -l baker'
+alias kali='lxc-jack-in kali su -l'
