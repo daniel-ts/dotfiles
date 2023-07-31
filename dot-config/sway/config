@@ -100,7 +100,8 @@ bindsym XF86Display exec swaylock
 bindsym XF86Calculator exec gnome-calculator
 
 # project-based
-#bindsym $mod+Shift+Return exec "lxc exec admproj su -l root -c kitty"
+bindsym $mod+Shift+Return exec --no-startup-id 'lxc exec kali kitty'
+bindsym $mod+Shift+d exec --no-startup-id 'lxc exec kali -- rofi -show run'
 
 ## Moving around:
 
