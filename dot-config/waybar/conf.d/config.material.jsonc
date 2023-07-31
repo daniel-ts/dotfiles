@@ -41,7 +41,7 @@
 
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{:%H:%M:%S}",
+        "format": "  {:%H:%M}  ",
         "format-alt": "{:%d %B, %Y}",
         "interval": 1,
     },
