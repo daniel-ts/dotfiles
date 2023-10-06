@@ -99,11 +99,6 @@ bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86Display exec swaylock
 bindsym XF86Calculator exec gnome-calculator
 
-# project-based
-bindsym $mod+Shift+Return exec --no-startup-id lxc exec kali --  su --login --command='kitty'
-bindsym $mod+Shift+d exec --no-startup-id lxc exec kali -- su --login --command='rofi -show run'
-bindsym $mod+Shift+f exec --no-startup-id lxc exec kali -- su --login --command='firefox --new-window'
-
 ## Moving around:
 
 bindsym $mod+$left focus left
@@ -250,9 +245,29 @@ mode "secondary" {
 }
 bindsym $mod+i mode "secondary"
 
+
+mode "kali" {
+     bindsym Return exec --no-startup-id lxc exec kali --  su --login --command='kitty'; mode "default"
+     bindsym d exec --no-startup-id lxc exec kali -- su --login --command='rofi -show run'; mode "default"
+     bindsym m exec --no-startup-id lxc exec kali -- su --login --command='firefox --new-window'; mode "default"
+     bindsym Shift+m exec --no-startup-id lxc exec kali -- su --login --command='firefox --new-window -P clean-slate'; mode "default"
+     bindsym o exec --no-startup-id lxc exec kali -- su --login --command='pcmanfm'; mode "default"
+
+     bindsym $mod+u mode "default"
+     bindsym Escape mode "default"
+}
+bindsym $mod+u mode "kali"
+
+# project-based
+bindsym $mod+Shift+Return exec --no-startup-id lxc exec kali --  su --login --command='kitty'
+bindsym $mod+Shift+d exec --no-startup-id lxc exec kali -- su --login --command='firefox --new-window -P proxied'
+bindsym $mod+Shift+f exec --no-startup-id lxc exec kali -- su --login --command='firefox --new-window'
+
+
 # Special window rules
-smart_gaps inverse_outer
-gaps horizontal 500
+#smart_gaps inverse_outer
+#gaps horizontal 500
+
 for_window [app_id="org.kde.polkit-kde-authentication-agent-1"] floating enable
 for_window [app_id="org.keepassxc.KeePassXC" title=".*Access Request$"] floating enable
 for_window [app_id="org.keepassxc.KeePassXC" title="\[Locked\]|Unlock Database"] floating enable
@@ -272,6 +287,6 @@ for_window [app_id="ymuse"] floating enable
 ### Init & Autostart
 exec waybar
 exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK SSH_AUTH_SOCK; systemctl --user start sway-session.target"
+exec keepassxc --keyfile ~/nextcloud/dandy.keyx ~/nextcloud/keepass/dandy.kdbx
 exec --no-startup-id dbus-update-activation-environment --all
 exec swayidle -d -w -C ~/.config/swayidle/config
-exec keepassxc ~/nextcloud/keepass/dandy.kdbx

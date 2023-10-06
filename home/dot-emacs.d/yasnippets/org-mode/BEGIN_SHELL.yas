@@ -6,6 +6,6 @@
 # keybinding:
 
 # --
-#+BEGIN_SRC shell :results verbatim drawer replace :session ${1:cur}
+#+BEGIN_SRC shell
 `yas-selected-text`$0
 #+END_SRC

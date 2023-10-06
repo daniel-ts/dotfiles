@@ -12,3 +12,4 @@ alias jrn='journalctl --user --follow --this-boot --unit'
 alias sys='systemctl --user'
 alias ip='ip --color=auto'
 alias rcom='sudo picocom --baud 115200 --escape t /dev/ttyUSB0'
+alias pacman-package-fzf="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"

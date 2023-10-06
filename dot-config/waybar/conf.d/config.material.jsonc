@@ -16,7 +16,7 @@
     ],
 
     "modules-right": [
-		"custom/mail",
+		// "custom/mail",
         "pulseaudio#sound",
         "pulseaudio#icon",
 		"backlight",
@@ -34,7 +34,7 @@
 
 	"custom/mail": {
 		"format": "{}    ",
-		"interval": "120",
+		"interval": "5",
 		"exec": "notmuch count tag:unread",
 		"on-click": "emacsclient --create-frame --eval '(notmuch)'",
 	},
