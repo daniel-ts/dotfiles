@@ -3,12 +3,6 @@
 (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
 ;; (setq package-refresh-contents-hook nil)
 
-(customize-set-variable
- 'package-vc-selected-packages
- '((anki-editor . (:url
-                       "https://github.com/orgtre/anki-editor.git"
-                       :branch "master"))))
-
 (use-package exec-path-from-shell
   :ensure t
   :demand t
@@ -75,14 +69,7 @@
 
   (defun dt/open-cwd-in-kitty ()
     (interactive)
-    (start-process "kitty" nil "kitty" "--detach" "--directory" default-directory))
-
-  (defun dt/anki-push-note (begin end)
-    (interactive "r")
-    (save-excursion
-      (narrow-to-region begin end)
-      (anki-editor-push-notes)
-      (widen))))
+    (start-process "kitty" nil "kitty" "--detach" "--directory" default-directory)))
 
 (use-package compat
   :ensure t)
@@ -106,6 +93,7 @@
   (setq inhibit-startup-screen t)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
+  (pixel-scroll-precision-mode 1)
   (menu-bar-mode -1)
   (blink-cursor-mode 0)
 
@@ -471,15 +459,20 @@
 	 ))
 
 (use-package anki-editor
-  ;; :init (package-vc-install
-  ;;        '(anki-editor . (:url
-  ;;                          "https://github.com/orgtre/anki-editor.git"
-  ;;                          :branch "master")))
-  ;; :ensure t ;; (anki-editor :type git :host github :repo "orgtre/anki-editor")
+  :load-path ("~/.local/lib/emacs/29.1/site-lisp/anki-editor/")
+  :init
+  (defun dt/anki-push-note (begin end)
+    (interactive "r")
+    (save-excursion
+      (narrow-to-region begin end)
+      (anki-editor-push-notes)
+      (widen)))
+  :config
+  (setq anki-editor-create-decks t)
   :bind
   (:map anki-editor-mode-map
-        ("C-c A p" . #'dt/anki-push-note)
-        ("C-c A n" . (lambda (&optional prefix)
+        ("C-c < p" . #'dt/anki-push-note)
+        ("C-c < n" . (lambda (&optional prefix)
 		               "Modified version of `anki-editor-insert-note'."
 		               (interactive "P")
 		               (let* ((deck (org-entry-get-with-inheritance anki-editor-prop-deck))
@@ -488,8 +481,8 @@
 							                                       :modelName type))
 			                  (heading "Item"))
 		                 (anki-editor--insert-note-skeleton prefix deck heading type fields)))))
-  :config
-  (setq anki-editor-create-decks t))
+  )
+
 
 (use-package bookmark
   :hook
@@ -529,8 +522,15 @@ Note: I customized this function to always pop-to-buffer."
   (bookmark-default-file "~/.emacs.d/bookmarks")
   (bookmark-bmenu-file-column 40))
 
+
 (use-package prescient
   :ensure t)
+
+;; (use-package vertico
+;;   :ensure t)
+
+;; (use-package vertico-prescient
+;;   :ensure t)
 
 (use-package selectrum-prescient
   :ensure t)
