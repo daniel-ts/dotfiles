@@ -526,23 +526,72 @@ Note: I customized this function to always pop-to-buffer."
 (use-package prescient
   :ensure t)
 
-;; (use-package vertico
-;;   :ensure t)
-
-;; (use-package vertico-prescient
-;;   :ensure t)
-
-(use-package selectrum-prescient
+(use-package vertico-prescient
   :ensure t)
 
-(use-package selectrum
-  :ensure t
+;; Enable vertico
+(use-package vertico
   :init
-  (selectrum-mode +1)
-  (selectrum-prescient-mode +1)
+  (vertico-mode)
+  (vertico-prescient-mode +1)
   (prescient-persist-mode +1)
-  :config
-  (setq prescient-filter-method 'regexp))
+
+  ;; Different scroll margin
+  ;; (setq vertico-scroll-margin 0)
+
+  ;; Show more candidates
+  (setq vertico-count 15)
+
+  ;; Grow and shrink the Vertico minibuffer
+  ;; (setq vertico-resize t)
+
+  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+  ;; (setq vertico-cycle t)
+  )
+
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+;; (use-package savehist
+;;   :init
+;;   (savehist-mode))
+
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
+
+  ;; Enable recursive minibuffers
+  (setq enable-recursive-minibuffers t))
+
+;; (use-package selectrum-prescient
+;;   :ensure t)
+
+;; (use-package selectrum
+;;   :ensure t
+;;   :init
+;;   (selectrum-mode +1)
+;;   (selectrum-prescient-mode +1)
+;;   (prescient-persist-mode +1)
+;;   :config
+;;   (setq prescient-filter-method 'regexp))
 
 (use-package ctrlf
   :ensure t
@@ -683,6 +732,9 @@ Note: I customized this function to always pop-to-buffer."
                    '(file))
              ))
   (openwith-mode 1))
+
+(use-package racket-mode
+  :ensure t)
 
 (use-package rainbow-mode
   :ensure t)
@@ -1363,7 +1415,7 @@ Note: I customized this function to always pop-to-buffer."
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(notmuch-addr notmuch hledger-mode org-protocol magit slime org-download lxd-tramp pyvenv anki-editor emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode company-auctex js2-mode company-go go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords company-restclient restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux company auctex))
+   '(racket-mode notmuch-addr notmuch hledger-mode org-protocol magit slime org-download lxd-tramp pyvenv anki-editor emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode company-auctex js2-mode company-go go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords company-restclient restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux company auctex))
  '(safe-local-variable-values
    '((eval modify-syntax-entry 43 "'")
      (eval modify-syntax-entry 36 "'")
