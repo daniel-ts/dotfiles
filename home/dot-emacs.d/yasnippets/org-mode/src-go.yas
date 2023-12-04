@@ -1,0 +1,8 @@
+# name: src-go
+# key: key
+# keybinding: keybinding
+# contributor:
+# --
+#+BEGIN_SRC go :imports '("fmt" "sync")
+`yas-selected-text`$0
+#+END_SRC

@@ -1,0 +1,7 @@
+(even? 15)
+(even? 16)
+(odd? 15)
+(square 16)
+(square 256)
+(* 4 64)
+(fib 5)

@@ -1,0 +1,45 @@
+# -*- mode: snippet -*-
+# contributor: dandy
+# key: pom.xml
+# name: generic pom.xml
+# group: java
+# keybinding:
+
+# --
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <properties>
+        <!-- Configuration properties, in this case, specifying the Java version. -->
+        <maven.compiler.source>1.17</maven.compiler.source>
+        <maven.compiler.target>1.17</maven.compiler.target>
+    </properties>
+
+    <groupId>com.example</groupId> <!-- A unique identifier for your project. -->
+    <artifactId>my-maven-project</artifactId> <!-- The name of your project. -->
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencyManagement>
+        <!-- centrally manage versions of related dependencies of all submodules -->
+		<dependencies>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.10.1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+            <!-- no version needed, because the version is already specified in the dependencyManagement section -->
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

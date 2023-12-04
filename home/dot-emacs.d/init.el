@@ -3,6 +3,9 @@
 (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
 ;; (setq package-refresh-contents-hook nil)
 
+
+
+
 (use-package exec-path-from-shell
   :ensure t
   :demand t
@@ -11,12 +14,17 @@
                           '("PATH" "MANPATH" "INFOPATH"
                             "WORKON_HOME" "SSH_AUTH_SOCK"
                             "XDG_SESSION_TYPE" "WAYLAND_DISPLAY"
-                            "EDITOR" "VISUAL" "XDG_CONFIG_HOME"))
+                            "EDITOR" "VISUAL" "XDG_CONFIG_HOME"
+                            "JAVA_HOME" "CMAKE_C_COMPILER"
+                            "CMAKE_CXX_COMPILER" "CC" "CXX"
+                            "DISPLAY"))
   (exec-path-from-shell-initialize)
   (unless (getenv "WAYLAND_DISPALY")
     (setenv "WAYLAND_DISPLAY" "wayland-1"))
   (unless (getenv "XDG_SESSION_TYPE")
     (setenv "XDG_SESSION_TYPE" "wayland"))
+  (unless (getenv "DISPALY")
+    (setenv "DISPLAY" ":0"))
   )
 
 (use-package dash
@@ -46,7 +54,7 @@
                     (replace-match "-" nil nil)))))
       (if (= pmin pmax)
           (clean-forward)
-        (with-narrowing pmin pmax
+        (with-restriction pmin pmax
                         (goto-char (point-min))
                         (clean-forward)))))
 
@@ -69,10 +77,61 @@
 
   (defun dt/open-cwd-in-kitty ()
     (interactive)
-    (start-process "kitty" nil "kitty" "--detach" "--directory" default-directory)))
+    (start-process "kitty" nil "kitty" "--detach" "--directory" default-directory))
+
+  (defun dt/reload-dir-locals-for-current-buffer ()
+    "reload dir locals for the current buffer"
+    (interactive)
+    (let ((enable-local-variables :all))
+      (hack-dir-local-variables-non-file-buffer)))
+
+  (defun dt/reload-dir-locals-for-all-buffer-in-this-directory ()
+    "For every buffer with the same `default-directory` as the
+current buffer's, reload dir-locals."
+    (interactive)
+    (let ((dir default-directory))
+      (dolist (buffer (buffer-list))
+        (with-current-buffer buffer
+          (when (equal default-directory dir)
+            (dt/reload-dir-locals-for-current-buffer))))))
+
+  )
 
 (use-package compat
   :ensure t)
+
+(use-package compile
+  :hook (compilation-filter-hook . ansi-color-compilation-filter))
+
+(use-package corfu
+  :ensure t
+  :init
+  (global-corfu-mode)
+  (corfu-echo-mode +1)
+  (corfu-popupinfo-mode +1)
+  (corfu-prescient-mode +1)
+  :custom
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-auto-prefix 3)
+  (corfu-auto-delay 0.1)
+  (corfu-echo-documentation 0.3)
+  (corfu-preview-current 'insert))
+
+(use-package emacs
+  :init
+  ;; TAB cycle if there are only few candidates
+  (setq completion-cycle-threshold 3)
+
+  ;; Emacs 28: Hide commands in M-x which do not apply to the current mode.
+  ;; Corfu commands are hidden, since they are not supposed to be used via M-x.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
+
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (setq tab-always-indent 'complete))
+
 
 (use-package emacsql-sqlite-builtin
   :ensure t)
@@ -175,6 +234,7 @@
                           ("^\\*Org Select\\*" display-buffer-at-bottom)
                           ("^\\*Org Attach\\*" display-buffer-at-bottom)
                           ("^\\*Calendar\\*" display-buffer-at-bottom)
+                          ("^\\*undo-tree\\*" display-buffer-at-bottom)
                           ("^\\*Org Export Dispatcher*\\*" display-buffer-at-bottom)
                           ("^\\*Bookmark List\\*.*" (display-buffer-same-window display-buffer-pop-up-frame))))
   ;; (setq display-buffer-alist nil)
@@ -188,8 +248,7 @@
 
   :hook
   ((org-mode . turn-on-font-lock)
-   (org-mode . org-indent-mode)
-   (org-mode . company-mode))
+   (org-mode . org-indent-mode))
 
   :bind ((:map org-mode-map
                ;; ("C-c n d c" . org-download-clipboard)
@@ -358,7 +417,8 @@
                                  (R . t)
                                  (emacs-lisp . t)
                                  (dot . t)
-                                 (scheme . t)))
+                                 (scheme . t)
+                                 (go . t)))
 
   ;; org latex
   (setq org-latex-compiler "pdflatex")
@@ -438,7 +498,6 @@
   (setq org-roam-v2-ack t)
 
   :config
-  (push 'company-capf company-backends)
   (org-roam-db-autosync-mode)
 
   :bind (("C-c n f" . org-roam-node-find)
@@ -456,7 +515,10 @@
          ("C-c n k a" . org-roam-alias-remove) ; kill alias
          ("C-c n k r" . org-roam-ref-remove) ; kill reference
          ("C-c n k t" . org-roam-tag-remove) ; kill reference
-	 ))
+	     ))
+
+(use-package ob-go
+  :ensure t)
 
 (use-package anki-editor
   :load-path ("~/.local/lib/emacs/29.1/site-lisp/anki-editor/")
@@ -480,7 +542,8 @@
 			                  (fields (anki-editor-api-call-result 'modelFieldNames
 							                                       :modelName type))
 			                  (heading "Item"))
-		                 (anki-editor--insert-note-skeleton prefix deck heading type fields)))))
+		                 (anki-editor--insert-note-skeleton prefix deck heading type fields)
+                         (search-backward "Item")))))
   )
 
 
@@ -527,6 +590,9 @@ Note: I customized this function to always pop-to-buffer."
   :ensure t)
 
 (use-package vertico-prescient
+  :ensure t)
+
+(use-package corfu-prescient
   :ensure t)
 
 ;; Enable vertico
@@ -668,6 +734,13 @@ Note: I customized this function to always pop-to-buffer."
   ("Dockerfile\\'" . dockerfile-mode)
   ("Containerfile\\'" . dockerfile-mode))
 
+(use-package fancy-compilation
+  :ensure t
+  :commands (fancy-compilation))
+
+(with-eval-after-load 'compile
+  (fancy-compilation-mode))
+
 (use-package flyspell
   :ensure t
   :hook latex-mode
@@ -693,7 +766,6 @@ Note: I customized this function to always pop-to-buffer."
   :ensure t
   :custom
   (notmuch-search-oldest-first nil)
-  (notmuch-address-use-company t)
   (notmuch-search-result-format '(
                                   ("date" . "%12s ")
                                   ("count" . " %-7s ")
@@ -742,9 +814,6 @@ Note: I customized this function to always pop-to-buffer."
 (use-package restclient
   :ensure t)
 
-(use-package company-restclient
-  :ensure t)
-
 (use-package tramp
   :custom
   (tramp-termial-type "dumb")
@@ -754,18 +823,21 @@ Note: I customized this function to always pop-to-buffer."
 
 (use-package treesit
   :custom
+  (treesit-extra-load-path '("/usr/local/lib"))
   (major-mode-remap-alist
    '((css-mode . css-ts-mode)
      (dockerfile-mode . dockerfile-ts-mode)
      (go-mode . go-ts-mode)
      ;; (hcl-mode . hcl-ts-mode)
      (html-mode . html-ts-mode)
+     (java-mode . java-ts-mode)
      ;; (javascript-mode . )
      ;; (latex . -ts-mode)
      (python-mode . python-ts-mode)
      (conf-toml-mode . toml-ts-mode)
      (typescript-mode . typescipt-ts-mode)
      (yaml-mode . yaml-ts-mode)))
+
 
   :config
   (use-package combobulate
@@ -780,6 +852,7 @@ Note: I customized this function to always pop-to-buffer."
     ;; combobulate-mode'.
     :hook ((python-ts-mode . combobulate-mode)
            (js-ts-mode . combobulate-mode)
+           (java-ts-mode . combobulate-mode)
            (css-ts-mode . combobulate-mode)
            (yaml-ts-mode . combobulate-mode)
            (typescript-ts-mode . combobulate-mode)
@@ -799,18 +872,18 @@ Note: I customized this function to always pop-to-buffer."
   (setq which-key-show-early-on-C-h t)
   (which-key-mode))
 
-(use-package company
-  :ensure t
-  :config
-  (define-key company-active-map (kbd "M-p") nil)
-  (define-key company-active-map (kbd "M-n") nil)
-  (define-key company-active-map (kbd "C-p") #'company-select-previous)
-  (define-key company-active-map (kbd "C-n") #'company-select-next)
-  (setq company-idle-delay 0.3)
-  :hook
-  (prog-mode . company-mode)
-  (scheme-mode . company-mode)
-  :diminish (company-mode . " ©"))
+;; (use-package company
+;;   :ensure t
+;;   :config
+;;   (define-key company-active-map (kbd "M-p") nil)
+;;   (define-key company-active-map (kbd "M-n") nil)
+;;   (define-key company-active-map (kbd "C-p") #'company-select-previous)
+;;   (define-key company-active-map (kbd "C-n") #'company-select-next)
+;;   (setq company-idle-delay 0.3)
+;;   :hook
+;;   (prog-mode . company-mode)
+;;   (scheme-mode . company-mode)
+;;   :diminish (company-mode . " ©"))
 
 (use-package crux
   :ensure t
@@ -971,7 +1044,7 @@ Note: I customized this function to always pop-to-buffer."
   (setq c-default-style '((java-mode . "java")
                           (awk-mode . "awk")
                           (c++-mode . "stroustrup")
-			      (c-mode . "stroustrup")
+			              (c-mode . "stroustrup")
                           (other . "linux"))))
 
 (use-package c++-mode
@@ -1053,11 +1126,9 @@ Note: I customized this function to always pop-to-buffer."
 
    (add-hook 'project-find-functions #'project-find-go-module))
 
-
-
-
-(use-package company-go
-  :ensure t)
+(use-package java-ts-mode
+  :hook
+  (java-ts-mode . eglot-ensure))
 
 (use-package js2-mode
   :ensure t
@@ -1092,9 +1163,6 @@ Note: I customized this function to always pop-to-buffer."
   :config
   (setq reftex-cite-prompt-optional-args t))
 
-(use-package company-auctex
-  :ensure t)
-
 (use-package latex-mode
   :ensure auctex
   :mode "\\.tex\\'"
@@ -1102,7 +1170,6 @@ Note: I customized this function to always pop-to-buffer."
   ;; mixed-case ist hier wichtig (LaTeX). Siehe obere Links.
   (LaTeX-mode . reftex-mode)
   (LaTeX-mode . smartparens-mode)
-  (LaTeX-mode . company-mode)
   (LaTeX-mode . flyspell-mode)
   (LaTeX-mode . display-line-numbers-mode)
   (LaTeX-mode . (lambda()
@@ -1150,13 +1217,16 @@ Note: I customized this function to always pop-to-buffer."
   :mode "\\.nix\\'"
   )
 
+(use-package nxml-mode
+  :custom
+  (nxml-child-indent 4))
+
 (use-package systemd
   :ensure t
   :hook
   (systemd-mode . display-line-numbers-mode)
   (systemd-mode . highlight-indent-guides-mode)
   (systemd-mode . smartparens-mode)
-  (systemd-mode . company-mode)
 )
 
 (eval-after-load "visual-line-mode" (diminish 'visual-line-mode))
@@ -1415,9 +1485,20 @@ Note: I customized this function to always pop-to-buffer."
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(racket-mode notmuch-addr notmuch hledger-mode org-protocol magit slime org-download lxd-tramp pyvenv anki-editor emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode company-auctex js2-mode company-go go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords company-restclient restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux company auctex))
+   '(fancy-compilation ob-go corfu-echo corfu-prescient racket-mode notmuch-addr notmuch hledger-mode org-protocol magit slime org-download lxd-tramp pyvenv anki-editor emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode js2-mode go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux auctex))
  '(safe-local-variable-values
-   '((eval modify-syntax-entry 43 "'")
+   '((projectile-project-compilation-dir . "./")
+     (projectile-project-compilation-cmd . "cmake --build build")
+     (projectile-project-compilation-dir . "build/")
+     (projectile-project-test-cmd . "ctest --test-dir test")
+     (projectile-project-test-dir . "build/test/")
+     (projectile-project-test-dir . "build/test")
+     (projectile-project-compilation-cmd . "cmake .. && make")
+     (projectile-project-compilation-cmd . "cmake ..")
+     (projectile-project-compilation-dir . "build")
+     (projectile-project-test-cmd . "ctest")
+     (projectile-project-test-dir . "build/tests")
+     (eval modify-syntax-entry 43 "'")
      (eval modify-syntax-entry 36 "'")
      (eval modify-syntax-entry 126 "'")))
  '(terraform-indent-level 2)
