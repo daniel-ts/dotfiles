@@ -543,7 +543,9 @@ current buffer's, reload dir-locals."
 							                                       :modelName type))
 			                  (heading "Item"))
 		                 (anki-editor--insert-note-skeleton prefix deck heading type fields)
-                         (search-backward "Item")))))
+                         (search-backward "Item"))))
+        ;; ("C-c < c" . )
+        )
   )
 
 
@@ -806,7 +808,8 @@ Note: I customized this function to always pop-to-buffer."
   (openwith-mode 1))
 
 (use-package racket-mode
-  :ensure t)
+  :ensure t
+  :hook (racket-mode . racket-xp-mode))
 
 (use-package rainbow-mode
   :ensure t)
@@ -935,6 +938,9 @@ Note: I customized this function to always pop-to-buffer."
   ;; (easy-hugo-server-flags "--buildDrafts --noHTTPCache")
   (easy-hugo-postdir "content/posts")
   (easy-hugo-default-ext ".org"))
+
+(use-package haskell-mode
+  :ensure t)
 
 (use-package highlight-indent-guides
   :ensure t
@@ -1206,6 +1212,9 @@ Note: I customized this function to always pop-to-buffer."
   (setq reftex-plug-into-AUCTeX t)
   ;; Update PDF buffers after successful LaTeX run
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
+
+(use-package lua-mode
+  :ensure t)
 
 (use-package nginx-mode
   :ensure t
@@ -1485,7 +1494,7 @@ Note: I customized this function to always pop-to-buffer."
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(fancy-compilation ob-go corfu-echo corfu-prescient racket-mode notmuch-addr notmuch hledger-mode org-protocol magit slime org-download lxd-tramp pyvenv anki-editor emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode js2-mode go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux auctex))
+   '(haskell-mode lua-mode fancy-compilation ob-go corfu-echo corfu-prescient racket-mode notmuch-addr notmuch hledger-mode org-protocol magit slime org-download lxd-tramp pyvenv anki-editor emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode js2-mode go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux auctex))
  '(safe-local-variable-values
    '((projectile-project-compilation-dir . "./")
      (projectile-project-compilation-cmd . "cmake --build build")

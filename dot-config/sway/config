@@ -87,7 +87,8 @@ bindsym $mod+n exec --no-startup-id emacsclient -c -e '(ibuffer)'
 bindsym $mod+numbersign exec --no-startup-id rofi -show ssh
 #bindsym Print exec --no-startup-id grimshot copy area
 bindsym Print exec --no-startup-id sway-screenshot -m region --clipboard-only
-bindsym $mod+Print exec --no-startup-id sway-screenshot -m region -o /tmp/sway-screenshot -- pinta
+#bindsym $mod+Print exec --no-startup-id sway-screenshot -m region -o /tmp/sway-screenshot -f screenshot.png -- swappy -f /tmp/sway-screenshot/screenshot.png
+bindsym $mod+Print exec --no-startup-id "slurp | grim -g - - | swappy -f -"
 bindsym $mod+Shift+Print exec --no-startup-id sway-screenshot -m region -o /tmp/sway-screenshot -- gimp
 
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
@@ -237,7 +238,7 @@ mode "secondary" {
      bindsym k exec --no-startup-id "keepassxc ~/nextcloud/keepass/dandy.kdbx"; mode "default"
      bindsym u exec --no-startup-id "pavucontrol"; mode "default"
      bindsym a exec --no-startup-id "ymuse"; mode "default"
-     bindsym m exec --no-startup-id "emacsclient --create-frame --eval '(notmuch)'"; mode "default"
+     bindsym n exec --no-startup-id "swaync-client --toggle-panel --skip-wait"; mode "default"
 
      bindsym Return mode "default"
      bindsym Escape mode "default"

@@ -30,10 +30,12 @@ alias pdfjoin='pdfjam --fitpaper true --rotateoversize false'
 alias rs="rsync --update --progress --recursive"
 alias sspnd="systemctl suspend"
 alias ssh-nh='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+alias scp-nh='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias temacs="emacsclient -t"
 alias tf="terraform"
 alias xkcdpass='xkcdpass --delimiter "" --case capitalize'
 alias caddy-fs='caddy file-server --access-log --browse --listen 0.0.0.0:9000 --root $PWD'
+alias lid_inhibit='systemd-inhibit --mode=block --what=handle-lid-switch bash'
 
 ## emacs batch ##
 alias emacs_bytecomp='sudo emacs -Q -batch -L . -f batch-native-compile *.el'
