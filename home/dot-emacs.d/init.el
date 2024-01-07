@@ -253,6 +253,9 @@ current buffer's, reload dir-locals."
   :bind ((:map org-mode-map
                ;; ("C-c n d c" . org-download-clipboard)
                ;; ("C-c TAB" . org-toggle-item))
+               ;; ("C-c j" . (lambda ()
+               ;;              (interactive)
+               ;;              (org-insert-structure-template "src haskell")))
                )
          (:map global-map
                ("C-c c" . org-capture)
@@ -539,6 +542,16 @@ current buffer's, reload dir-locals."
 		               (interactive "P")
 		               (let* ((deck (org-entry-get-with-inheritance anki-editor-prop-deck))
 			                  (type "Einfach")
+			                  (fields (anki-editor-api-call-result 'modelFieldNames
+							                                       :modelName type))
+			                  (heading "Item"))
+		                 (anki-editor--insert-note-skeleton prefix deck heading type fields)
+                         (search-backward "Item"))))
+        ("C-c < m" . (lambda (&optional prefix)
+		               "Modified version of `anki-editor-insert-note'."
+		               (interactive "P")
+		               (let* ((deck (org-entry-get-with-inheritance anki-editor-prop-deck))
+			                  (type "Einfach (beide Richtungen)")
 			                  (fields (anki-editor-api-call-result 'modelFieldNames
 							                                       :modelName type))
 			                  (heading "Item"))
@@ -1281,7 +1294,9 @@ Note: I customized this function to always pop-to-buffer."
   (setq inferior-lisp-program "sbcl"))
 
 (use-package geiser
-  :ensure t)
+  :ensure t
+  :custom
+  (geiser-repl-history-filename "~/.emacs.d/var/geiser_history"))
 
 ;; (use-package geiser-guile
 ;;   :ensure t
