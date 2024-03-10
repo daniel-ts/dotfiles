@@ -1,6 +1,0 @@
-# contributor: dandy
-# key: expand-env-line
-# keybinding:
-# group: headers
-# --
-# expand-env: ((yas-indent-line '${1:auto} (yas-wrap-around-region '${2:t}))$0

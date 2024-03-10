@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: INMTH
-# name: inline math
-# group: latex
-# keybinding:
-
-# --
-\\( $1 \\)$0

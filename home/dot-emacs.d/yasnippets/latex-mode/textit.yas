@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: TIT
-# name: textit tit
-# group: text
-# keybinding:
-
-# --
-\textit{$1`yas-selected-text`}

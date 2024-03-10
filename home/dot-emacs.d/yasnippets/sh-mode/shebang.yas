@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: shebang
-# keybinding:
-
-# --
-#!/bin/sh
-$0

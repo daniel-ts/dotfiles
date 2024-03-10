@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: DEBUG
-# name: drop-into-debugger
-# group:
-# keybinding:
-
-# --
-import pdb; pdb.set_trace()

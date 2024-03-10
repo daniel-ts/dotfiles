@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: SUM
-# name: summation
-# group: math
-# keybinding:
-
-# --
-\sum_{${1:i = }}^{${2:n}}$0

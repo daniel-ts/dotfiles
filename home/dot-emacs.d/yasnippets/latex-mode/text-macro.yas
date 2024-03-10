@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: dandy
-# key: TXT-EQN
-# name: text equation math
-# group: math
-# keybinding:
-
-# --
-\text{$1 }$0
