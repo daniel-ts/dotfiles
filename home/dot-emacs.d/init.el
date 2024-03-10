@@ -235,6 +235,7 @@ current buffer's, reload dir-locals."
                           ("^\\*Org Attach\\*" display-buffer-at-bottom)
                           ("^\\*Calendar\\*" display-buffer-at-bottom)
                           ("^\\*undo-tree\\*" display-buffer-at-bottom)
+                          ("^\\*HS-Error\\*" display-buffer-at-bottom)
                           ("^\\*Org Export Dispatcher*\\*" display-buffer-at-bottom)
                           ("^\\*Bookmark List\\*.*" (display-buffer-same-window display-buffer-pop-up-frame))))
   ;; (setq display-buffer-alist nil)
@@ -955,6 +956,12 @@ Note: I customized this function to always pop-to-buffer."
 (use-package haskell-mode
   :ensure t)
 
+(use-package haskell-interactive-mode
+  :hook (haskell-interactive-mode . smartparens-mode)
+  :bind
+  ("C-x C-p" . haskell-interactive-mode-history-previous)
+  ("C-x C-n" . haskell-interactive-mode-history-next))
+
 (use-package highlight-indent-guides
   :ensure t
   :diminish highlight-indent-guides-mode
@@ -1511,7 +1518,14 @@ Note: I customized this function to always pop-to-buffer."
  '(package-selected-packages
    '(haskell-mode lua-mode fancy-compilation ob-go corfu-echo corfu-prescient racket-mode notmuch-addr notmuch hledger-mode org-protocol magit slime org-download lxd-tramp pyvenv anki-editor emacsql-sqlite-builtin emacs-sqlite-builtin anki-editor zig-mode ansible-doc typescript-mode terraform-mode svelte-mode sonic-pi poetry ein php-mode urlenc systemd nix-mode nginx-mode js2-mode go-mode fish-mode package-lint cmake-mode cider clojure-mode caddyfile-mode flycheck use-package-chords restclient openwith nov dockerfile-mode dired-hacks dired-hide-dotfiles selectrum-prescient academic-phrases gotham-theme yaml-mode which-key undo-tree markdown-mode smartparens rainbow-mode rainbow-delimiters pkg-info projectile vertico selectrum corfu prescient pg finalize emacsql-sqlite3 org-roam async json-mode ivy-yasnippet hydra highlight-indent-guides magit-popup edit-indirect bui geiser-guile exec-path-from-shell doom-themes f eimp diminish ctrlf crux auctex))
  '(safe-local-variable-values
-   '((projectile-project-compilation-dir . "./")
+   '((eval begin
+           (anki-editor-mode)
+           (keymap-local-set
+            (kbd "C-c j")
+            (lambda nil
+              (interactive)
+              (org-insert-structure-template "src haskell"))))
+     (projectile-project-compilation-dir . "./")
      (projectile-project-compilation-cmd . "cmake --build build")
      (projectile-project-compilation-dir . "build/")
      (projectile-project-test-cmd . "ctest --test-dir test")
