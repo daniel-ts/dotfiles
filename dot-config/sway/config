@@ -8,8 +8,8 @@ set $up k
 set $right l
 
 set $lenovo_screen "Lenovo Group Limited LEN L27q-30 U16247TT"
+# set $laptop_screen "AU Optronics 0x2E8D"
 set $laptop_screen "eDP-1"
-set $work_screen "BNQ ZOWIE RL LCD R4K01194SL0"
 
 set $term kitty
 set $menu rofi -show run
@@ -33,7 +33,7 @@ output * bg sunrise.png fill
 #     transform 270
 # }
 
-output "eDP-1" {
+output $laptop_screen {
     position 0 360
     scale 1.0
 }
@@ -41,18 +41,8 @@ output "eDP-1" {
 output $lenovo_screen {
     position 1920 0
     scale 1.0
+    resolution 2560x1440
 }
-
-output "DP-3" {
-    position 1920 360
-    scale 1.0
-}
-
-output $work_screen {
-    position 1920 360
-    scale 1.0
-}
-
 
 ### Input configuration
 
@@ -291,3 +281,4 @@ exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK SSH_AUTH_S
 exec keepassxc --keyfile ~/nextcloud/dandy.keyx ~/nextcloud/keepass/dandy.kdbx
 exec --no-startup-id dbus-update-activation-environment --all
 exec swayidle -d -w -C ~/.config/swayidle/config
+# exec_always aa-notify --poll --since-days 1 --wait 60 --file /var/log/audit/audit.log

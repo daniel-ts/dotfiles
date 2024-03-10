@@ -23,7 +23,8 @@
 		"battery",
         "cpu",
 		"memory",
-		"disk",
+		"custom/disk_root",
+		"custom/disk_home",
         "tray",
     ],
 
@@ -50,17 +51,16 @@
         "format": "{usage}% ",
         "tooltip": false
     },
-
-    "disk": {
+	"custom/disk_home": {
+		"format": "  {} / ",
 		"interval": 30,
-		"format": "  {percentage_used}% ",
-		"tooltip": true,
-		"tooltip-format": "total: {total}
-used:  {used}
-free:  {free}",
-		"path": "/",
-    },
-
+		"exec": "df -h --output=pcent $HOME | tail -1 | tr -d ' '"
+	},
+	"custom/disk_root": {
+		"format": "  {} /",
+		"interval": 30,
+		"exec": "df -h --output=pcent / | tail -1 | tr -d ' '"
+	},
     "memory": {
         "format": "{}%  "
     },
