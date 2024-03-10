@@ -1,3 +1,4 @@
+(package-initialize)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
@@ -5,8 +6,8 @@
 
 
 
-
 (use-package exec-path-from-shell
+  :if (not (eq system-type 'windows-nt))
   :ensure t
   :demand t
   :init
@@ -196,7 +197,8 @@ current buffer's, reload dir-locals."
 	(t (dt/switch-theme 'doom-gruvbox)))
 
   (add-to-list 'default-frame-alist '(alpha-background . 82))
-  (set-face-attribute 'default nil :height 105 :font "JetBrains Mono" :weight 'normal)
+  (when (not (eq system-type 'windows-nt))
+    (set-face-attribute 'default nil :height 105 :font "JetBrains Mono" :weight 'normal))
   )
 
 (use-package emacs
@@ -525,6 +527,7 @@ current buffer's, reload dir-locals."
   :ensure t)
 
 (use-package anki-editor
+  :if (eq (system-name) "pad")
   :load-path ("~/.local/lib/emacs/29.1/site-lisp/anki-editor/")
   :init
   (defun dt/anki-push-note (begin end)
@@ -1018,6 +1021,9 @@ Note: I customized this function to always pop-to-buffer."
   :chords
   ("Z=" . point-to-register)
   ("z0" . jump-to-register))
+
+(use-package s
+  :ensure t)
 
 (use-package sh-script
   :mode
