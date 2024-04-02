@@ -11,7 +11,6 @@ set $lenovo_screen "Lenovo Group Limited LEN L27q-30 U16247TT"
 # set $laptop_screen "AU Optronics 0x2E8D"
 set $laptop_screen "eDP-1"
 
-set $term kitty
 set $menu rofi -show run
 
 workspace_layout stacking
@@ -45,9 +44,18 @@ output $lenovo_screen {
 }
 
 ### Input configuration
-
 input * xkb_layout "de"
-input * xkb_numlock enable
+
+# thinkpad keyboard
+input "1:1:AT_Translated_Set_2_keyboard" {
+      xkb_layout "de"
+}
+
+# kinesis keyboard
+input "2321:8584:SINO_WEALTH_USB_KEYBOARD" {
+      xkb_layout "gb"
+}
+
 
 input "2:14:ETPS/2_Elantech_Touchpad" {
       tap disabled
@@ -58,7 +66,9 @@ input "2:14:ETPS/2_Elantech_Touchpad" {
 
 ### Key bindings
 
-bindsym $mod+Return exec $term
+bindsym $mod+Return exec emacsclient -c --eval "(eshell)"
+#bindsym $mod+Return exec emacsclient -c --eval "(eshell 'N)"
+bindsym $mod+Shift+Return exec kitty
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 floating_modifier $mod normal
@@ -250,7 +260,7 @@ mode "kali" {
 bindsym $mod+u mode "kali"
 
 # project-based
-bindsym $mod+Shift+Return exec --no-startup-id lxc exec kali --  su --login --command='kitty'
+# bindsym $mod+Shift+Return exec --no-startup-id lxc exec kali --  su --login --command='kitty'
 bindsym $mod+Shift+d exec --no-startup-id lxc exec kali -- su --login --command='firefox --new-window -P proxied'
 bindsym $mod+Shift+f exec --no-startup-id lxc exec kali -- su --login --command='firefox --new-window'
 
