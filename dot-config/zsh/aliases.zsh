@@ -6,7 +6,7 @@ alias flatpak='flatpak --user'
 alias ip='ip --color=auto'
 alias journal_sway='journalctl --user --follow --this-boot --identifier sway'
 alias jrn='journalctl --user --follow --this-boot --unit'
-alias lsless='ls -lah --color=always | less -R --use-color'
+alias lsless='ls -lah --color=always --group-directories-first --indicator-style=slash | less -R --use-color'
 alias magit='emacsclient -t -e "(magit  \"./\")"'
 alias pacman-package-fzf="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
 alias pdfjoin='pdfjam --fitpaper true --rotateoversize false'
