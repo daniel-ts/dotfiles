@@ -53,7 +53,7 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 
 # kinesis keyboard
 input "2321:8584:SINO_WEALTH_USB_KEYBOARD" {
-      xkb_layout "gb"
+      xkb_layout "gb(extd)"
 }
 
 
@@ -66,9 +66,9 @@ input "2:14:ETPS/2_Elantech_Touchpad" {
 
 ### Key bindings
 
-bindsym $mod+Return exec emacsclient -c --eval "(eshell)"
+#bindsym $mod+Return exec emacsclient -c --eval "(eshell)"
 #bindsym $mod+Return exec emacsclient -c --eval "(eshell 'N)"
-bindsym $mod+Shift+Return exec kitty
+bindsym $mod+Return exec kitty
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 floating_modifier $mod normal
@@ -135,8 +135,10 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
+bindsym $mod+minus workspace number 11
 bindsym $mod+ssharp workspace number 11
 bindsym $mod+dead_acute workspace number 12
+bindsym $mod+equal workspace number 12
 
 
 # Move focused container to workspace
@@ -151,7 +153,9 @@ bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+Shift+ssharp move container to workspace number 11
+bindsym $mod+Shift+minus move container to workspace number 11
 bindsym $mod+Shift+dead_acute move container to workspace number 12
+bindsym $mod+Shift+equal move container to workspace number 12
 
 workspace  1 output HDMI-A-1
 workspace  2 output HDMI-A-1
@@ -212,8 +216,12 @@ bindsym $mod+Shift+o exec --no-startup-id emacsclient --create-frame --eval '(di
 # bindsym $mod+tab exec --no-startup-id "~/.config/sway/scripts/taskbar.sh"
 
 ## Scratchpad:
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
+#bindsym $mod+Shift+minus move scratchpad
+#bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+slash move scratchpad
+bindsym $mod+slash scratchpad show
+
+
 
 ### Modes
 mode "resize" {
