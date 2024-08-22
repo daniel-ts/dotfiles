@@ -2,7 +2,6 @@ alias cfgadm="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias clip='xargs echo -n | wl-copy'
 alias dired='emacsclient -t -e "(dired  \"./\")"'
 alias dus='du -sh * | sort -rh'
-alias flatpak='flatpak --user'
 alias ip='ip --color=auto'
 alias journal_sway='journalctl --user --follow --this-boot --identifier sway'
 alias jrn='journalctl --user --follow --this-boot --unit'
