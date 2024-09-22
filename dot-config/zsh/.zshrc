@@ -13,14 +13,22 @@ setopt sharehistory
 autoload -U compinit; compinit
 _comp_options+=(globdots)
 
+# global customizations
 [ -f "$ZDOTDIR/completions.zsh" ] && source "$ZDOTDIR/completions.zsh"
 [ -f "$ZDOTDIR/prompt.zsh" ] && source "$ZDOTDIR/prompt.zsh"
 [ -f "$ZDOTDIR/keybindings.zsh" ] && source "$ZDOTDIR/keybindings.zsh"
+[ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
+[ -f "$HOME/.bash_functions" ] && source "$HOME/.bash_functions"
 [ -f "$ZDOTDIR/aliases.zsh" ] && source "$ZDOTDIR/aliases.zsh"
 [ -f "$ZDOTDIR/functions.zsh" ] && source "$ZDOTDIR/functions.zsh"
 
+# system dependet
 [ -f "/usr/share/fzf/completion.zsh" ] && source "/usr/share/fzf/completion.zsh"
 [ -f "/usr/share/fzf/key-bindings.zsh" ] && source "/usr/share/fzf/key-bindings.zsh"
+
+# local customizations: overwriting global
+[ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
+[ -f "$HOME/.functions" ] && source "$HOME/.functions"
 
 #------------------------------
 # Window title
@@ -48,8 +56,6 @@ case $TERM in
     }
     ;;
 esac
-
-[ -f "$HOME/.bash_aliases" ] && source $HOME/.bash_aliases
 
 if !  command -v hostname > /dev/null 2>&1 && [ -f /proc/sys/kernel/hostname ]; then
     hostname() { cat /proc/sys/kernel/hostname ; }
@@ -85,5 +91,3 @@ LS_COLORS="no=0;38;15:rs=0:di=1;34:ln=01;35:mh=00:pi=40;33:so=1;38;211:do=01;35:
 export LS_COLORS
 export GPG_TTY=$(tty)
 
-# Admonica Project
-export ADMPROJ_BLOG_HOST=static.93.55.13.49.clients.your-server.de

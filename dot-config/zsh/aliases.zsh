@@ -14,3 +14,5 @@ alias rs="rsync --update --progress --recursive"
 alias ssys='sudo systemctl'
 alias sys='systemctl --user'
 alias temacs='emacsclient --tty'
+alias fd='cd "$(find ~/* -type d | fzf)"'
+alias lfd='cd "$(find * -type d | fzf)"'

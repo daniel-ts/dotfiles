@@ -4,8 +4,8 @@ Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/emacs --fg-daemon
-ExecStop=/usr/local/bin/emacsclient --eval "(save-buffers-kill-emacs)"
+ExecStart=emacs --fg-daemon
+ExecStop=emacsclient --eval "(save-buffers-kill-emacs)"
 Restart=on-failure
 
 [Install]
