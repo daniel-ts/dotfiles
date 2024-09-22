@@ -5,7 +5,7 @@
 
 bindkey -e
 
-if ! [ -d ""${XDG_CACHE_HOME:-$HOME/.cache}/zsh"];
+if ! [ -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh" ]; then
    mkdir --parents -v "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 fi
 
