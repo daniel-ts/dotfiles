@@ -46,6 +46,7 @@
         "format": "  {:%H:%M}  ",
         "format-alt": "{:%d %B, %Y}",
         "interval": 1,
+		"timezone": "Europe/Berlin",
     },
 
     "cpu": {

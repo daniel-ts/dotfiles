@@ -7,6 +7,8 @@ set $down j
 set $up k
 set $right l
 
+font JetBrainsMono NL Nerd Font style:bold 11
+
 set $lenovo_screen "Lenovo Group Limited LEN L27q-30 U16247TT"
 # set $laptop_screen "AU Optronics 0x2E8D"
 set $laptop_screen "eDP-1"
