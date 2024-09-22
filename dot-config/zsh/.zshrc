@@ -5,6 +5,10 @@
 
 bindkey -e
 
+if ! [ -d ""${XDG_CACHE_HOME:-$HOME/.cache}/zsh"];
+   mkdir --parents -v "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+fi
+
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zsh_history"
 HISTSIZE=2000
 SAVEHIST=2000
