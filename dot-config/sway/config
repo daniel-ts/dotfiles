@@ -46,7 +46,14 @@ output $lenovo_screen {
 }
 
 ### Input configuration
+# look at: man xkeyboard-config
+#  and at: swaymsg --type get_inputs
+
 input * xkb_layout "de"
+
+input "13364:419:Keychron_Keychron_Q10" {
+      xkb_layout "de(nodeadkeys)"
+}
 
 # thinkpad keyboard
 input "1:1:AT_Translated_Set_2_keyboard" {
