@@ -114,6 +114,8 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
+bindsym $mod+Tab focus mode_toggle
+
 # Move the focused window with the same, but add Shift
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
@@ -137,7 +139,6 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
-bindsym $mod+minus workspace number 11
 bindsym $mod+ssharp workspace number 11
 bindsym $mod+dead_acute workspace number 12
 bindsym $mod+equal workspace number 12
@@ -155,7 +156,6 @@ bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+Shift+ssharp move container to workspace number 11
-bindsym $mod+Shift+minus move container to workspace number 11
 bindsym $mod+Shift+dead_acute move container to workspace number 12
 bindsym $mod+Shift+equal move container to workspace number 12
 
@@ -169,6 +169,7 @@ workspace  7 output HDMI-A-1
 workspace  8 output HDMI-A-1
 workspace  9 output HDMI-A-1
 workspace 10 output HDMI-A-1
+workspace hallo output HDMI-A-1
 
 # workspace 11 output DP-2
 # workspace 12 output DP-2
@@ -218,12 +219,8 @@ bindsym $mod+Shift+o exec --no-startup-id emacsclient --create-frame --eval '(di
 # bindsym $mod+tab exec --no-startup-id "~/.config/sway/scripts/taskbar.sh"
 
 ## Scratchpad:
-#bindsym $mod+Shift+minus move scratchpad
-#bindsym $mod+minus scratchpad show
-bindsym $mod+Shift+slash move scratchpad
-bindsym $mod+slash scratchpad show
-
-
+bindsym $mod+Shift+minus move container to scratchpad
+bindsym $mod+minus scratchpad show
 
 ### Modes
 mode "resize" {
@@ -284,6 +281,24 @@ for_window [app_id="org.keepassxc.KeePassXC" title=".*Access Request$"] floating
 for_window [app_id="org.keepassxc.KeePassXC" title="\[Locked\]|Unlock Database"] floating enable
 for_window [app_id="firefox" title=".*Teilen-Hinweis$|.*Sharing Indicator$"] floating enable, border pixel 0
 for_window [app_id="ymuse"] floating enable
+
+for_window [app_id="quake_kitty" title="^quake_kitty$"] {
+           border none
+           floating enable
+           #move container to scratchpad
+           move container to output current
+           resize set 100 ppt 50 ppt
+           move position 0 px 0 px
+           mark --add "quake_kitty"
+           sticky enable
+}
+
+# quake kitty
+bindsym $mod+dead_circumflex exec $XDG_CONFIG_HOME/sway/scripts/quake_kitty.py
+
+
+#exec_always "/usr/bin/kitty --listen-on=unix:$XDG_RUNTIME_DIR/quake_kitty.sock --title quake_kitty --app-id quake_kitty --instance-group quake_kitty -1 --override=background_opacity=0.95 --override=allow_remote_control=socket --wait-for-single-instance-window-close -d $XDG_RUNTIME_DIR"
+
 # for_window [app_id="flameshot"] floating enable, fullscreen disable, move absolute position 0 0, border pixel 0
 # for_window [title="\*Bookmark List\*"] floating enable
 #, resize set 1200 800

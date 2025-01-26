@@ -1,3 +1,4 @@
+# -*- mode: shell-script -*-
 #echo "sourcing $HOME/.profile"
 
 export PATH="$HOME/.local/bin:$PATH"
@@ -45,3 +46,4 @@ export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
 export PYTHONPYCACHEPREFIX=$XDG_CACHE_HOME/python
 export PYTHONUSERBASE=$XDG_DATA_HOME/python
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
+export QMK_HOME="$HOME/qmk_firmware"
