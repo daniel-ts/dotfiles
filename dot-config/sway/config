@@ -49,7 +49,9 @@ output $lenovo_screen {
 # look at: man xkeyboard-config
 #  and at: swaymsg --type get_inputs
 
-input * xkb_layout "de"
+input * {
+      xkb_layout "de"
+}
 
 input "13364:419:Keychron_Keychron_Q10" {
       xkb_layout "de(nodeadkeys)"
@@ -122,6 +124,8 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 bindsym $mod+Tab focus mode_toggle
+bindsym $mod+asciicircum exec $XDG_CONFIG_HOME/sway/scripts/quake_kitty.py
+bindsym $mod+dead_circumflex exec $XDG_CONFIG_HOME/sway/scripts/quake_kitty.py
 
 # Move the focused window with the same, but add Shift
 bindsym $mod+Shift+$left move left
@@ -147,7 +151,10 @@ bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
 bindsym $mod+ssharp workspace number 11
+
 bindsym $mod+dead_acute workspace number 12
+bindsym $mod+acute workspace number 12
+
 bindsym $mod+equal workspace number 12
 
 
@@ -299,9 +306,6 @@ for_window [app_id="quake_kitty" title="^quake_kitty$"] {
            mark --add "quake_kitty"
            sticky enable
 }
-
-# quake kitty
-bindsym $mod+dead_circumflex exec $XDG_CONFIG_HOME/sway/scripts/quake_kitty.py
 
 
 #exec_always "/usr/bin/kitty --listen-on=unix:$XDG_RUNTIME_DIR/quake_kitty.sock --title quake_kitty --app-id quake_kitty --instance-group quake_kitty -1 --override=background_opacity=0.95 --override=allow_remote_control=socket --wait-for-single-instance-window-close -d $XDG_RUNTIME_DIR"
