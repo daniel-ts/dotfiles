@@ -146,7 +146,7 @@
     "mpd": {
 		"server": "localhost",
 		"port": 6600,
-		"format": "{stateIcon} {title} - {artist}",
+		"format": "{stateIcon} {title}",
 		"format-disconnected": "",
 		"format-stopped": "",
 		"unknown-tag": "",
