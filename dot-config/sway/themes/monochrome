@@ -1,0 +1,26 @@
+# -*- mode: conf-space -*-
+
+set $black "#000000"
+set $grey1 "#1a1a1a"
+set $grey2 "#333333"
+set $grey3 "#4d4d4d"
+set $grey4 "#666666"
+set $grey5 "#999999"
+set $grey6 "#cccccc"
+set $grey7 "#dddddd"
+set $white "#ffffff"
+
+set $orange "#fea805"
+set $turquoise "#0b7e84"
+set $yellow "#febd0a"
+set $red "#fe1e0a"
+set $purple "#b24ec8"
+
+# class                   border     backgr.     text       indicator  child_border
+client.focused            $orange    $orange     $grey1     #aaaaaa    $orange
+client.focused_inactive   $grey7     $grey7 	 $grey1     #aaaaaa    $grey7
+client.unfocused          $white     $white      $grey3     #000080    $white
+client.urgent             $red	     $red	     $white     #eeeeee    $red
+
+#output * bg ~/pics/wallpapers/big-sur/big-sur-main-5k.jpg stretch
+output * bg ./wallpaper fill

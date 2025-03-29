@@ -1,6 +1,7 @@
 // -*- mode:json -*-
 [{
     "ipc": true,
+	"reload_style_on_change": true,
     "name": "main",
     "id": "bar-0",
     "position": "bottom",

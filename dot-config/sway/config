@@ -26,7 +26,6 @@ exec_always $XDG_CONFIG_HOME/sway/scripts/clamshell.sh
 include themes/current
 
 ### Output configuration
-output * bg sunrise.png fill
 
 # output "Acer Technologies X223HQ LFG0C0314060" {
 #     position 0 0

@@ -1,108 +1,94 @@
 * {
-  min-height: 0;
-  font-size: 15px;
-  font-family: "Font Awesome 5 Free", "Iosevka", Roboto, Helvetica, Arial,
-    sans-serif;
-  border: none;
-  border-radius: 0;
+    font-family: "JetBrains Mono", "Font Awesome 5 Pro Light";
 }
 
 window#waybar {
-  color: #fff;
-  background: #000;
+    border-top: 2px solid black;
+    background-color: #ffffff;
+    color: #999999;
+    transition-duration: 0.5s;
+    transition-property: background-color;
 }
 
-#window {
-  font-weight: bold;
+window#waybar.main {
+    font-size: 17px;
+    margin: 0px 5px 0px 5px;
 }
-/*
+
 #workspaces {
-    padding: 0 5px;
+    margin-left: 10px;
 }
-*/
 
 #workspaces button {
-  padding: 0 5px;
-  color: white;
-  background: transparent;
-  border-top: 2px solid transparent;
+    margin-left: 3px;
+    min-width: 0px; /* otherwise it has a width */
 }
 
+/* current desktop */
 #workspaces button.focused {
-  color: #c9545d;
-  border-top: 2px solid #c9545d;
+    color: #fea805;
+    font-weight: bold;
 }
 
-#mode {
-  background: #64727d;
-  border-bottom: 3px solid white;
-}
-
-#clock,
-#battery,
-#cpu,
-#memory,
-#network,
-#pulseaudio,
-#custom-spotify,
-#tray,
-#mode {
-  margin: 0 2px;
-  padding: 0 3px;
+#workspaces button.urgent {
+  color: #fe1e0a;
+  border: 1px solid #fe1e0a;
 }
 
 #clock {
-  font-weight: bold;
+    font-size: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0 5px 0 5px;
+    /* top right bottom left */
+    margin: 7px 10px 7px 0px;
 }
 
+window#waybar.main .modules-right * {
+    color: #555555;
+}
+
+#keyboard-state label.locked, #mode {
+    background-color: #fb4934;
+    color: white;
+    margin: 2px 20px 2px 20px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 10px;
+}
+
+#wireplumber,
+#pulseaudio.sound {
+    margin-right: 7px;
+}
+
+#wireplumber:hover,
+#pulsaudio:hover
+{
+    color: #928374;
+    background: rgba(0, 1, 51, 0);
+    box-shadow: inherit;
+}
+
+#tray,
+#cpu,
+#memory,
+#backlight,
+#idle_inhibitor,
 #battery {
-}
-
-#battery icon {
-  color: red;
-}
-
-#battery.charging {
-}
-
-@keyframes blink {
-  to {
-    color: black;
-    background-color: #ffffff;
-  }
+	margin-left: 30px;
 }
 
 #battery.warning:not(.charging) {
-  color: white;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  color: orange;
+  background-color: transparent;
 }
 
-#cpu {
-}
-
-#memory {
-}
-
-#network {
-}
-
-#network.disconnected {
-  background: #f53c3c;
-}
-
-#pulseaudio {
-}
-
-#pulseaudio.muted {
-}
-
-#custom-spotify {
-  color: rgb(102, 220, 105);
+#battery.critical:not(.charging) {
+  color: #f53c3c;
+  border: 1px solid red;
+  border-radius: 0.4rem;
 }
 
 #tray {
+    margin-right: 15px;
 }

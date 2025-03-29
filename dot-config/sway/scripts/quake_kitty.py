@@ -106,7 +106,7 @@ def launch_quake_kitty():
         "--instance-group=quake_kitty",
         "--single-instance",
         #"--wait-for-single-instance-window-close",
-        "--override=background_opacity=0.7",
+        "--override=background_opacity=1.0",
         "--override=allow_remote_control=socket",
         "--detach",
     ]
