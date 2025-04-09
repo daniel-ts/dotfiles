@@ -25,6 +25,7 @@ export CXX=/usr/bin/clang++
 export ALTERNATE_EDITOR="emacs -Q"
 export EDITOR="emacsclient --create-frame"
 export VISUAL="emacsclient --create-frame"
+export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
 export INFOPATH="$INFOPATH:/usr/local/share/info:/usr/share/info"
