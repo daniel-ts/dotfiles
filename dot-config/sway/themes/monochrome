@@ -18,8 +18,8 @@ set $purple "#b24ec8"
 
 # class                   border     backgr.     text       indicator  child_border
 client.focused            $orange    $orange     $grey1     #aaaaaa    $orange
-client.focused_inactive   $grey7     $grey7 	 $grey1     #aaaaaa    $grey7
-client.unfocused          $white     $white      $grey3     #000080    $white
+client.focused_inactive   $grey5     $grey5 	 $grey1     #aaaaaa    $grey7
+client.unfocused          $grey7     $grey7      $grey1     #000080    $white
 client.urgent             $red	     $red	     $white     #eeeeee    $red
 
 #output * bg ~/pics/wallpapers/big-sur/big-sur-main-5k.jpg stretch
