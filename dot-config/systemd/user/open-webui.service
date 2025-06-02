@@ -1,0 +1,12 @@
+[Unit]
+Description=Run the open-webui service on port 18081
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/podman container start --attach open-webui
+ExecStop=/usr/bin/podman container stop open-webui
+Restart=always
+
+[Install]
+WantedBy=default.target
