@@ -1,4 +1,4 @@
-#
+# -*- mode:sh -*-
 # file: .bashrc
 #
 
@@ -38,6 +38,11 @@ esac
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
+fi
+
 
 complete -C /usr/bin/terraform terraform
 
