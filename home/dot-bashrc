@@ -12,6 +12,13 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 shopt -s globstar
 
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
+fi
 
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -25,8 +32,8 @@ PS1='\[\033[01;31m\][\[\033[00m\]\u@\h \W\[\033[01;31m\]]\[\033[00m\]\$ '
 
 case ${TERM} in
   xterm*|rxvt*|Eterm|aterm|kterm|gnome*)
-    PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
-
+    #PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+    PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }"'echo -ne "\033]0;${HOSTNAME}:${PWD}\007"'
     ;;
   screen*)
     PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033_%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
@@ -35,23 +42,7 @@ esac
 
 [ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-if [ -f ~/.bash_functions ]; then
-    . ~/.bash_functions
-fi
-
-
 complete -C /usr/bin/terraform terraform
-
-# Automatically added by the Guix install script.
-if [ -n "$GUIX_ENVIRONMENT" ]; then
-    if [[ $PS1 =~ (.*)"\\$" ]]; then
-        PS1="${BASH_REMATCH[1]} [env]\\\$ "
-    fi
-fi
 
 if [ "$INSIDE_EMACS" = 'vterm' ]; then
     clear() {
@@ -59,3 +50,8 @@ if [ "$INSIDE_EMACS" = 'vterm' ]; then
         tput clear;
     }
 fi
+
+vterm_prompt_end(){
+    vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
+}
+PS1=$PS1'\[$(vterm_prompt_end)\]'
