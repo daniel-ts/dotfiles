@@ -48,3 +48,9 @@ if [ -n "$GUIX_ENVIRONMENT" ]; then
     fi
 fi
 
+if [ "$INSIDE_EMACS" = 'vterm' ]; then
+    clear() {
+        vterm_printf "51;Evterm-clear-scrollback";
+        tput clear;
+    }
+fi
