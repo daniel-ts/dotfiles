@@ -56,41 +56,6 @@ prepare-vbox(){
     sudo modprobe vboxpci
 }
 
-hackarch_test_running() {
-    sudo lxc info arch | grep -q RUNNING
-}
-
-hackarch_start() {
-    sudo lxc start arch
-}
-
-hackarch_stop() {
-    sudo lxc stop arch
-}
-
-hackarch_jackin() {
-    #sudo lxc exec arch /usr/bin/emacsclient -- --create-frame --socket-name /tmp/emacs0/server --eval '(multi-vterm)'
-    #sudo lxc exec arch /usr/bin/zsh
-    sudo lxc exec arch /usr/bin/login -- -f root
-}
-
-hackarch_login() {
-
-}
-
-hackarch(){
-    if hackarch_test_running
-    then
-	hackarch_jackin
-    else
-	hackarch_start && hackarch_jackin
-    fi
-}
-
-# xnLinkFinder(){
-#     ~/build/xnLinkFinder/venv/bin/python3 ~/build/xnLinkFinder/xnLinkFinder.py $@
-# }
-
 vterm_printf() {
     if [ -n "$TMUX" ] \
         && { [ "${TERM%%-*}" = "tmux" ] \
