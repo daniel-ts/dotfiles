@@ -1,0 +1,10 @@
+[Unit]
+Description=waydroid-session
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/waydroid session start
+ExecStop=/usr/bin/waydroid session stop
+
+[Install]
+WantedBy=default.target
