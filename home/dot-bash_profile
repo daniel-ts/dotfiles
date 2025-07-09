@@ -1,24 +1,9 @@
-#######################################
-#    Eigene .bash_profile settings    #
-#######################################
-
 # sources
 if [ -f $HOME/.bash_functions ]; then
     source $HOME/.bash_functions
 fi
 
+# local profile: source it last!
 if [ -f $HOME/.profile ]; then
     source $HOME/.profile
 fi
-
-if command -v pyenv 1>/dev/null 2>&1; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init --path)"
-fi
-
-### startx on login on tty1, must be last call ###
-if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-  exec startx
-fi
-source "$HOME/.cargo/env"
