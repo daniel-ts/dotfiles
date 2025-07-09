@@ -1,6 +1,6 @@
 # -*- mode: shell-script -*-
 
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/emacs-current/bin:$HOME/.local/bin:$PATH"
 export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
 
 export XDG_CONFIG_HOME="$HOME/.config"

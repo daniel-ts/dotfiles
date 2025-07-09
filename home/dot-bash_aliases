@@ -3,26 +3,10 @@
 
 alias ansdoc='ansible-doc'
 alias ap='ansible-playbook'
-alias aursync='sudo -u builder aur sync -d custom --noview'
-alias cfgadm="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
-alias clip='xargs echo -n | wl-copy'
 alias dired='emacsclient -t -e "(dired  \"./\")"'
-alias dlv-c='dlv connect localhost:10001'
-alias dlv-dh='dlv debug --headless --accept-multiclient --allow-non-terminal-interactive --listen localhost:10001 --api-version 2'
-alias dlv-th='dlv test --headless --accept-multiclient --allow-non-terminal-interactive --listen localhost:10001 --api-version 2'
 alias dus='du -sh * | sort -rh'
-alias dwn="systemctl shutdown"
-#alias ec="emacsclient --create-frame"
-#alias emacs_log='journalctl --user -f -u emacs.service'
-#alias emacs_restart='systemctl --user restart emacs.service'
-alias emacs_start="systemctl --user start emacs.service"
-alias gdlv-c='gdlv connect localhost:10001 2>&1 > /dev/null &'
+alias ec="emacsclient --create-frame"
 alias magit='emacsclient -t -e "(magit  \"./\")"'
-alias megatrans="/usr/bin/mega-transfers --show-syncs --limit=1000"
-alias mitmproxy='mitmproxy --listen-host localhost'
-alias mitmweb='mitmweb --listen-host localhost --no-web-open-browser'
-alias mnt_wgshare='sudo systemctl start mnt-wgshare.mount'
-alias mpd_start='systemctl --user start mpd.service'
 alias mpd_stop='systemctl --user stop mpd.service'
 alias naut='/usr/bin/nautilus . 2>&1 1> /dev/null & disown'
 alias netw='nmap -sn 192.168.178.0/24 | grep -i ^nmap'
@@ -30,8 +14,7 @@ alias pdfjoin='pdfjam --fitpaper true --rotateoversize false'
 alias rs="rsync --update --progress --recursive"
 alias ssh-nh='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias scp-nh='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
-alias temacs="emacsclient -t"
-alias tf="terraform"
 alias caddy-fs='caddy file-server --access-log --browse --listen 0.0.0.0:9000 --root $PWD'
 alias lid_inhibit='systemd-inhibit --mode=block --what=handle-lid-switch' # append an executable
-alias aanotify='aa-notify --poll --since-days 1 --wait 60 --file /var/log/audit/audit.log'
+alias sys='systemctl --user'
+alias jrn='journalctl --user -fu'
