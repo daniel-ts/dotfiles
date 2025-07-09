@@ -11,7 +11,7 @@ Restart=on-failure
 
 Environment=MIMALLOC_LARGE_OS_PAGES=1
 Environment=MALLOC_CONF="thp:always,metadata_thp:always"
-Environment=and GLIBC_TUNABLES=glibc.malloc.hugetlb=1
+Environment=GLIBC_TUNABLES=glibc.malloc.hugetlb=1
 
 [Install]
 WantedBy=default.target
