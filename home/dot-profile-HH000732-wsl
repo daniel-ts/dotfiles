@@ -35,3 +35,9 @@ export PYTHONPYCACHEPREFIX="$XDG_CACHE_HOME"/python
 export PYTHONUSERBASE="$XDG_DATA_HOME"/python
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export QMK_HOME="$HOME/qmk_firmware"
+
+
+# source .bashrc manually because somehow it does not happen on login
+if [ -f "$HOME/.bashrc" ]; then
+    source "$HOME/.bashrc"
+fi
