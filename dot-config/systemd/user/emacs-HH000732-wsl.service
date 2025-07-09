@@ -1,0 +1,12 @@
+[Unit]
+Description=Emacs text editor
+Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
+
+[Service]
+Type=simple
+ExecStart=/opt/emacs-current/bin/emacs --fg-daemon
+ExecStop=/opt/emacs-current/bin/emacsclient --eval "(save-buffers-kill-emacs)"
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

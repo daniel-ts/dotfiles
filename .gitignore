@@ -1,2 +1,4 @@
 home/dot-emacs.d/racket-mode/input-history-Racket-REPL
 home/dot-emacs.d/server/
+/dot-config/systemd/user/default.target.wants/
+/dot-config/systemd/user/emacs.service
