@@ -48,12 +48,8 @@ unmount-blockdev() {
     return 0
 }
 
-
-prepare-vbox(){
-    sudo modprobe vboxdrv
-    sudo modprobe vboxnetadp
-    sudo modprobe vboxnetflt
-    sudo modprobe vboxpci
+ec() {
+    emacsclient --create-frame "$1" & disown
 }
 
 vterm_printf() {
