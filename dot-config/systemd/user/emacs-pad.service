@@ -4,7 +4,6 @@ Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
 
 [Service]
 Type=simple
-ImportEnvironment=SWAYSOCK WAYLAND_DISPLAY DISPLAY
 ExecStart=emacs --fg-daemon
 ExecStop=emacsclient --eval "(save-buffers-kill-emacs)"
 Restart=on-failure
