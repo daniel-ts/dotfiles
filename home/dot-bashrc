@@ -62,3 +62,7 @@ if [ "$INSIDE_EMACS" = 'vterm' ]; then
 fi
 
 PS1=$PS1'\[$(vterm_prompt_end)\]'
+
+if [ -f "$HOME/.bashrc_local" ]; then
+    source "$HOME/.bashrc_local"
+fi
