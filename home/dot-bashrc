@@ -61,7 +61,4 @@ if [ "$INSIDE_EMACS" = 'vterm' ]; then
     }
 fi
 
-vterm_prompt_end(){
-    vterm_printf "51;A${USER}@$(cat /proc/sys/kernel/hostname):${PWD}"
-}
 PS1=$PS1'\[$(vterm_prompt_end)\]'

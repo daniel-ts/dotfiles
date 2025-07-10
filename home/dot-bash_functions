@@ -65,3 +65,7 @@ vterm_printf() {
         printf "\e]%s\e\\" "$1"
     fi
 }
+
+vterm_prompt_end(){
+    vterm_printf "51;A${USER}@$(cat /proc/sys/kernel/hostname):${PWD}"
+}
