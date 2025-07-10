@@ -5,7 +5,6 @@ alias ansdoc='ansible-doc'
 alias ap='ansible-playbook'
 alias dired='emacsclient -t -e "(dired  \"./\")"'
 alias dus='du -sh * | sort -rh'
-alias ec="emacsclient --create-frame"
 alias magit='emacsclient -t -e "(magit  \"./\")"'
 alias mpd_stop='systemctl --user stop mpd.service'
 alias naut='/usr/bin/nautilus . 2>&1 1> /dev/null & disown'
