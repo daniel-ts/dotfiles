@@ -1,6 +1,11 @@
 # -*- mode: shell-script -*-
 # my aliases
 
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias ls='ls --color --human-readable --indicator-style=slash --file-type --group-directories-first'
+
 alias ansdoc='ansible-doc'
 alias ap='ansible-playbook'
 alias dired='emacsclient -t -e "(dired  \"./\")"'
