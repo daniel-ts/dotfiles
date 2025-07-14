@@ -55,3 +55,11 @@ function jrn {
     $allArgs = @("--user", "--follow", "--unit") + $args
     journalctl @allArgs
 }
+
+############
+# EPILOGUE #
+############
+
+if (Test-Path -Type Leaf -Path "$env:HOME/.profile.local.ps1") {
+    . "$env:HOME/.profile.local.ps1"
+}
