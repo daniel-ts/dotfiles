@@ -46,10 +46,10 @@ function sys {
     systemctl @allArgs
 }
 
-# function ls {
-#     $allArgs = @("--color", "--human-readable", "--indicator-style=slash", "--file-type", "--group-directories-first") + $args
-#     ls @allArgs
-# }
+function ls {
+    $allArgs = @("--color", "--human-readable", "--indicator-style", "slash", "--file-type", "--group-directories-first") + $args
+    /usr/bin/ls @allArgs
+}
 
 function jrn {
     $allArgs = @("--user", "--follow", "--unit") + $args
