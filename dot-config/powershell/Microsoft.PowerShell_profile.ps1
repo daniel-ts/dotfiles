@@ -56,6 +56,10 @@ function jrn {
     journalctl @allArgs
 }
 
+function magit {
+    emacsclient --tty --eval '(magit default-directory)'
+}
+
 ############
 # EPILOGUE #
 ############
