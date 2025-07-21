@@ -22,3 +22,4 @@ alias caddy-fs='caddy file-server --access-log --browse --listen 0.0.0.0:9000 --
 alias lid_inhibit='systemd-inhibit --mode=block --what=handle-lid-switch' # append an executable
 alias sys='systemctl --user'
 alias jrn='journalctl --user -fu'
+alias ddi='dd bs=4M status=progress conv=fsync'
