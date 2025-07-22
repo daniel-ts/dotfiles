@@ -60,6 +60,10 @@ function magit {
     emacsclient --tty --eval '(magit default-directory)'
 }
 
+function ip {
+    /usr/sbin/ip $(@("-color") + $args)
+}
+
 ############
 # EPILOGUE #
 ############
