@@ -57,7 +57,7 @@ function jrn {
 }
 
 function magit {
-    emacsclient --tty --eval '(magit default-directory)'
+    emacsclient --tty --eval '(progn (magit default-directory) (delete-other-windows))'
 }
 
 function ip {
@@ -66,6 +66,14 @@ function ip {
 
 function fd {
     Set-Location -Path "$(find . -type d | fzf)"
+}
+
+##########
+# PROMPT #
+##########
+
+function prompt {
+    return "`n{0}@{1} {2}`nPS> " -f $env:USER,$(Get-Content -Path "/proc/sys/kernel/hostname"),$PWD.PATH
 }
 
 ############
