@@ -64,6 +64,10 @@ function ip {
     /usr/sbin/ip $(@("-color") + $args)
 }
 
+function fd {
+    Set-Location -Path "$(find . -type d | fzf)"
+}
+
 ############
 # EPILOGUE #
 ############
