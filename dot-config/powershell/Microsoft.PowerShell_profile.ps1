@@ -73,7 +73,7 @@ function fd {
 ##########
 
 function prompt {
-    Write-Host "" -NoNewline
+    Write-Host ""
     Write-Host "$env:USER" -NoNewline -ForegroundColor Cyan
     Write-Host "@" -NoNewline -ForegroundColor DarkGray
     Write-Host "$(Get-Content -Path '/proc/sys/kernel/hostname')" -NoNewline -ForegroundColor Green
