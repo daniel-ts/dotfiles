@@ -73,7 +73,13 @@ function fd {
 ##########
 
 function prompt {
-    return "`n{0}@{1} {2}`nPS> " -f $env:USER,$(Get-Content -Path "/proc/sys/kernel/hostname"),$PWD.PATH
+    Write-Host "" -NoNewline
+    Write-Host "$env:USER" -NoNewline -ForegroundColor Cyan
+    Write-Host "@" -NoNewline -ForegroundColor DarkGray
+    Write-Host "$(Get-Content -Path '/proc/sys/kernel/hostname')" -NoNewline -ForegroundColor Green
+    Write-Host " $($PWD.Path)" -NoNewline -ForegroundColor Yellow
+    Write-Host "`n" -NoNewline -ForegroundColor White
+    return 'PS> '
 }
 
 ############
