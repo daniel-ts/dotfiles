@@ -41,6 +41,15 @@ function ec {
     Start-Process emacsclient -ArgumentList $allArgs
 }
 
+function et {
+    $allArgs = @("--tty") + $args
+    emacsclient @allArgs
+}
+
+function dired {
+    emacsclient --tty --eval '(dired default-directory)'
+}
+
 function sys {
     $allArgs = @("--user") + $args
     systemctl @allArgs
