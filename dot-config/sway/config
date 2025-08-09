@@ -82,7 +82,8 @@ input "2:14:ETPS/2_Elantech_Touchpad" {
 
 #bindsym $mod+Return exec emacsclient -c --eval "(eshell)"
 #bindsym $mod+Return exec emacsclient -c --eval "(eshell 'N)"
-bindsym $mod+Return exec kitty
+#bindsym $mod+Return exec kitty
+bindsym $mod+Return exec ghostty
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 floating_modifier $mod normal
@@ -332,4 +333,5 @@ exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK SSH_AUTH_S
 exec keepassxc --keyfile ~/.keepass/dandy.keyx ~/.keepass/sync/dandy.kdbx
 exec --no-startup-id dbus-update-activation-environment --all
 exec swayidle -d -w -C ~/.config/swayidle/config
-# exec_always aa-notify --poll --since-days 1 --wait 60 --file /var/log/audit/audit.log
+
+include /etc/sway/config.d/*
