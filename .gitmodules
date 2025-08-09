@@ -1,3 +1,3 @@
 [submodule "home/dot-emacs.d"]
-	path = home/dot-emacs.d
+	path = home/dot-emacs.d-common
 	url = git@github.com:daniel-ts/emacs.d.git
