@@ -1,175 +1,176 @@
 // -*- mode:json -*-
-[{
-    "ipc": true,
-	"reload_style_on_change": true,
-    "name": "main",
-    "id": "bar-0",
-    "position": "bottom",
-    "modules-left": [
-		"custom/zen",
-        "sway/workspaces",
-        "sway/mode",
-    ],
+[
+	{
+		"ipc": true,
+		"reload_style_on_change": true,
+		"name": "main",
+		"id": "bar-0",
+		"position": "bottom",
+		"modules-left": [
+			"custom/zen",
+			"sway/workspaces",
+			"sway/mode",
+		],
 
-    "modules-center": [
-        "clock",
-		"mpd",
-		"keyboard-state",
-    ],
+		"modules-center": [
+			"clock",
+			"mpd",
+			"keyboard-state",
+		],
 
-    "modules-right": [
-		// "custom/mail",
-        "pulseaudio#sound",
-        "pulseaudio#icon",
-		"backlight",
-		"battery",
-        "cpu",
-		"memory",
-		"custom/disk_root",
-		"custom/disk_home",
-        "tray",
-    ],
+		"modules-right": [
+			// "custom/mail",
+			"pulseaudio#sound",
+			"pulseaudio#icon",
+			"backlight",
+			"battery",
+			"cpu",
+			"memory",
+			"custom/disk_root",
+			"custom/disk_home",
+			"tray",
+		],
 
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
-    },
-
-	"custom/mail": {
-		"format": "{}    ",
-		"interval": "5",
-		"exec": "notmuch count tag:unread",
-		"on-click": "emacsclient --create-frame --eval '(notmuch)'",
-	},
-
-    "clock": {
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "  {:%H:%M}  ",
-        "format-alt": "{:%d %B, %Y}",
-        "interval": 1,
-		"timezone": "Europe/Berlin",
-    },
-
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
-    },
-	"custom/disk_home": {
-		"format": "  {} / ",
-		"interval": 30,
-		"exec": "df -h --output=pcent $HOME | tail -1 | tr -d ' '"
-	},
-	"custom/disk_root": {
-		"format": "  {} /",
-		"interval": 30,
-		"exec": "df -h --output=pcent / | tail -1 | tr -d ' '"
-	},
-    "memory": {
-        "format": "{}%  "
-    },
-    "backlight": {
-        "format": "{percent}  {icon}",
-        "format-icons": ["", ""],
-    },
-
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 40,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}%  ",
-        "format-plugged": "{capacity}%  ",
-        "format-alt": "{time} {icon}",
-        "format-icons": ["", "", "", "", ""],
-		"bat": "BAT0"
-    },
-
-    "pulseaudio#sound": {
-        "format": "{volume}",
-		"on-click": "pavucontrol",
-        "format-icons": {
-            "default": ["", "", "", ""]
-        },
-    },
-    "pulseaudio#icon": {
-        "format": "{icon}",
-        "format-bluetooth": "{icon}",
-        "format-bluetooth-muted": "{icon}",
-        "format-muted": "",
-        "format-source-muted": "",
-        "on-click": "pactl set-sink-mute 0 toggle",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-			"default": ["", "", "", ""]
-        },
-    },
-
-    "sway/mode": {
-		"format": "{}",
-		"max-length": 50,
-	},
-
-    "sway/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": false,
-    },
-
-    "custom/zen": {
-		"format": " {icon}",
-		"return-type": "json",
-		"tooltip": true,
-		"format-icons": {
-			"on": "",
-			"off": "",
-			"default": "",
+		"tray": {
+			"icon-size": 21,
+			"spacing": 10
 		},
-		"on-click": "$XDG_CONFIG_HOME/waybar/script/zen.sh",
-    },
 
-    // "keyboard-state": {
-		// 	"capslock": true,
-		// 	"format": {
-			// 		"capslock": "{icon}"
-			// },
-		// 	"format-icons": {
-			// 		"locked": "caps",
-			// 		"unlocked": "",
-			// 	},
+		// "custom/mail": {
+		// 	"format": "{}    ",
+		// 	"interval": "5",
+		// 	"exec": "notmuch count tag:unread",
+		// 	"on-click": "emacsclient --create-frame --eval '(notmuch)'",
 		// },
 
-    "mpd": {
-		"server": "localhost",
-		"port": 6600,
-		"format": "{stateIcon} {title}",
-		"format-disconnected": "",
-		"format-stopped": "",
-		"unknown-tag": "",
-		"state-icons": {
-			"paused": "",
-			"playing": "",
+		"clock": {
+			"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+			"format": "  {:%H:%M}  ",
+			"format-alt": "{:%d %B, %Y}",
+			"interval": 1,
+			"timezone": "Europe/Berlin",
 		},
-		"max-length": 50,
-		"on-click": "$XDG_CONFIG_HOME/waybar/script/mpd.sh",
-		"on-click-middle": "ario",
-    },
 
-	"keyboard-state": {
-		"numlock": false,
-		"capslock": true,
-		"format": {
-			"capslock": "{icon}",
+		"cpu": {
+			"format": "{usage}% ",
+			"tooltip": false
 		},
-		"format-icons": {
-			"locked": "CAPS",
-			"unlocked": "",
+		"custom/disk_home": {
+			"format": "  {} / ",
+			"interval": 30,
+			"exec": "df -h --output=pcent $HOME | tail -1 | tr -d ' '"
 		},
-	},
-}
+		"custom/disk_root": {
+			"format": "  {} /",
+			"interval": 30,
+			"exec": "df -h --output=pcent / | tail -1 | tr -d ' '"
+		},
+		"memory": {
+			"format": "{}%  "
+		},
+		"backlight": {
+			"format": "{percent}  {icon}",
+			"format-icons": ["", ""],
+		},
+
+		"battery": {
+			"states": {
+				"good": 95,
+				"warning": 40,
+				"critical": 15
+			},
+			"format": "{capacity}% {icon}",
+			"format-charging": "{capacity}%  ",
+			"format-plugged": "{capacity}%  ",
+			"format-alt": "{time} {icon}",
+			"format-icons": ["", "", "", "", ""],
+			"bat": "BAT0"
+		},
+
+		"pulseaudio#sound": {
+			"format": "{volume}",
+			"on-click": "pavucontrol",
+			"format-icons": {
+				"default": ["", "", "", ""]
+			},
+		},
+		"pulseaudio#icon": {
+			"format": "{icon}",
+			"format-bluetooth": "{icon}",
+			"format-bluetooth-muted": "{icon}",
+			"format-muted": "",
+			"format-source-muted": "",
+			"on-click": "pactl set-sink-mute 0 toggle",
+			"format-icons": {
+				"headphone": "",
+				"hands-free": "",
+				"headset": "",
+				"phone": "",
+				"portable": "",
+				"car": "",
+				"default": ["", "", "", ""]
+			},
+		},
+
+		"sway/mode": {
+			"format": "{}",
+			"max-length": 50,
+		},
+
+		"sway/workspaces": {
+			"disable-scroll": true,
+			"all-outputs": false,
+		},
+
+		"custom/zen": {
+			"format": " {icon}",
+			"return-type": "json",
+			"tooltip": true,
+			"format-icons": {
+				"on": "",
+				"off": "",
+				"default": "",
+			},
+			"on-click": "$XDG_CONFIG_HOME/waybar/script/zen.sh",
+		},
+
+		"keyboard-state": {
+			"capslock": true,
+			"format": {
+				"capslock": "{icon}"
+			},
+			"format-icons": {
+				"locked": "caps",
+				"unlocked": "",
+			},
+		},
+
+		"mpd": {
+			"server": "localhost",
+			"port": 6600,
+			"format": "{stateIcon} {title}",
+			"format-disconnected": "",
+			"format-stopped": "",
+			"unknown-tag": "",
+			"state-icons": {
+				"paused": "",
+				"playing": "",
+			},
+			"max-length": 50,
+			"on-click": "$XDG_CONFIG_HOME/waybar/script/mpd.sh",
+			"on-click-middle": "ario",
+		},
+
+		"keyboard-state": {
+			"numlock": false,
+			"capslock": true,
+			"format": {
+				"capslock": "{icon}",
+			},
+			"format-icons": {
+				"locked": "CAPS",
+				"unlocked": "",
+			},
+		},
+	}
 ]

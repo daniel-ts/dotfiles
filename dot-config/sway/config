@@ -82,8 +82,8 @@ input "2:14:ETPS/2_Elantech_Touchpad" {
 
 #bindsym $mod+Return exec emacsclient -c --eval "(eshell)"
 #bindsym $mod+Return exec emacsclient -c --eval "(eshell 'N)"
-#bindsym $mod+Return exec kitty
-bindsym $mod+Return exec ghostty
+bindsym $mod+Return exec bash -l -c "exec kitty"
+#bindsym $mod+Return exec ghostty
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 floating_modifier $mod normal
@@ -97,7 +97,7 @@ bindsym $mod+m exec firefox --new-window
 bindsym $mod+Shift+m exec chromium --new-window
 bindsym $mod+comma exec emacsclient -c --eval '(crux-sudo-edit)'
 # bindsym $mod+Shift+comma exec
-bindsym $mod+n exec --no-startup-id emacsclient -c -e '(ibuffer)'
+bindsym $mod+n exec bash -l -c "/run/current-system/sw/bin/emacsclient --create-frame --eval \(ibuffer\)"
 
 bindsym $mod+numbersign exec --no-startup-id rofi -show ssh
 #bindsym Print exec --no-startup-id grimshot copy area
@@ -262,7 +262,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 mode "secondary" {
-     bindsym k exec "keepassxc --keyfile ~/.keepass/dandy.keyx ~/.keepass/sync/dandy.kdbx"; mode "default"
+     bindsym k exec "keepassxc"; mode "default"
      bindsym u exec --no-startup-id "pavucontrol"; mode "default"
      bindsym a exec --no-startup-id "ymuse"; mode "default"
      bindsym n exec --no-startup-id "swaync-client --toggle-panel --skip-wait"; mode "default"
@@ -329,9 +329,7 @@ for_window [app_id="quake_kitty" title="^quake_kitty$"] {
 
 ### Init & Autostart
 exec waybar
-exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK SSH_AUTH_SOCK; systemctl --user start sway-session.target"
-exec keepassxc --keyfile ~/.keepass/dandy.keyx ~/.keepass/sync/dandy.kdbx
-exec --no-startup-id dbus-update-activation-environment --all
-exec swayidle -d -w -C ~/.config/swayidle/config
-
-include /etc/sway/config.d/*
+exec keepassxc
+exec blueman-applet
+exec nm-applet
+#exec swayidle -d -w -C ~/.config/swayidle/config
