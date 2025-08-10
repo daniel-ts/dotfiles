@@ -1,4 +1,5 @@
 include /etc/sway/config.d/*
+include config.local/*.conf
 
 ### Variables
 set $mod Mod4
@@ -43,6 +44,8 @@ output $lenovo_screen {
     scale 1.0
     resolution 2560x1440
 }
+
+output * bg /home/dan/Pictures/wallpapers/nature/moon-dark.jpg fill
 
 ### Input configuration
 # look at: man xkeyboard-config
@@ -328,7 +331,9 @@ for_window [app_id="quake_kitty" title="^quake_kitty$"] {
 # }
 
 ### Init & Autostart
-exec waybar
+#exec waybar
+exec nwg-panel
+exec swaync
 exec keepassxc
 exec blueman-applet
 exec nm-applet
