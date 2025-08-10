@@ -3,7 +3,7 @@ Description=Mako notifications
 PartOf=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/mpd-mpris
+ExecStart=mpd-mpris
 Restart=on-failure
 
 [Install]

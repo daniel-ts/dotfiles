@@ -82,8 +82,8 @@ input "2:14:ETPS/2_Elantech_Touchpad" {
 
 #bindsym $mod+Return exec emacsclient -c --eval "(eshell)"
 #bindsym $mod+Return exec emacsclient -c --eval "(eshell 'N)"
-bindsym $mod+Return exec bash -l -c "exec kitty"
-#bindsym $mod+Return exec ghostty
+#bindsym $mod+Return exec bash -l -c "exec kitty"
+bindsym $mod+Return exec ghostty
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 floating_modifier $mod normal
