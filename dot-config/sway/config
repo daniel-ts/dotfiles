@@ -323,15 +323,7 @@ for_window [app_id="quake_kitty" title="^quake_kitty$"] {
 # for_window [title="\*Bookmark List\*"] floating enable
 #, resize set 1200 800
 
-# bar {
-#     id "bar-0"
-#     #swaybar_command waybar
-#     mode dock
-#     modifier $mod
-# }
-
 ### Init & Autostart
-#exec waybar
 exec nwg-panel
 exec swaync
 exec keepassxc
