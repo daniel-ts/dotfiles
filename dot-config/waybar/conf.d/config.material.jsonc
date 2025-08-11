@@ -7,7 +7,7 @@
 		"id": "bar-0",
 		"position": "bottom",
 		"modules-left": [
-			"custom/zen",
+			"custom/toggle-theme",
 			"sway/workspaces",
 			"sway/mode",
 		],
@@ -35,13 +35,6 @@
 			"icon-size": 21,
 			"spacing": 10
 		},
-
-		// "custom/mail": {
-		// 	"format": "{}    ",
-		// 	"interval": "5",
-		// 	"exec": "notmuch count tag:unread",
-		// 	"on-click": "emacsclient --create-frame --eval '(notmuch)'",
-		// },
 
 		"clock": {
 			"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
@@ -122,10 +115,24 @@
 			"all-outputs": false,
 		},
 
+		"custom/toggle-theme": {
+			"format": " {icon} ",
+			"return-type": "json",
+			"signal": 5,
+			"tooltip": true,
+			"format-icons": {
+				"on": "\uDB80\uDCDB",
+				"off": "\uDB80\uDCE0",
+				"default": "\uDB83\uDCF2",
+			},
+			"interval": 1,
+			"exec": "$XDG_CONFIG_HOME/waybar/script/toggle-theme.py status",
+			"on-click": "$XDG_CONFIG_HOME/waybar/script/toggle-theme.py toggle",
+		},
+
 		"custom/zen": {
 			"format": " {icon}",
 			"return-type": "json",
-			"tooltip": true,
 			"format-icons": {
 				"on": "",
 				"off": "",
