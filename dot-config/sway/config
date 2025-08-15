@@ -1,5 +1,3 @@
-include /etc/sway/config.d/*
-include config.local/*.conf
 
 ### Variables
 set $mod Mod4
@@ -323,10 +321,20 @@ for_window [app_id="quake_kitty" title="^quake_kitty$"] {
 # for_window [title="\*Bookmark List\*"] floating enable
 #, resize set 1200 800
 
+include config.local/*.conf
+
 ### Init & Autostart
-exec nwg-panel
-exec swaync
+
+# Import the most important environment variables into the D-Bus and systemd
+# user environments (e.g. required for screen sharing and Pinentry prompts):
+exec "dbus-update-activation-environment --systemd PATH {,WAYLAND_}DISPLAY SWAYSOCK XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
+# enable systemd-integration
+exec "systemctl --user import-environment PATH {,WAYLAND_}DISPLAY SWAYSOCK XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
+exec "systemctl --user start sway-session.target"
+exec swaymsg -t subscribe '["shutdown"]' && systemctl --user stop sway-session.target
+
+#exec nwg-panel
+#exec swaync
 exec keepassxc
 exec blueman-applet
 exec nm-applet
-#exec swayidle -d -w -C ~/.config/swayidle/config

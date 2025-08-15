@@ -1,0 +1,91 @@
+* {
+    font-family: "FiraCode Nerd Font Mono";
+}
+
+window#waybar {
+    border-top: 2px solid black;
+    background-color: #ffffff;
+    color: #999999;
+    transition-duration: 0.5s;
+    transition-property: background-color;
+}
+
+window#waybar.main {
+    font-size: 17px;
+    margin: 0px 5px 0px 5px;
+}
+
+#workspaces {
+    margin-left: 10px;
+}
+
+#workspaces button {
+    margin-left: 3px;
+    min-width: 0px; /* otherwise it has a width */
+}
+
+/* current desktop */
+#workspaces button.focused {
+    color: #fea805;
+    font-weight: bold;
+}
+
+#workspaces button.urgent {
+  color: #fe1e0a;
+  border: 1px solid #fe1e0a;
+}
+
+#clock {
+    font-size: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0 5px 0 5px;
+    /* top right bottom left */
+    margin: 7px 10px 7px 0px;
+}
+
+window#waybar.main .modules-right * {
+    color: #555555;
+}
+
+#keyboard-state label.locked, #mode {
+    background-color: #fb4934;
+    color: white;
+    margin: 2px 20px 2px 20px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 10px;
+}
+
+#wireplumber,
+#pulseaudio.sound {
+    margin-right: 7px;
+}
+
+#wireplumber:hover,
+#pulsaudio:hover
+{
+    color: #928374;
+    background: rgba(0, 1, 51, 0);
+    box-shadow: inherit;
+}
+
+#cpu,
+#memory,
+#backlight,
+#idle_inhibitor,
+#custom-toggle-theme,
+#battery {
+    font-family: FiraCode Nerd Font;
+    font-size: 1em;
+    padding-left: 0.5em;
+	margin-left: 0.5em;
+}
+
+#custom-toggle-theme {
+    padding-right: 1em;
+}
+
+#battery.warning:not(.charging) {
+  color: orange;
+  background-color: transparent;
+}

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/etc/profiles/per-user/dan/bin/bash
 
 STATE=$(mpc status '%state%')
 case $STATE in

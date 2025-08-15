@@ -1,0 +1,143 @@
+// -*- mode:json -*-
+[
+	{
+		"reload_style_on_change": true,
+		"ipc": true,
+		"reload_style_on_change": true,
+		"name": "main",
+		"id": "bar-0",
+		"position": "bottom",
+		"modules-left": [
+			"sway/workspaces",
+			"sway/mode",
+		],
+
+		"modules-center": [
+			"keyboard-state",
+		],
+
+		"modules-right": [
+			"wireplumber",
+			"backlight",
+			"cpu",
+			"memory",
+			"custom/disk_root",
+			"idle_inhibitor",
+			"custom/toggle-theme",
+		],
+
+		"cpu": {
+			"format": "{usage}% \uf4bc ",
+			"tooltip": false
+		},
+		"custom/disk_root": {
+			"format": "  {} \uf0c7 ",
+			"interval": 30,
+			"exec": "df -h --output=pcent / | tail -1 | tr -d ' '"
+		},
+		"memory": {
+			"format": "{}% \uefc5 "
+		},
+		"backlight": {
+			"format": "{percent} {icon} ",
+			"format-icons": ["\udb80\udcda", "\udb80\udcde", "\udb80\udcdf", "\udb80\udce0"],
+		},
+
+		"wireplumber": {
+			"format": "{volume}% {icon}",
+			"format-muted": "\uDB81\uDF5F", // 
+			"format-icons": ["\udb81\udd7f", "\udb81\udd80", "\udb81\udd7e"],
+			"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+			"on-click-middle": "pavucontrol",
+			"max-volume": 150,
+			"scroll-step": 0.2
+		},
+
+		"sway/mode": {
+			"format": "{}",
+			"max-length": 50,
+		},
+
+		"sway/workspaces": {
+			"disable-scroll": true,
+			"all-outputs": false,
+		},
+
+		"custom/toggle-theme": {
+			"format": " {icon} ",
+			"return-type": "json",
+			"signal": 5,
+			"tooltip": true,
+			"format-icons": {
+				"on": "\uDB80\uDCDB",
+				"off": "\uDB80\uDCE0",
+				"default": "\uDB83\uDCF2",
+			},
+			"interval": 1,
+			"exec": "$XDG_CONFIG_HOME/waybar/script/toggle-theme.py status",
+			"on-click": "$XDG_CONFIG_HOME/waybar/script/toggle-theme.py toggle",
+		},
+
+		"custom/zen": {
+			"format": " {icon}",
+			"return-type": "json",
+			"format-icons": {
+				"on": "",
+				"off": "",
+				"default": "",
+			},
+			"on-click": "$XDG_CONFIG_HOME/waybar/script/zen.sh",
+		},
+
+		"keyboard-state": {
+			"capslock": true,
+			"format": {
+				"capslock": "{icon}"
+			},
+			"format-icons": {
+				"locked": "caps",
+				"unlocked": "",
+			},
+		},
+
+		"mpd": {
+			"server": "localhost",
+			"port": 6600,
+			"format": "{stateIcon} {title}",
+			"format-disconnected": "",
+			"format-stopped": "",
+			"unknown-tag": "",
+			"state-icons": {
+				"paused": "",
+				"playing": "",
+			},
+			"max-length": 50,
+			"on-click": "$XDG_CONFIG_HOME/waybar/script/mpd.sh",
+			"on-click-middle": "ario",
+		},
+
+		"keyboard-state": {
+			"numlock": false,
+			"capslock": true,
+			"format": {
+				"capslock": "{icon}",
+			},
+			"format-icons": {
+				"locked": "CAPS",
+				"unlocked": "",
+			},
+		},
+
+		"idle_inhibitor": {
+			"format": "{icon}",
+			"format-icons": {
+				"activated": "\udb80\udd76 ",
+				"deactivated": "\udb83\udfaa ",
+			},
+			"tooltip-format-activated": "Idle inhibition is ON",
+			"tooltip-format-deactivated": "Idle inhibition is OFF",
+			"start-activated": false,
+			"timeout": -1,
+		},
+	}
+]
