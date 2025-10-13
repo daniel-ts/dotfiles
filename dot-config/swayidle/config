@@ -1,5 +1,4 @@
-# timeout 300 '$XDG_CONFIG_HOME/swayidle/scripts/turn-off-screen.sh' resume '$XDG_CONFIG_HOME/swayidle/scripts/turn-on-screen.sh'
-# timeout 300 swaylock
-
-# before-sleep swaylock
-# lock swaylock
+before-sleep swaylock
+lock swaylock
+timeout 300 "loginctl lock-session"
+timeout 360 "swaymsg 'output * dpms off'" resume "swaymsg 'output * dpms on'"

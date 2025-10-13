@@ -44,9 +44,9 @@ window#waybar.main {
     margin: 7px 10px 7px 0px;
 }
 
-window#waybar.main .modules-right * {
-    color: #555555;
-}
+/* window#waybar.main .modules-right * { */
+/*     color: #555555; */
+/* } */
 
 #keyboard-state label.locked, #mode {
     background-color: #fb4934;
@@ -73,12 +73,27 @@ window#waybar.main .modules-right * {
 #memory,
 #backlight,
 #idle_inhibitor,
+#custom-disk_root,
+#wireplumber,
 #custom-toggle-theme,
 #battery {
+    color: #555555;
     font-family: FiraCode Nerd Font;
     font-size: 1em;
     padding-left: 0.5em;
 	margin-left: 0.5em;
+}
+
+#idle_inhibitor.activated {
+    color: #fb4934;
+}
+
+#idle_inhibitor.deactivated {
+    color: #555555;
+}
+
+#custom-toggle-theme.on {
+    color: darkturquoise;
 }
 
 #custom-toggle-theme {

@@ -78,17 +78,6 @@
 			"on-click": "$XDG_CONFIG_HOME/waybar/script/toggle-theme.py toggle",
 		},
 
-		"custom/zen": {
-			"format": " {icon}",
-			"return-type": "json",
-			"format-icons": {
-				"on": "",
-				"off": "",
-				"default": "",
-			},
-			"on-click": "$XDG_CONFIG_HOME/waybar/script/zen.sh",
-		},
-
 		"keyboard-state": {
 			"capslock": true,
 			"format": {

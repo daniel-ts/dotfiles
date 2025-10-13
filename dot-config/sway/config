@@ -98,7 +98,7 @@ bindsym $mod+m exec firefox --new-window
 bindsym $mod+Shift+m exec chromium --new-window
 bindsym $mod+comma exec emacsclient -c --eval '(crux-sudo-edit)'
 # bindsym $mod+Shift+comma exec
-bindsym $mod+n exec bash -l -c "/run/current-system/sw/bin/emacsclient --create-frame --eval \(ibuffer\)"
+bindsym $mod+n exec bash -l -c "/etc/profiles/per-user/dan/bin/emacsclient --create-frame --eval \(ibuffer\)"
 
 bindsym $mod+numbersign exec --no-startup-id rofi -show ssh
 #bindsym Print exec --no-startup-id grimshot copy area
@@ -232,8 +232,7 @@ bindsym $mod+space focus mode_toggle
 # Move focus to the parent container
 bindsym $mod+a focus parent
 
-bindsym $mod+o exec emacsclient --create-frame --eval "(bookmark-bmenu-list)"
-#bindsym $mod+o exec emacsclient --create-frame --eval "(list-bookmarks)"
+bindsym $mod+o exec emacsclient --eval "(bookmark-bmenu-list)"
 bindsym $mod+Shift+o exec --no-startup-id emacsclient --create-frame --eval '(dired "~/")'
 
 # show all windows: unhide (show) the waybar taskbar
@@ -327,9 +326,9 @@ include config.local/*.conf
 
 # Import the most important environment variables into the D-Bus and systemd
 # user environments (e.g. required for screen sharing and Pinentry prompts):
-exec "dbus-update-activation-environment --systemd PATH {,WAYLAND_}DISPLAY SWAYSOCK XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
+exec "dbus-update-activation-environment --systemd PATH {,WAYLAND_}DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
 # enable systemd-integration
-exec "systemctl --user import-environment PATH {,WAYLAND_}DISPLAY SWAYSOCK XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
+exec "systemctl --user import-environment PATH {,WAYLAND_}DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_DATA_DIRS DBUS_SESSION_ADDRESS JAVA_HOME XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
 exec "systemctl --user start sway-session.target"
 exec swaymsg -t subscribe '["shutdown"]' && systemctl --user stop sway-session.target
 
