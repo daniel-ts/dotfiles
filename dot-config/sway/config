@@ -232,8 +232,10 @@ bindsym $mod+space focus mode_toggle
 # Move focus to the parent container
 bindsym $mod+a focus parent
 
-bindsym $mod+o exec emacsclient --eval "(bookmark-bmenu-list)"
-bindsym $mod+Shift+o exec --no-startup-id emacsclient --create-frame --eval '(dired "~/")'
+#bindsym $mod+o exec emacsclient --eval "(bookmark-bmenu-list)"
+bindsym $mod+o exec --no-startup-id 'nautilus ~'
+#bindsym $mod+Shift+o exec --no-startup-id emacsclient --create-frame --eval '(dired "~/")'
+bindsym $mod+Shift+o exec --no-startup-id krusader
 
 # show all windows: unhide (show) the waybar taskbar
 # bindsym $mod+tab exec --no-startup-id "~/.config/sway/scripts/taskbar.sh"
