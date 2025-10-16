@@ -8,6 +8,7 @@
 		"id": "bar-0",
 		"position": "bottom",
 		"modules-left": [
+			"niri/workspaces",
 			"sway/workspaces",
 			"sway/mode",
 		],
@@ -25,6 +26,21 @@
 			"idle_inhibitor",
 			"custom/toggle-theme",
 		],
+
+		"niri/workspaces": {
+			"format": "{icon}",
+			"format-icons": {
+				// Named workspaces
+				// (you need to configure them in niri)
+				"browser": "",
+				"discord": "",
+				"chat": "<b></b>",
+
+				// Icons by state
+				"active": "",
+				"default": ""
+			}
+		},
 
 		"cpu": {
 			"format": "{usage}% \uf4bc ",

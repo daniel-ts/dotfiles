@@ -331,8 +331,8 @@ include config.local/*.conf
 exec "dbus-update-activation-environment --systemd PATH {,WAYLAND_}DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
 # enable systemd-integration
 exec "systemctl --user import-environment PATH {,WAYLAND_}DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_DATA_DIRS DBUS_SESSION_ADDRESS JAVA_HOME XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
-exec "systemctl --user start sway-session.target"
-exec swaymsg -t subscribe '["shutdown"]' && systemctl --user stop sway-session.target
+exec "systemctl --user start wayland-session.target"
+exec swaymsg -t subscribe '["shutdown"]' && systemctl --user stop wayland-session.target
 
 #exec nwg-panel
 #exec swaync

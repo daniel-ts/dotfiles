@@ -111,7 +111,7 @@ input {
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 16
+    gaps 12
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -266,9 +266,14 @@ layout {
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
+spawn-sh-at-startup "dbus-update-activation-environment --systemd PATH {,WAYLAND_}DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
+spawn-sh-at-startup "systemctl --user import-environment PATH {,WAYLAND_}DISPLAY NIRI_SOCKET XDG_CURRENT_DESKTOP XDG_DATA_DIRS DBUS_SESSION_ADDRESS JAVA_HOME XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
+spawn-sh-at-startup "systemctl --user start wayland-session.target"
+spawn-sh-at-startup "swaymsg -t subscribe '[\"shutdown\"]' && systemctl --user stop wayland-session.target"
 
-// This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "waybar"
+spawn-at-startup "keepassxc"
+spawn-at-startup "blueman-applet"
+spawn-at-startup "nm-applet"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -529,15 +534,18 @@ binds {
     // The following binds move the focused window in and out of a column.
     // If the window is alone, they will consume it into the nearby column to the side.
     // If the window is already in a column, they will expel it out.
-    Super+BracketLeft  { consume-or-expel-window-left; }
-    Super+BracketRight { consume-or-expel-window-right; }
-    Super+odiaeresis  { consume-or-expel-window-left; }
-    Super+adiaeresis { consume-or-expel-window-right; }
+    // Super+BracketLeft  { consume-or-expel-window-left; }
+    // Super+BracketRight { consume-or-expel-window-right; }
+    // Super+Odiaeresis  { consume-or-expel-window-left; }
+    // Super+Adiaeresis { consume-or-expel-window-right; }
+
+    Super+Comma { consume-or-expel-window-left; }
+    Super+Period { consume-or-expel-window-right; }
 
     // Consume one window from the right to the bottom of the focused column.
-    Super+Comma  { consume-window-into-column; }
+    //Super+Comma  { consume-window-into-column; }
     // Expel the bottom window from the focused column to the right.
-    Super+Period { expel-window-from-column; }
+    //Super+Period { expel-window-from-column; }
 
     Super+R { switch-preset-column-width; }
     // Cycling through the presets in reverse order is also possible.
@@ -609,4 +617,8 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     // Super+Shift+P { power-off-monitors; }
+
+    Super+M { spawn "firefox" "--new-window"; }
+    Super+N { spawn-sh "emacsclient --create-frame --eval '(ibuffer)'"; }
+    Super+Z { spawn "nautilus"; }
 }
