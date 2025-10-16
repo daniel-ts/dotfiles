@@ -14,7 +14,7 @@ set $laptop_screen "eDP-1"
 
 set $menu rofi -show run
 
-workspace_layout stacking
+workspace_layout default
 
 # clamshell
 bindswitch --reload --locked lid:on output $laptop_screen disable
