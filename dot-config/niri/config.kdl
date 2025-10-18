@@ -454,19 +454,15 @@ binds {
     Super+Page_Up        { focus-workspace-up; }
     Super+U              { focus-workspace-down; }
     Super+I              { focus-workspace-up; }
-    Super+Ctrl+Page_Down { move-column-to-workspace-down; }
-    Super+Ctrl+Page_Up   { move-column-to-workspace-up; }
-    Super+Ctrl+U         { move-column-to-workspace-down; }
-    Super+Ctrl+I         { move-column-to-workspace-up; }
+
+    Super+Shift+Page_Down { move-column-to-workspace-down; }
+    Super+Shift+Page_Up   { move-column-to-workspace-up; }
+    Super+Shift+U         { move-column-to-workspace-down; }
+    Super+Shift+I         { move-column-to-workspace-up; }
 
     // Alternatively, there are commands to move just a single window:
     // Super+Ctrl+Page_Down { move-window-to-workspace-down; }
     // ...
-
-    Super+Shift+Page_Down { move-workspace-down; }
-    Super+Shift+Page_Up   { move-workspace-up; }
-    Super+Shift+U         { move-workspace-down; }
-    Super+Shift+I         { move-workspace-up; }
 
     // You can bind mouse wheel scroll ticks using the following syntax.
     // These binds will change direction based on the natural-scroll setting.
