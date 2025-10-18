@@ -266,14 +266,16 @@ layout {
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
-spawn-sh-at-startup "dbus-update-activation-environment --systemd PATH {,WAYLAND_}DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
-spawn-sh-at-startup "systemctl --user import-environment PATH {,WAYLAND_}DISPLAY NIRI_SOCKET XDG_CURRENT_DESKTOP XDG_DATA_DIRS DBUS_SESSION_ADDRESS JAVA_HOME XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
-spawn-sh-at-startup "systemctl --user start wayland-session.target"
-spawn-sh-at-startup "swaymsg -t subscribe '[\"shutdown\"]' && systemctl --user stop wayland-session.target"
+//spawn-sh-at-startup "dbus-update-activation-environment --systemd PATH {,WAYLAND_}DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
+//spawn-sh-at-startup "systemctl --user import-environment PATH {,WAYLAND_}DISPLAY NIRI_SOCKET XDG_CURRENT_DESKTOP XDG_DATA_DIRS DBUS_SESSION_ADDRESS JAVA_HOME XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
+//spawn-sh-at-startup "systemctl --user start wayland-session.target"
+//spawn-sh-at-startup "swaymsg -t subscribe '[\"shutdown\"]' && systemctl --user stop wayland-session.target"
 
-spawn-at-startup "keepassxc"
+spawn-at-startup "noctalia-shell"
+spawn-at-startup "keepassxc" "--minimized"
 spawn-at-startup "blueman-applet"
 spawn-at-startup "nm-applet"
+
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -621,4 +623,5 @@ binds {
     Super+M { spawn "firefox" "--new-window"; }
     Super+N { spawn-sh "emacsclient --create-frame --eval '(ibuffer)'"; }
     Super+Z { spawn "nautilus"; }
+    Super+Numbersign { spawn "keepassxc"; }
 }
