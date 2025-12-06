@@ -246,11 +246,15 @@ layout {
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
-//spawn-sh-at-startup "dbus-update-activation-environment --systemd PATH {,WAYLAND_}DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
-//spawn-sh-at-startup "systemctl --user import-environment PATH {,WAYLAND_}DISPLAY NIRI_SOCKET XDG_CURRENT_DESKTOP XDG_DATA_DIRS DBUS_SESSION_ADDRESS JAVA_HOME XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
+spawn-sh-at-startup "dbus-update-activation-environment --systemd PATH DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
+spawn-sh-at-startup "systemctl --user import-environment PATH WAYLAND_DISPLAY DISPLAY NIRI_SOCKET XDG_CURRENT_DESKTOP XDG_DATA_DIRS DBUS_SESSION_ADDRESS JAVA_HOME XDG_{CACHE,CONFIG,DATA,STATE}_HOME XDG_{DESKTOP,DOCUMENTS,DOWNLOAD,MUSIC,PICTURES,VIDEOS}_DIR"
+
 //spawn-sh-at-startup "systemctl --user start wayland-session.target"
 //spawn-sh-at-startup "swaymsg -t subscribe '[\"shutdown\"]' && systemctl --user stop wayland-session.target"
 
+spawn-at-startup "systemctl" "--user" "start" "niri-session.target"
+
+spawn-at-startup "xwayland-satellite" // Ensure you have this if using it
 spawn-at-startup "noctalia-shell"
 spawn-at-startup "keepassxc" "--minimized"
 spawn-at-startup "blueman-applet"
@@ -381,6 +385,8 @@ binds {
     // but you need to manually put each argument in separate "" quotes.
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+
+    Super+Shift+s { screenshot show-pointer=false; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
