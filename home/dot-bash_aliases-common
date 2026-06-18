@@ -23,4 +23,3 @@ alias lid_inhibit='systemd-inhibit --mode=block --what=handle-lid-switch' # appe
 alias sys='systemctl --user'
 alias jrn='journalctl --user -fu'
 alias ddi='dd bs=4M status=progress conv=fsync'
-alias fd='cd "$(find . -path */.git -prune -o -type d -print | fzf)"'
