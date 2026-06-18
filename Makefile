@@ -19,4 +19,4 @@ unstow: remove-dot-config remove-dot-home
 
 all: dot-config home-dir
 
-.PHONY := home
+.PHONY := home-dir dot-config remove-dot-config remove-home-dir restow-dot-config unstow all
