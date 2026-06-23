@@ -255,7 +255,7 @@ spawn-sh-at-startup "systemctl --user import-environment PATH WAYLAND_DISPLAY DI
 spawn-at-startup "systemctl" "--user" "start" "niri-session.target"
 
 spawn-at-startup "xwayland-satellite" // Ensure you have this if using it
-spawn-at-startup "noctalia-shell"
+spawn-at-startup "noctalia"
 spawn-at-startup "keepassxc" "--minimized"
 spawn-at-startup "blueman-applet"
 spawn-at-startup "nm-applet"
@@ -346,8 +346,8 @@ window-rule {
 
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
-/-window-rule {
-    geometry-corner-radius 12
+window-rule {
+    geometry-corner-radius 20
     clip-to-geometry true
 }
 
@@ -625,3 +625,5 @@ binds {
     Super+Z { spawn "nautilus"; }
     Super+Numbersign { spawn "keepassxc"; }
 }
+
+include "noctalia.kdl"
