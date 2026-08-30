@@ -7,6 +7,8 @@
 // Find the full list of options on the wiki:
 // https://yalter.github.io/niri/Configuration:-Input
 input {
+    disable-power-key-handling
+
     keyboard {
         xkb {
             // You can set rules, model, layout, variant and options.
@@ -365,6 +367,9 @@ binds {
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
     Super+Shift+Slash { show-hotkey-overlay; }
+
+    Super+F1 { spawn "noctalia" "msg" "session" "lock"; }
+    XF86PowerOff { spawn "noctalia" "msg" "session" "lock-and-suspend"; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Super+Return { spawn "ghostty"; }
