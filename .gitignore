@@ -4,3 +4,5 @@ home/dot-emacs.d/server/
 /dot-config/systemd/user/emacs.service
 /dot-config/sway/config.local/
 !/dot-config/sway/config.local/.gitkeep
+/**/*.target.wants/
+/**/*.service.wants/

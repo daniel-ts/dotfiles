@@ -254,13 +254,11 @@ spawn-sh-at-startup "systemctl --user import-environment PATH WAYLAND_DISPLAY DI
 //spawn-sh-at-startup "systemctl --user start wayland-session.target"
 //spawn-sh-at-startup "swaymsg -t subscribe '[\"shutdown\"]' && systemctl --user stop wayland-session.target"
 
-spawn-at-startup "systemctl" "--user" "start" "niri-session.target"
-
 spawn-at-startup "xwayland-satellite" // Ensure you have this if using it
 spawn-at-startup "noctalia"
-spawn-at-startup "keepassxc" "--minimized"
+// spawn-at-startup "keepassxc" "--minimized"
 spawn-at-startup "blueman-applet"
-spawn-at-startup "nm-applet"
+// spawn-at-startup "nm-applet"
 
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:

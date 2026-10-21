@@ -1,6 +1,8 @@
 [Unit]
 Description=Emacs text editor
-Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
+Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs
+PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
 Type=simple
@@ -13,4 +15,4 @@ Environment=MALLOC_CONF="thp:always,metadata_thp:always"
 Environment=GLIBC_TUNABLES=glibc.malloc.hugetlb=1
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target

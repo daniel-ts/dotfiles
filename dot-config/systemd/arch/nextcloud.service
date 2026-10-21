@@ -1,6 +1,7 @@
 [Unit]
 Description=Nextcloud client
 PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
 ExecStart=/usr/bin/nextcloud
@@ -10,4 +11,4 @@ LimitNOFILE=65535:65535
 
 
 [Install]
-WantedBy=sway-session.target
+WantedBy=graphical-session.target

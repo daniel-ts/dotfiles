@@ -1,0 +1,12 @@
+[Unit]
+Description=mpd-mpris
+PartOf=graphical-session.target
+After=graphical-session.target mpd.service
+Requires=mpd.service
+
+[Service]
+ExecStart=mpd-mpris
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

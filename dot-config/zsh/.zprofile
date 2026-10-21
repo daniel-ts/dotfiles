@@ -12,3 +12,4 @@ if [ -d "/usr/share/fzf" ]; then
 fi
 
 export JAVA_HOME=/usr/lib/jvm/default
+export SSH_AUTH_SOCK=/run/user/1000/ssh-agent.sock
