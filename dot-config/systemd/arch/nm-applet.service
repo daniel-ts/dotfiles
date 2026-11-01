@@ -1,7 +1,7 @@
 [Unit]
 Description=nm-applet
 PartOf=graphical-session.target
-After=graphical-session.target
+After=graphical-session.target noctalia.service
 
 [Service]
 ExecStart=/usr/bin/nm-applet --indicator

@@ -1,5 +1,6 @@
 [Unit]
 Description=media player daemon
+PartOf=default.target
 
 [Service]
 Type=simple

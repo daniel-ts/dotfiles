@@ -1,7 +1,7 @@
 [Unit]
 Description=Nextcloud client
 PartOf=graphical-session.target
-After=graphical-session.target
+After=graphical-session.target noctalia.service keepassxc.service
 
 [Service]
 ExecStart=/usr/bin/nextcloud

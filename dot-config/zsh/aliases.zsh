@@ -17,3 +17,4 @@ alias rs="rsync --update --progress --recursive"
 alias ssys='sudo systemctl'
 alias sys='systemctl --user'
 alias temacs='emacsclient --tty'
+alias yt-dlp-x='yt-dlp -t aac -x --no-playlist'
