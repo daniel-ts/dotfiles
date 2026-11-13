@@ -1,6 +1,7 @@
 # -*- mode: shell-script -*-
 # my aliases
 
+alias anspl='ansible-playbook'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -8,18 +9,19 @@ alias ls='ls --color --human-readable --indicator-style=slash --file-type --grou
 
 alias ansdoc='ansible-doc'
 alias ap='ansible-playbook'
+alias caddy-fs='caddy file-server --access-log --browse --listen 0.0.0.0:9000 --root $PWD'
+alias ddi='dd bs=4M status=progress conv=fsync'
 alias dired='emacsclient -t -e "(dired  \"./\")"'
 alias dus='du -sh * | sort -rh'
+alias jrn='journalctl --user -fu'
+alias lid_inhibit='systemd-inhibit --mode=block --what=handle-lid-switch' # append an executable
 alias magit='emacsclient -t -e "(magit  \"./\")"'
 alias mpd_stop='systemctl --user stop mpd.service'
 alias naut='/usr/bin/nautilus . 2>&1 1> /dev/null & disown'
 alias netw='nmap -sn 192.168.178.0/24 | grep -i ^nmap'
 alias pdfjoin='pdfjam --fitpaper true --rotateoversize false'
 alias rs="rsync --update --progress --recursive"
-alias ssh-nh='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias scp-nh='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
-alias caddy-fs='caddy file-server --access-log --browse --listen 0.0.0.0:9000 --root $PWD'
-alias lid_inhibit='systemd-inhibit --mode=block --what=handle-lid-switch' # append an executable
+alias ssh-nh='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias sys='systemctl --user'
-alias jrn='journalctl --user -fu'
-alias ddi='dd bs=4M status=progress conv=fsync'
+alias yt-dlp-x='yt-dlp --no-playlist --no-check-certificates -t aac -x'
